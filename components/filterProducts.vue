@@ -10,55 +10,55 @@
 
 
                         <div class="fpw">
+                            <p class="fpw-ttl">Skin Concern</p>
+                            <ul>
+                                <li><NuxtLink to="/">Pigmentation</NuxtLink></li>
+                                <li><NuxtLink to="/">Redness</NuxtLink></li>
+                                <li><NuxtLink to="/">Sensitive</NuxtLink></li>
+                                <li><NuxtLink to="/">Oil Control/Pores</NuxtLink></li>
+                                <li><NuxtLink to="/">Dryness/Hydration</NuxtLink></li>
+                                <li><NuxtLink to="/">Acne</NuxtLink></li>
+                                <li><NuxtLink to="/">Anti-Aging/Wrinkles</NuxtLink></li>
+                            </ul>
+                        </div>
+                        <div class="fpw">
                             <p class="fpw-ttl">Product type</p>
                             <ul>
+                                <li><NuxtLink to="/">Essence</NuxtLink></li>
+                                <li><NuxtLink to="/">Mists</NuxtLink></li>
+                                <li><NuxtLink to="/">Sets</NuxtLink></li>
+                                <li><NuxtLink to="/">Sheet Masks</NuxtLink></li>
+                                <li><NuxtLink to="/">Sleeping mask</NuxtLink></li>
+                                <li><NuxtLink to="/">Lip Treatment</NuxtLink></li>
+                                <li><NuxtLink to="/">Body</NuxtLink></li>
+                                <li><NuxtLink to="/">Exfoliator</NuxtLink></li>
+                                <li><NuxtLink to="/">Wash off Mask</NuxtLink></li>
+                                <li><NuxtLink to="/">Spot Treatments</NuxtLink></li>
                                 <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
+                                <li><NuxtLink to="/">Makeup</NuxtLink></li>
+                                <li><NuxtLink to="/">Moisturizer</NuxtLink></li>
+                                <li><NuxtLink to="/">Eye Masks</NuxtLink></li>
+                                <li><NuxtLink to="/">Eye Creams</NuxtLink></li>
                             </ul>
                         </div>
                         
                         
                         <div class="fpw">
-                            <p class="fpw-ttl">Products</p>
+                            <p class="fpw-ttl">Brand</p>
                             <ul>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                            </ul>
-                        </div>
-                        
-                        <div class="fpw">
-                            <p class="fpw-ttl">Brands</p>
-                            <ul>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
-                                <li><NuxtLink to="/">Sun protection</NuxtLink></li>
+                                <li><NuxtLink to="/">GOODAL</NuxtLink></li>
+                                <li><NuxtLink to="/">ISNTREE</NuxtLink></li>
+                                <li><NuxtLink to="/">I'M FROM</NuxtLink></li>
+                                <li><NuxtLink to="/">IOPE</NuxtLink></li>
+                                <li><NuxtLink to="/">CERAVE</NuxtLink></li>
+                                <li><NuxtLink to="/">HANSKIN</NuxtLink></li>
+                                <li><NuxtLink to="/">GOOD LIGHT</NuxtLink></li>
+                                <li><NuxtLink to="/">HARUHARU WONDER</NuxtLink></li>
+                                <li><NuxtLink to="/">GOOD DAYS FOR ALL</NuxtLink></li>
+                                <li><NuxtLink to="/">KLAIRS</NuxtLink></li>
+                                <li><NuxtLink to="/">SON & PARK</NuxtLink></li>
+                                <li><NuxtLink to="/">THE PLANT BASE</NuxtLink></li>
+                                <li><NuxtLink to="/">SOME BY MI</NuxtLink></li>
                             </ul>
                         </div>
                         
@@ -134,22 +134,29 @@ opens menu */
                     scrollbar-color: rgb(152, 134, 134) white; 
                     scrollbar-color: white white;
                     overflow-y: scroll;
-                    padding: 1rem;
+                    padding: 0 1rem;
                     overflow: scroll;
                     .fpw-ttl{
                         margin: 2rem 0;
+                        text-transform: uppercase;
                         font-size: 1.2rem;
                     }
                     ul li{
                         font-size: 1.2rem;
                         font-weight: 400;
+                        text-transform: capitalize;
+                        font-size: 1.1rem;
                         opacity: .8;
                         list-style-type: none;
-                        margin: .5rem 0;
-                        margin-left: 1.5rem;
+                        margin: .8rem 0;
+                        // margin-left: 1.5rem;
+                        padding: .4rem 1rem;
+                        
+                        &:hover{
+                            border-radius: .2rem;
+                            background-color: rgba(176, 197, 237, 0.2);
+                            // text-decoration: underline;
 
-                        a:hover{
-                            text-decoration: underline;
                         }
 
                         

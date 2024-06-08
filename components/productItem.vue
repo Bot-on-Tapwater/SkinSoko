@@ -24,7 +24,7 @@
                 </div>
                 <div class="quantity-container">
                     <p v-if="item.quantity_in_stock > 0" class="quantity_in_stock">{{item.quantity_in_stock}} in stock</p>
-                    <span v-else class="quantity_in_stock out-of-stock">Out of stock</span>
+                    <span v-else class="quantity_in_stock out-of-stock">restocking</span>
                 </div>
 
 
@@ -67,8 +67,13 @@ const props = defineProps(["item"])
             transform: translateX(1.5rem);
             transition: all .15s ease-in;
             background-color: white;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 8px 0px;
+            width: 3.5rem;
+            border-radius: 5rem;
             svg{
-                margin: 1.5rem;
+                width: 1.7rem;
+                margin: .7rem 0;
+
             }
 
             .add-to-cart-icon{
@@ -112,7 +117,9 @@ const props = defineProps(["item"])
                     opacity: .8;
                 }
                 .out-of-stock{
-                    text-transform:lowercase;
+                    text-transform:uppercase;
+                    font-weight: 400;
+                    font-size: 1.1rem;
                     background-color: var(--webPriColor);
                     padding: .5rem 1rem;
                     color: white;
@@ -144,17 +151,9 @@ const props = defineProps(["item"])
 
 @media screen and (max-width: 800px) {
     .product-item .add-to-wishlist{
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 8px 0px;
-        width: 3.5rem;
         opacity: 1;
         visibility: visible;
         transform: translateX(0rem);
-        border-radius: 5rem;
-        svg{
-            width: 1.7rem;
-            margin: .7rem 0;
-
-        }
 }
 
 }
