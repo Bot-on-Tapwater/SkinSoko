@@ -1,0 +1,81 @@
+<template>
+    <div class="ed-container">
+        <div class="err-d">
+            <div class="err-content">
+
+            <template v-if="error.statusCode==='404'">
+                <h3 class="error-ttl">Page not found :(</h3>
+                <NuxtLink to="/">return home</NuxtLink>
+            </template>
+
+            <template v-else-if="error.statusCode==='500'">
+                <h1 class="error-ttl">Something went wrong on our end</h1>
+                <h2 class="error-p">Please try refreshing the page or try again after some time.</h2>
+            </template>
+
+            <template v-else>
+                <h1 class="error-ttl">Something went wrong</h1>
+                <h2 class="error-p">Please try refreshing the page or try again after some time.</h2>
+            </template>
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+
+interface pageError{
+    url: string
+    statusCode: string
+    statusMessage: string
+    message: string
+    description: string
+    data?: any
+}
+
+const error:pageError = useError()
+
+</script>
+
+<style lang="scss" scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+}
+.error-ttl{
+    font-size: 3rem;
+    font-weight: 400;
+
+}
+.error-p{
+    font-weight: 400;
+}
+
+.ed-container{
+    background-color: whitesmoke;
+    height: 100vh;
+    width: 100vw;
+    border: 1px solid gainsboro;
+}
+.err-d{
+    max-width: 1000px;
+    margin: 5rem auto;
+    display: grid;
+    place-items: center;
+    padding: 0 2rem;
+    .err-content{
+        a{
+            font-weight: 500;
+            font-size: 1.3rem;
+            text-transform: capitalize;
+            text-decoration: underline;
+            color: black;
+        }
+    }
+}
+
+</style>

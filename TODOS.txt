@@ -1,0 +1,105 @@
+check pagination element
+
+.categories-arrow on default.vue
+
+Do we need to have a table for "best selling products/best discounted products, etc. you get the gist"
+If so, for "discounted products", add a field for old price and new price. and the % discount applied. I'll need to show that on the UI
+
+BACKEND
+✅Allow categories to be found using the name and not int IDs (eg laptops instead of 4)
+IMPORTANT: validation of admin actions. eg adding product (they shouldn't leave any field empty)
+return cart summary from backend. 
+✅can user write multiple reviews for the same product. NOP
+how do we handle user updating items in cart
+✅add view for user to delete a review
+
+GET /categories/ should accept category name instead of id
+Are these name attributes stored anywhere in the backend.
+    path('users/orders/', views.list_orders_placed_by_user_with_user_id, name='list-user-orders'),
+or can i just use any 'name' as long as its unique
+
+LATER: When returning items in cart, could you return the total number as well
+LATER: allow product to have multiple images in database.
+✅ write route to return reviews written by a specific user. also return id of the reviewed product
+✅ Change time format when returning list of orders(return date and time)
+CHECK FUNCTION TO UPDATE USER (i get 403 error code). tried adding csrf exempt.still not working
+LATER: Reset/user password logic
+LATER: during sign up. get the first and last name as one field. not separate
+LATER: updating user info. When they change email ( we need to send verification link)
+
+login/logout/sign up -> return status codes. + the json 
+add method to update cart items. eg when user selects new quantity in cart page
+✅ remove/add certain fields to shipping address
+do we need a wishlist table for users
+(maybe not. users shouldn't cancel orders once created) create route for user to cancel active orders. To be done after we create user profile
+user writing review (allow user to also enter a "title(summary of review)" among the other fields)
+✅ if review created, don't return that json that you're returning rn
+✅ also if address created, do you need to send back that address. maybe just a status code
+can user create mutliple reviews for same product
+✅ format date for when review created (dd-mm-yy)
+return null for absence (eg when user cart is empty)
+
+✅when post/delete/put request successfull, don't return the json response
+✅with all that info that you're retrning now. just return sth like {"success" : True} (check view for when user creates a review successfully, i've added that)
+✅We don't want to 'expose' that much info on the client
+✅ When creating an order, 500 error thrown. check that out
+
+✅I shouldn't place an order if i don't have items in cart. currently, if i do that, the order is placed. Amount=0. The exceptions dont work
+✅Backend Error pages. eg when user tries to access a route that is prohibited. eg /media/images
+Set debug=False on prod and set ALLOWED_HOSTS
+✅IMPORTANT: There's multiple things that still need to be done on backend. Security wise. eg only showing user profile to the right user
+✅return loginrequired for some routes. We'll discuss which ones
+csrf
+✅remove userID from urls. Get it using req.user.id
+✅remove print statements
+✅show_logged_in_user_id should only return true if user auth, otherwise false. not the user id
+✅IMPORTANT: Check that right user only can access their data
+
+ADMIN ONLY ACTIONS:
+restrict certain urls to the admins only . eg
+put/del/post categories,
+get/put/del orders etc
+
+FRONTEND
+Only call functions after everything has loaded/been mounted
+Add correct type interfaces for variables. remove any
+Remove console log statements
+✅add loading spinners
+✅ check if user has anything in their cart before tehy place order 
+✅Review rating is not changeable by user.it's always five. fix that
+remove 'unknown variable type' error in ts
+✅ Create components for inputs and buttons, cart summary
+Change site metatags
+✅Form validation
+Change src link of images in categories nav. it's static
+✅After user has logged in, redirect them to prev url
+✅Check: number of items in cart is not reactive (the value in the cart icon doens't change until a full page reload happens)
+✅  remove user_id variable in pages
+✅Create custom 404 page
+✅ the protected routes can't be accessed from the browser
+Allow user to delete address. To be done once we create their profile
+Change/reset password logic
+
+CHANGES I'VE MADE TO VIEWS.PY
+Add isRightUser function
+For absence of items, return None instead of error
+Change login_required redirect url. how do i remove this param from url. ?next=http://127.0.0.1:8000/eridosolutions/...
+Change some error codes
+in two urls (add to cart, get cart), got rid of the id in url
+
+
+✅ Qs. Should we check if isRightUser on every get/post/del/put request. i think we should
+
+CHANGES IN BACKEND
+Add view to get orders of specific user
+
+
+DATABASES
+Admin can't delete from the dashboard. some foreign key constraints fail. Check that. eg deleting an order
+
+
+CHANGES I'VE MADE 02/April
+categories model. name should be unique
+getting products in a category. use name instead of id. change in urls.py and views.py
+In models.py, OrderItem doesn't have review_id attribute. remove that line
+Allow users to update cart item in the /cart page
