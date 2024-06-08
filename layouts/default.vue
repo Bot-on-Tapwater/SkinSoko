@@ -25,7 +25,7 @@
                         <li>
                             
                             <div id="ctc" class="categories-container">
-                                <p class="nav-router-links mobile-link-items">Categories</p>
+                                <p class="nav-links mobile-link-items">Categories</p>
                                 <!-- <div class="categories-title-div"> -->
                                     <!-- <div class="categories-arrow"></div> -->
                                 <!-- </div> -->
@@ -46,7 +46,7 @@
                         <li>
 
                             <div class="brands-container">
-                                <p class="nav-router-links">Brands</p>
+                                <p class="nav-links">Brands</p>
                                 <div class="brands-content">
                                     <ul>
                                         <li><NuxtLink class="dropdown-menu-links">MenuLink</NuxtLink></li>
@@ -330,7 +330,7 @@ function showNavCategoriesContent(){
                 list-style: none;
                 display: inline-block;
                 list-style-type: none;
-                .nav-router-links{
+                .nav-router-links .nav-links{
                     color: black;
                     padding: .2rem 1rem;
                     font-size: 1.3rem;
