@@ -44,13 +44,16 @@
                                 <p class="nav-links">Brands</p>
                                 <div class="brands-content">
                                     <ul>
-                                        
                                         <li><NuxtLink class="dropdown-menu-links">ANUA</NuxtLink></li>
                                         <li><NuxtLink class="dropdown-menu-links">HANYUL</NuxtLink></li>
+                                        <li><NuxtLink class="dropdown-menu-links">ATRUE</NuxtLink></li>
                                         <li><NuxtLink class="dropdown-menu-links">NEOGEN</NuxtLink></li>
+                                        <li><NuxtLink class="dropdown-menu-links">ARIUL</NuxtLink></li>
                                         <li><NuxtLink class="dropdown-menu-links">THEN I MET YOU</NuxtLink></li>
                                         <li><NuxtLink class="dropdown-menu-links">SOME BY MI</NuxtLink></li>
                                         <li><NuxtLink class="dropdown-menu-links">CERAVE</NuxtLink></li>
+                                        <li><NuxtLink class="dropdown-menu-links">ARENCIA</NuxtLink></li>
+                                        <li><NuxtLink class="dropdown-menu-links">ATOPALM</NuxtLink></li>
                                         <li><NuxtLink class="dropdown-menu-links">AVEENO</NuxtLink></li>
                                         <li><NuxtLink class="dropdown-menu-links">COSRX</NuxtLink></li>
                                     </ul>
@@ -61,7 +64,7 @@
 
                         <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="/policy/refund-policy">refund policy</NuxtLink> </li>
                         <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="/policy/privacy-policy">privacy policy</NuxtLink> </li>
-                        <li> <a href="mailto:stancillousr@gmail.com" class="nav-router-links mobile-link-items showOnMobile">customer support</a> </li>
+                        <li> <a href="mailto:" class="nav-router-links mobile-link-items showOnMobile">customer support</a> </li>
 
                     </ul>
                 </div>
@@ -321,7 +324,7 @@ function showMenuLinks(){
                         min-width: 16rem;
                         max-height: 0;
                         overflow-y: scroll;
-                        scrollbar-color: whitesmoke white;
+                        scrollbar-color: gray white;
                         scrollbar-width: thin;
                         z-index: 1;
                         opacity: 0;
