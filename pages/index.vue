@@ -263,15 +263,10 @@ async function getAllProducts() {
         max-width: 1000px;
         max-width: var(--maxWidth);
         margin: 0 auto;
-        padding: 2rem;
-        .tiny-img{
-            margin: 0 1rem;
-            img{
-                width: 20rem;
-            }
-        }
+        padding: 2rem 1rem;
+      
         .ts-content{
-            padding: 0 1rem;
+            padding: 1rem 0;
 
             .ts-p{
                 display: grid;
@@ -280,19 +275,19 @@ async function getAllProducts() {
                 padding: .5rem;
                 place-items: center;
                 .items-content{
-                    padding: 1rem;
+                    padding: 2rem 0rem;
                     height: auto;
                     width: 95%;
+                    box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
                     height: 100%;
-                    height: 24rem;
                     text-align: center;
-                    margin: 1.5rem auto;
                     position: relative;
-                    margin-bottom: 3rem;
+
+                    // margin-bottom: 3rem;
                     cursor: pointer;
 
                     img{
-                        height: 100%;
+                        height: 90%;
                         width: 100%;
                         object-fit: cover;
                     }
@@ -444,17 +439,20 @@ async function getAllProducts() {
        }
     }
 
+  
+
     .latest-products-wp .lp-wrp .lp-container .lp-grid-wrp {
         grid-template-columns: 1fr;
     }
 
 
     .tsection .ts-container {
-        flex-wrap: wrap;
-        justify-content: center;
-        .tiny-img{
-            margin-bottom: 3rem;
+
+        .ts-content .ts-p {
+            grid-template-columns: 1fr 1fr;
+            
         }
+       
     }
  
 }

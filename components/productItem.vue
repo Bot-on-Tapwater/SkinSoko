@@ -48,11 +48,14 @@ const props = defineProps(["item"])
 
 
 .product-item{
+    height: 100%;
+    padding: 1rem 0;
+    position: relative;
     .add-to-wishlist{
             position: absolute;
-            top: 1rem;
+            top: .5rem;
             right: .5rem;
-            margin: .5rem;
+            // margin: .5rem;
             padding: 0 1rem;
             cursor: pointer;
             width: 4rem;
