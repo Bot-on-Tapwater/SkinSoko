@@ -4,6 +4,12 @@
         <div class="product-item">
             <template v-if="item.quantity_in_stock > 0">
 
+                <div class="discount-wrp">
+                    <div class="discount-content">
+                        <span>-24%</span>
+                    </div>
+                </div>
+
                 <div class="add-to-wishlist">
                     <svg class="add-to-cart-icon" @click="appStore.addItemToCart(item.product_id)" title="add to cart" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" stroke="#000000" stroke-width="0.72" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                     <svg title="add to wishlist" width="22px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#000000" stroke-width="0.72" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
@@ -19,15 +25,12 @@
                 <div class="name-container">
                     <p class="product-name">{{item.name}}</p>
                 </div>
+                <div class="brand-container">
+                    <p class="prod-brandname">aveena</p>
+                </div>
                 <div class="price-container">
                     <p class="product-price">KSh {{appStore.formatNumber(item.price)}}</p>
                 </div>
-                <div class="quantity-container">
-                    <p v-if="item.quantity_in_stock > 0" class="quantity_in_stock">{{item.quantity_in_stock}} in stock</p>
-                    <span v-else class="quantity_in_stock out-of-stock">restocking</span>
-                </div>
-
-
 
                 </NuxtLink>
         </div>
@@ -51,6 +54,21 @@ const props = defineProps(["item"])
     height: 100%;
     padding: 1rem 0;
     position: relative;
+
+    .discount-wrp{
+        position: absolute;
+        top: .5rem;
+        border-radius: .3rem;
+        left: .5rem;
+        background-color: var(--webPriColor);
+        color: white;
+        padding: .4rem .6rem;
+        .discount-content{
+            span{
+                font-size: 1.2rem;
+            }
+        }
+    }
     .add-to-wishlist{
             position: absolute;
             top: .5rem;
@@ -106,35 +124,28 @@ const props = defineProps(["item"])
                 margin: 1rem 0;
                 .product-name{
                     color: var(--webPriColor);
-                    font-size: 1.4rem;
+                    font-size: 1.3rem;
                     font-weight: 400;
                     text-transform: capitalize;
                 }
             }
 
-            .quantity-container{
-                .quantity_in_stock{
-                    text-transform: capitalize;
-                    font-weight: 400;
+            .brand-container{
+                padding: 0 0 1.2rem 0;
+
+                .prod-brandname{
+                    text-transform: uppercase;
+                    opacity: .6;
                     font-size: 1.3rem;
-                    opacity: .8;
-                }
-                .out-of-stock{
-                    text-transform:uppercase;
-                    font-weight: 400;
-                    font-size: 1.1rem;
-                    background-color: var(--webPriColor);
-                    padding: .5rem 1rem;
-                    color: white;
-                    border-radius: .2rem;
-                    width: auto;
                 }
             }
+
+            
             .price-container{
                 .product-price{
                     width: 100%;
-                    padding: 0 0 1.2rem 0;
-                    font-size: 1.4rem;
+                    // padding: 0 0 1.2rem 0;
+                    font-size: 1.2rem;
                     opacity: .9;
                     font-weight: 400;
         

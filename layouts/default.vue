@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="/faqs">FAQs</NuxtLink> </li>
+                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="/faqs">F.A.Q.s</NuxtLink> </li>
 
                         <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="/policy/refund-policy">refund policy</NuxtLink> </li>
                         <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="/policy/privacy-policy">privacy policy</NuxtLink> </li>
@@ -291,7 +291,7 @@ function showMenuLinks(){
                 .nav-router-links, .nav-links{
                     color: black;
                     padding: .2rem 2rem;
-                    font-size: 1.3rem;
+                    font-size: 1.2rem;
                     text-transform: uppercase;
                     font-weight: 400;
                     text-decoration: none;

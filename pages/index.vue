@@ -111,12 +111,12 @@
 
                         <div class="ts-header">
 
-                            <h1 class="all-section-ttl">Save On, Saver</h1>
+                            <h1 class="all-section-ttl">Save Big</h1>
                         </div>
                         <div class="ts-p">
                             <template v-if="products">
 
-                                <div v-for="(item, index) in products.query_results.slice(0, 10)" :key="index" class="items-content">
+                                <div v-for="(item, index) in products.query_results.slice(0, 10)" :key="index" style="border: .1px solid gainsboro;" class="items-content">
                                     <ProductItem :item="item"/>
                                 </div>
 
@@ -278,8 +278,9 @@ async function getAllProducts() {
                     padding: 2rem 0rem;
                     height: auto;
                     width: 95%;
-                    box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-                    height: 100%;
+                    // box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+                    
+                    height: 99%;
                     text-align: center;
                     position: relative;
 
@@ -292,7 +293,7 @@ async function getAllProducts() {
                         object-fit: cover;
                     }
                    p{
-                    margin: 1rem 0;
+                    margin: .4rem 0;
                     opacity: .9;
                    }
 
@@ -450,6 +451,11 @@ async function getAllProducts() {
 
         .ts-content .ts-p {
             grid-template-columns: 1fr 1fr;
+
+            .items-content img{
+                height: 17rem;
+                width: 17rem;
+            }
             
         }
        

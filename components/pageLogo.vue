@@ -19,10 +19,10 @@
 /**style for the logo */
 .logo{
     text-transform: capitalize;
-    font-weight: 500;
+    font-weight: 700;
     text-decoration: none;
     color: var(--webPriColor);
-    font-size: 2rem;
+    font-size: 2.5rem;
     padding:0 1rem;
 }
 @media screen and (max-width: 750px) {
