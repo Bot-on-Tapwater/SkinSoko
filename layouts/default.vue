@@ -30,7 +30,7 @@
                                     <div class="categories-content-grid">
                                         <template v-if="categories">
                                             <div class="categories-link-tags">
-                                                <NuxtLink @click=" closeMobileNav()" v-for="category in categories.query_results" :key="category.name" :to="'/products/category/'+category.name+'?page=1'" class="dropdown-menu-links nav-router-links">{{ category.name }}</NuxtLink>
+                                                <NuxtLink @click="closeMobileNav()" v-for="category in categories.query_results" :key="category.name" :to="'/products/category/'+category.name+'?page=1'" class="dropdown-menu-links nav-router-links">{{ category.name }}</NuxtLink>
                                             </div>
 
                                         </template>
@@ -44,18 +44,11 @@
                                 <p class="nav-links">Brands</p>
                                 <div class="brands-content">
                                     <ul>
-                                        <li><NuxtLink class="dropdown-menu-links">ANUA</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">HANYUL</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">ATRUE</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">NEOGEN</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">ARIUL</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">THEN I MET YOU</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">SOME BY MI</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">CERAVE</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">ARENCIA</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">ATOPALM</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">AVEENO</NuxtLink></li>
-                                        <li><NuxtLink class="dropdown-menu-links">COSRX</NuxtLink></li>
+                                        <template v-if="brands">
+                                            <li v-for="brand in brands.query_results" :key="brand.brand_id">
+                                                <NuxtLink class="dropdown-menu-links">{{ brand.name }}</NuxtLink>
+                                            </li>
+                                        </template>
                                     </ul>
                                 </div>
                             </div>
@@ -70,52 +63,44 @@
                 </div>
                 <div class="cart-container">
 
+                    <div class="wishlist-container menu-svg-container">
+                        <NuxtLink to="/wishlist">
+                            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7 4C18.87 4 21 6.98 21 9.76C21 15.39 12.16 20 12 20C11.84 20 3 15.39 3 9.76C3 6.98 5.13 4 8.3 4C10.12 4 11.31 4.91 12 5.71C12.69 4.91 13.88 4 15.7 4Z" stroke="#000000" stroke-width="1.272" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        </NuxtLink>
+                    </div>
+
+                    <!-- user signed in -->
                     <template v-if="appStore.isAuth"> 
-                        <div id="login-div-c">
-                                    <NuxtLink to="/account/profile">
-                                        <div id="nav-login" class="login-icon" style="cursor: pointer;">
-                                            <!-- <svg width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0 0 32 32"><path d="M16 16c-4.064 0-6.4-2.336-6.4-6.4 0-3.536 2.864-6.4 6.4-6.4s6.4 2.864 6.4 6.4c0 4-2.4 6.4-6.4 6.4zM16 6.4c-1.76 0-3.2 1.44-3.2 3.2 0 2.272 0.928 3.2 3.2 3.2 2.24 0 3.2-0.96 3.2-3.2 0-1.76-1.44-3.2-3.2-3.2z"></path><path d="M27.2 28.8h-22.4v-3.2c0-4.416 3.584-8 8-8h6.4c4.416 0 8 3.584 8 8v3.2zM8 25.6h16c0-2.64-2.16-4.8-4.8-4.8h-6.4c-2.64 0-4.8 2.16-4.8 4.8z"></path></svg> -->
-                                            <svg class="Icon Icon--account" role="presentation" viewBox="0 0 20 20">
-                                                <g transform="translate(1 1)" stroke="currentColor" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-                                                    <path d="M0 18c0-4.5188182 3.663-8.18181818 8.18181818-8.18181818h1.63636364C14.337 9.81818182 18 13.4811818 18 18"></path>
-                                                    <circle cx="9" cy="4.90909091" r="4.90909091"></circle>
-                                                </g>
-                                            </svg>
-                                            <span class="log-t">Account</span>
-                                        </div>
-                                    </NuxtLink>
+                        <div class="menu-svg-container" id="login-div-c">
+                            <NuxtLink to="/account/profile">
+                                <div id="nav-login" class="login-icon" style="cursor: pointer;">
+                                    <svg width="29px" height="26px" viewBox="0 0 32 32" focusable="false" class="fr-ec-icon fr-ec-icon--default" role="presentation"><path d="M20.8129 13.7902C21.4753 12.8404 21.8667 11.6884 21.8667 10.4453C21.8667 7.20996 19.2349 4.57812 16 4.57812C12.7651 4.57812 10.1338 7.20996 10.1338 10.4453C10.1338 11.6884 10.5251 12.8404 11.1874 13.7903L6.9668 16.7676V25.6211H25.0332V16.7676L20.8129 13.7902ZM16 6.17773C18.3525 6.17773 20.2671 8.0918 20.2671 10.4453C20.2671 12.7979 18.3525 14.7119 16 14.7119C13.6475 14.7119 11.7334 12.7979 11.7334 10.4453C11.7334 8.0918 13.6475 6.17773 16 6.17773ZM23.4336 24.0215H8.56641V17.5977L12.28 14.9772C13.2932 15.8104 14.589 16.3115 16 16.3115C17.4111 16.3115 18.7071 15.8103 19.7203 14.9772L23.4336 17.5977V24.0215Z"></path></svg>
+                                    
+                                </div>
+                            </NuxtLink>
                         </div>
                     </template>
 
-                    <template v-else>
-                        <div id="login-div-c">
+                        <!-- user not signed in  -->
+                    <template v-else> 
+                        <div class="menu-svg-container" id="login-div-c">
                             <NuxtLink to="/account/login" id="nav-login" class="login-icon">
-                                <svg width="84px" height="78px" aria-hidden="true" role="img" focusable="false" viewBox="0 0 32 32"><path d="M16 16c-4.064 0-6.4-2.336-6.4-6.4 0-3.536 2.864-6.4 6.4-6.4s6.4 2.864 6.4 6.4c0 4-2.4 6.4-6.4 6.4zM16 6.4c-1.76 0-3.2 1.44-3.2 3.2 0 2.272 0.928 3.2 3.2 3.2 2.24 0 3.2-0.96 3.2-3.2 0-1.76-1.44-3.2-3.2-3.2z"></path><path d="M27.2 28.8h-22.4v-3.2c0-4.416 3.584-8 8-8h6.4c4.416 0 8 3.584 8 8v3.2zM8 25.6h16c0-2.64-2.16-4.8-4.8-4.8h-6.4c-2.64 0-4.8 2.16-4.8 4.8z"></path></svg>
-                                <!-- <svg class="Icon Icon--account" role="presentation" viewBox="0 0 20 20">
-                                    <g transform="translate(1 1)" stroke="currentColor" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-                                        <path d="M0 18c0-4.5188182 3.663-8.18181818 8.18181818-8.18181818h1.63636364C14.337 9.81818182 18 13.4811818 18 18"></path>
-                                        <circle cx="9" cy="4.90909091" r="4.90909091"></circle>
-                                    </g>
-                                </svg> -->
-                                <span class="log-t">log in</span>
+                                <svg width="29px" height="26px" viewBox="0 0 32 32" focusable="false" class="fr-ec-icon fr-ec-icon--default" role="presentation"><path d="M20.8129 13.7902C21.4753 12.8404 21.8667 11.6884 21.8667 10.4453C21.8667 7.20996 19.2349 4.57812 16 4.57812C12.7651 4.57812 10.1338 7.20996 10.1338 10.4453C10.1338 11.6884 10.5251 12.8404 11.1874 13.7903L6.9668 16.7676V25.6211H25.0332V16.7676L20.8129 13.7902ZM16 6.17773C18.3525 6.17773 20.2671 8.0918 20.2671 10.4453C20.2671 12.7979 18.3525 14.7119 16 14.7119C13.6475 14.7119 11.7334 12.7979 11.7334 10.4453C11.7334 8.0918 13.6475 6.17773 16 6.17773ZM23.4336 24.0215H8.56641V17.5977L12.28 14.9772C13.2932 15.8104 14.589 16.3115 16 16.3115C17.4111 16.3115 18.7071 15.8103 19.7203 14.9772L23.4336 17.5977V24.0215Z"></path></svg>
                             </NuxtLink>
                             
                         </div>
                     </template>
 
-                    <div class="cart-icon">
+                    <div class="cart-icon menu-svg-container">
 
                         <div class="cart">
                             <div class="icon-div">
                                 <NuxtLink class="cart-icon-a-tag" to="/cart">
                                     <div class="cart-dets-icon">
-                                        <!-- <svg width="26px" height="34px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z" stroke="#000000" stroke-width="0.72" stroke-linecap="round" stroke-linejoin="round"></path> </g>
-                                        </svg> -->
-                                        <svg width="24" height="24" aria-hidden="true" role="img" focusable="false" viewBox="0 0 32 32"><path d="M25.248 22.4l3.552-14.4h-18.528l-0.96-4.8h-6.112v3.2h3.488l3.2 16h15.36zM24.704 11.2l-1.968 8h-10.24l-1.6-8h13.808z"></path><path d="M25.6 26.4c0 1.325-1.075 2.4-2.4 2.4s-2.4-1.075-2.4-2.4c0-1.325 1.075-2.4 2.4-2.4s2.4 1.075 2.4 2.4z"></path><path d="M14.4 26.4c0 1.325-1.075 2.4-2.4 2.4s-2.4-1.075-2.4-2.4c0-1.325 1.075-2.4 2.4-2.4s2.4 1.075 2.4 2.4z"></path></svg>
+                                        <svg width="24" height="24" viewBox="0 0 24 24" focusable="false" class="fr-ec-icon fr-ec-icon--default fr-ec-button-icon__icon" role="presentation"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.04381 6.56598L7.03981 3.50598H2.00781V4.70498H5.84181L5.85581 15.459H18.7528L20.9928 6.56498L7.04381 6.56598ZM17.8178 14.26H7.05481L7.04681 7.76498H19.4538L17.8188 14.26H17.8178ZM16.9688 20.502C17.7972 20.502 18.4688 19.8304 18.4688 19.002C18.4688 18.1736 17.7972 17.502 16.9688 17.502C16.1403 17.502 15.4688 18.1736 15.4688 19.002C15.4688 19.8304 16.1403 20.502 16.9688 20.502ZM8.95312 19.002C8.95312 19.8304 8.28155 20.502 7.45312 20.502C6.6247 20.502 5.95312 19.8304 5.95312 19.002C5.95312 18.1736 6.6247 17.502 7.45312 17.502C8.28155 17.502 8.95312 18.1736 8.95312 19.002Z"></path></svg>
                                         <span class="cart-items-total">{{ appStore.totalItemsInCart }}</span>
     
                                     </div>
-                                    <span class="cart-t">cart</span>
 
                                 </NuxtLink>
 
@@ -208,7 +193,7 @@ const categories = ref(await getCategories())
 
 /**get available categories */
 async function getCategories() {
-    const categories_url = "/categories/"
+    const categories_url = "/main-categories/"
     try {
         const {data} = await axiosInstance(categories_url)
         if (data.query_results) {
@@ -218,6 +203,24 @@ async function getCategories() {
         
     }
 }
+
+/**fetch brands from backend and show on UI */
+const brands = ref(await getBrands())
+
+/**get available brands */
+async function getBrands() {
+    const brands_url = "/brands/"
+    try {
+        const {data} = await axiosInstance(brands_url)
+        if (data.query_results) {
+            return data
+        }
+    } catch (error) {
+        
+    }
+}
+
+
 /**func to close navbar on mobile */
 function closeMobileNav() {
     document.querySelector('.menu-links')!.classList.remove('showMenuLinks')
@@ -263,7 +266,6 @@ function showMenuLinks(){
         align-items: center;
         justify-content: space-between;
         padding: 0 2rem;
-        padding: 0 1rem;
         
         margin-bottom: 4rem;
 
@@ -362,17 +364,16 @@ function showMenuLinks(){
                         left: 50%;
                         height: auto;
                         box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-                        // padding: 3rem 1rem;
                         background-color: white;
                         z-index: 3;
+                        min-width: 30rem;
+
                         transform: translate(-50%);
                         opacity: 0;
-                        padding: 0 3rem;
+                        padding: 0 2rem;
                         max-height: 0;
                         visibility: hidden;
                         transition: all .1s ease-in;
-
-                       
                     }
 
                     .categories-link-tags{
@@ -424,28 +425,15 @@ function showMenuLinks(){
             position: relative;
             display: flex;
 
-            span{
-                color: black;
-                font-size: 1.3rem;
-                margin-top: .2rem;
+            .menu-svg-container{
+                padding: 0 .5rem;
             }
-            
+
              .cart-icon{
                 
                 .cart{
                     position: relative;
-                    //SHOWING ITEMS IN CART WHEN THIS IS HOVERED
-                    &:hover .cart-items-container{
-                            opacity: 1;
-                            visibility: visible;
-                        }
-
-                        
                     .icon-div{  //div with cart icon and name
-                        display: flex;
-                        padding: 0 1rem;
-                        flex-direction: column;
-                        text-transform: capitalize;
 
                         .cart-icon-a-tag{
                             display: flex;
@@ -455,23 +443,18 @@ function showMenuLinks(){
                         .cart-dets-icon{
                             position: relative;
 
-
-                            svg{
-                                transform: scale(1.2);
-                            }
-
                             .cart-items-total{
                                 position: absolute;
                                 background-color: var(--webPriColor);
                                 color: white;
-                                height: 1.4rem;
+                                height: 1.3rem;
                                 font-size: 1rem;
+                                left: 70%;
                                 border-radius: 50%;
-                                width: 1.4rem;
+                                width: 1.3rem;
                                 text-align: center;
                             }
                         }
-
 
                     }
 
@@ -479,36 +462,6 @@ function showMenuLinks(){
                 }
              }
             
-            
-            a{
-                // color: black;
-                text-decoration: none;
-                font-size: 1rem;
-            }
-
-            svg{
-                width: 2rem;
-                color: black;
-                height: 2rem;
-            }
-
-            
-            .login-icon{
-                display: flex;
-                flex-direction: column;
-                text-transform: capitalize;
-                margin: 0 1rem;
-                align-items: flex-start;
-                align-items: center;
-                padding: 0 .4rem;
-
-                span{
-                    color: black;
-                    font-size: 1.3rem;
-                }
-
-            }
-
         }
     }
 }

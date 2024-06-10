@@ -2,7 +2,8 @@ import axios from "axios";
 
 export const axiosInstance = axios.create({
     // baseURL: "http://127.0.0.1:8000/eridosolutions",
-    baseURL: "https://exceed.botontapwater.tech/eridosolutions",
+    // baseURL: "https://exceed.botontapwater.tech/eridosolutions",
+    baseURL:"http://skinsoko.botontapwater.tech/skinsoko",
     withCredentials: true,
     headers: {
         "Accept": "application/json",

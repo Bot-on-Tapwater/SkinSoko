@@ -4,9 +4,9 @@
         <div class="product-item">
             <template v-if="item.quantity_in_stock > 0">
 
-                <div class="discount-wrp">
+                <div v-if="item.discount>0" class="discount-wrp">
                     <div class="discount-content">
-                        <span>-24%</span>
+                        <span>-{{item.discount}}%</span>
                     </div>
                 </div>
 
@@ -18,19 +18,22 @@
                 </template>
 
                 <NuxtLink :to="'/products/'+item.product_id">
-                <div class="image-container">
-                    <img :src="item.image" :alt="item.name">
-                </div>
+                    <div class="image-container">
+                        <img :src="item.image" :alt="item.name">
+                    </div>
 
-                <div class="name-container">
-                    <p class="product-name">{{item.name}}</p>
-                </div>
-                <div class="brand-container">
-                    <p class="prod-brandname">aveena</p>
-                </div>
-                <div class="price-container">
-                    <p class="product-price">KSh {{appStore.formatNumber(item.price)}}</p>
-                </div>
+                    <div class="product-details-div">
+
+                        <div class="name-container">
+                            <p class="product-name">{{item.name}}</p>
+                        </div>
+                        <div class="brand-container">
+                            <p class="prod-brandname">{{ item.brand.name }}</p>
+                        </div>
+                        <div class="price-container">
+                            <p class="product-price">KSh {{appStore.formatNumber(item.price)}}</p>
+                        </div>
+                    </div>
 
                 </NuxtLink>
         </div>
@@ -52,9 +55,9 @@ const props = defineProps(["item"])
 
 .product-item{
     height: 100%;
-    padding: 1rem 0;
+    // padding: 1rem 0;
     position: relative;
-
+    // padding: .5rem;
     .discount-wrp{
         position: absolute;
         top: .5rem;
@@ -73,17 +76,15 @@ const props = defineProps(["item"])
             position: absolute;
             top: .5rem;
             right: .5rem;
+            z-index: 3;
             // margin: .5rem;
             padding: 0 1rem;
-            cursor: pointer;
-            width: 4rem;
             display: flex;
             flex-direction: column;
             height: auto;
             align-items: center;
             justify-content: center;
             opacity: 0;
-            
             visibility: hidden;
             transform: translateX(1.5rem);
             transition: all .15s ease-in;
@@ -92,9 +93,9 @@ const props = defineProps(["item"])
             width: 3.5rem;
             border-radius: 5rem;
             svg{
+                cursor: pointer;
                 width: 1.7rem;
                 margin: .7rem 0;
-
             }
 
             .add-to-cart-icon{
@@ -105,8 +106,7 @@ const props = defineProps(["item"])
             color: black;
             text-decoration: none;
             display: grid;
-            height: 40%;
-
+            // height: 40%;
             .image-container{
                 height: 18rem;
                 width: 100%;
@@ -115,9 +115,13 @@ const props = defineProps(["item"])
                 img{
                     width: 100%;
                     height: 100%;
-                    object-fit: contain;
-                    transition: all .3s ease;
+                    object-fit: cover;
+                    // object-fit: contain;
                 }
+            }
+
+            .product-details-div{
+                padding: .5rem;
             }
 
             .name-container{

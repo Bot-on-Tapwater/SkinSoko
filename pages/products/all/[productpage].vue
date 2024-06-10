@@ -93,7 +93,8 @@ const products = ref(await getAllProducts())
 /**func to get all products from db */
 async function getAllProducts() {
     try {
-        const response = await axiosInstance(`/products/?page=${pageNumber}`)
+        // const response = await axiosInstance(`/products/?page=${pageNumber}`)
+        const response = await axiosInstance(`/products/`)
         if (response.data && response.status === 200) {
             return response.data
         }
@@ -151,17 +152,14 @@ function showSideBar() {
         .item{
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(20rem,1fr));
-            margin: 1rem;
             padding: .5rem;
             place-items: center;
             .items-content{
-                margin:1.5rem 1rem;
-                // border: .1px solid gainsboro;
                 box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-                padding: 1rem;
                 height: auto;
                 // max-width: 30rem;
                 width: 90%;
+                width: auto;
                 height: 90%;
                 text-align: center;
                 margin: 1.5rem auto;
@@ -178,7 +176,6 @@ function showSideBar() {
         font-weight: 500;
         font-size: 1.5rem;
         width: 40rem;
-        // width: auto;
 
         /**div to hold the page number */
         .current-page{
@@ -186,9 +183,11 @@ function showSideBar() {
             display: grid;
             place-items: center;
 
+
             .cp-dets{
                 height: 3rem;
                 width: 3rem;
+                border-radius: 50%;
                 text-align: center;
                 display: grid;
                 place-items: center;
@@ -200,7 +199,7 @@ function showSideBar() {
         div, .navigation-btn{
             display: flex;
             align-items: center;
-            margin: 1rem;
+            margin: 0 1rem ;
             padding: 1rem;
             padding: unset;
 
@@ -209,7 +208,7 @@ function showSideBar() {
             }
             
             svg{
-                width: 2rem;
+                width: 1.7rem;
                 height: 3rem;
                 fill: var(--webPriColor);
                 padding: 0 .1rem;
@@ -221,6 +220,10 @@ function showSideBar() {
             }
         }
         
+        .navigation-btn{
+            // border-radius: 4rem;
+
+        }
         .no-nav-page{
             opacity: .3;
         }

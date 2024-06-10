@@ -8,33 +8,70 @@
             <div class="image-container">
               <img :alt="product.name" id="aic-image" :src="product.image" />
 
-              <div @click="arrowClicked" class="ov-container">
+              <!-- <div @click="arrowClicked" class="ov-container">
                 <h2>Product overview</h2>
                 <div class="overview-arrow"></div>
               </div>
+
               <div class="product-overview">
                 <ul class="overview-content">
                   <p>{{ product.description }}</p>
                 </ul>
-              </div>
+              </div> -->
             </div>
 
             <div class="product-details-wrp-sticky">
               <div class="product-details">
                 <h4 class="product-title">{{ product.name }}</h4>
-                <div class="description-container">
-                  <p>Features:</p>
-                  <h4
-                    class="product-description"
-                    v-html="product.description.replace(/\r?\n/g, '<br>')"
-                  ></h4>
-                </div>
-
-                <!-- <h4 class="product-description" v-html="product.description.replace()">{{ product.description }}</h4> -->
-                <!-- <h4 class="product-description">{{ product.description }}</h4> -->
                 <h4 class="product-price">
-                  Ksh {{ appStore.formatNumber(product.price) }}
+                  KSh {{ appStore.formatNumber(product.price) }}
                 </h4>
+
+                <div class="product-dets-overall-wrp">
+                  <div class="wc-p-div">
+                    <div class="svgp">
+                      <h3 class="services-h">Description</h3>
+                      <div class="serv-arrow">
+                        <span class="vertical"></span>
+                        <span class="horizontal"></span>
+                      </div>
+                    </div>
+                    <div class="serv-p">
+                      <p
+                        class="product-description"
+                        v-html="product.description.replace(/\r?\n/g, '<br>')"
+                      ></p>
+                    </div>
+                  </div>
+
+                  <div class="wc-p-div">
+                    <div class="svgp">
+                      <h3 class="services-h">Ingredients</h3>
+                      <div class="serv-arrow">
+                        <span class="vertical"></span>
+                        <span class="horizontal"></span>
+                      </div>
+                    </div>
+                    <div class="serv-p">
+                      <p>
+                        this WATER / AQUA / EAU, BUTYLENE GLYCOL, GLYCERIN,
+                        SQUALANE, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL
+                        ACRYLATE CROSSPOLYMER, CARBOMER, TROMETHAMINE, GLYCERYL
+                        CAPRYLATE, ETHYLHEXYLGLYCERIN, DISODIUM EDTA, NATTO GUM,
+                        STEARIC ACID, HYDROXYPROPYL BISPALMITAMIDE MEA,
+                        MANNITOL, PCA, LACTIC ACID, GLUCOSE, GLYCINE, UREA,
+                        SODIUM GLYCEROPHOSPHATE, SERINE, GLUTAMIC ACID,
+                        TOCOPHEROL, ACRYLATES/AMMONIUM METHACRYLATE COPOLYMER,
+                        POTASSIUM MAGNESIUM ASPARTATE, ASPARTIC ACID, LEUCINE,
+                        SODIUM CHLORIDE, ALANINE, LYSINE, ARGININE, CALCIUM
+                        GLUCONATE, MAGNESIUM GLUCONATE, TYROSINE, PHENYLALANINE,
+                        PROLINE, THREONINE, VALINE, ISOLEUCINE, CITRIC ACID,
+                        CHOLESTEROL, HISTIDINE, SILICA, ACETYL GLUCOSAMINE,
+                        CREATINE, URIC ACID, CYSTEINE, METHIONINE
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
                 <!-- if product in stock -->
                 <template v-if="product.quantity_in_stock > 0">
@@ -332,6 +369,7 @@ const createReviewForm = ref(null);
 
 onMounted(() => {
   getProductDetails(); /**get info of the product to be shown  */
+  showMoreDetails();
 });
 
 /**to be toggled to show/hide the write div */
@@ -353,12 +391,12 @@ const product: any = ref(await getProductDetails()); /**get product details */
 const relatedProducts =
   ref(); /**variable to hold array of items in the same category as the shown product */
 
-if (product.value) {
-  const categoriesId = product.value.category.name;
-  await getRelatedProducts(
-    categoriesId
-  ); /**get products in the same category as the current one */
-}
+// if (product.value) {
+//   const categoriesId = product.value.category.name;
+//   await getRelatedProducts(
+//     categoriesId
+//   ); /**get products in the same category as the current one */
+// }
 
 const product_reviews = ref(
   await getProductReviews()
@@ -377,7 +415,7 @@ async function getProductDetails() {
 
   try {
     const { data } = await axiosInstance(product_url);
-
+    console.log("data ", data);
     if (data.name) {
       productName.value = data.name;
       return data;
@@ -478,13 +516,6 @@ async function reviewToCreate() {
   product_reviews.value =
     await getProductReviews(); /**get latest product reviews to be shown on page */
 }
-/**function to show additional description of products*/
-function arrowClicked() {
-  document.querySelector(".overview-arrow")!.classList.toggle("arrowClicked");
-  document
-    .querySelector(".overview-content")!
-    .classList.toggle("showOverviewContent");
-}
 
 /** function to do some checks before calling
  * the func to add item to cart */
@@ -553,12 +584,58 @@ async function getRelatedProducts(categoryName: string) {
     relatedProducts.value = response.query_results;
   } catch (error) {}
 }
+
+/**func to show more details about a product(ingredients, description) */
+function showMoreDetails() {
+  const faqsWrapper = document.querySelectorAll(".wc-p-div");
+
+  faqsWrapper.forEach((item) => {
+    item.addEventListener("click", () => {
+      item.querySelector(".serv-p")?.classList.toggle("show-p");
+      item.querySelector(".serv-arrow")?.classList.toggle("active-svg");
+    });
+  });
+}
 </script>
 
 <style lang="scss" scoped>
 // .active-product{
 //     background-color: gainsboro;
 // }
+
+.serv-arrow {
+  /**the plus icon/svg */
+  display: inline-block;
+  position: relative;
+  width: 1.3rem;
+  height: 1.2rem;
+  span {
+    position: absolute;
+    background-color: #333;
+  }
+  .vertical {
+    width: 0.1rem;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.2s ease-in;
+  }
+
+  .horizontal {
+    height: 0.1rem;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.active-svg {
+  /**class to be toggled to active icon/svg */
+  .vertical {
+    opacity: 0;
+    height: 0;
+  }
+}
 
 .pr-outer-root-div {
   max-width: 1300px;
@@ -630,24 +707,6 @@ async function getRelatedProducts(categoryName: string) {
             transform: rotate(180deg);
           }
         }
-        .product-overview {
-          margin: 1rem auto;
-          font-size: 1.4rem;
-          // text-align: center;
-          ul {
-            // display: none;
-            max-height: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease-in;
-          }
-          .showOverviewContent {
-            opacity: 1;
-            visibility: visible;
-            display: block;
-            max-height: none;
-          }
-        }
       }
 
       .product-details-wrp-sticky {
@@ -663,26 +722,54 @@ async function getRelatedProducts(categoryName: string) {
           font-weight: 400;
         }
 
-        .description-container {
-          // border: 2px solid;
+        .product-dets-overall-wrp {
           margin: 2rem 0;
-
-          p {
-            opacity: 0.8;
-            margin: 1rem 0;
-          }
         }
-        .product-description {
-          font-size: 1.4rem;
-          opacity: 0.8;
-          font-weight: 500;
+        .wc-p-div {
+          border-bottom: 0.1px solid rgba(0, 0, 0, 0.4);
+          padding: 1rem 0;
+          // margin: 1rem 0;
+          cursor: pointer;
+          transition: background-color 0.2s ease-in-out;
+
+          .svgp {
+            display: flex;
+            margin: 1rem 0;
+            align-items: center;
+            justify-content: space-between;
+
+            // .services-h {
+            //   border: 1px solid;
+            // }
+            svg {
+              margin: 0 1rem;
+              width: 1.5rem;
+              transition: all 0.2s ease-in-out;
+            }
+          }
+          .serv-p {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.4s ease-in;
+            will-change: max-height;
+            p {
+              font-size: 1.2rem;
+              line-height: 1.7;
+              opacity: 0.9;
+              font-weight: 400;
+            }
+          }
+
+          .show-p {
+            max-height: 3000px;
+          }
         }
 
         .product-price {
-          font-size: 2rem;
-          font-weight: 500;
+          font-size: 1.7rem;
+          font-weight: 600;
           margin-bottom: 2rem;
-          margin: 2rem 0;
+          margin: 1rem 0;
           opacity: 0.9;
           color: var(--webPriColor);
         }
@@ -792,6 +879,8 @@ async function getRelatedProducts(categoryName: string) {
     }
 
     .related-products-wrapper {
+      border-left: 1px solid gainsboro;
+      padding: 0 0.5rem;
       .rp-ttl {
         font-size: 1.5rem;
         font-weight: 400;
@@ -804,7 +893,8 @@ async function getRelatedProducts(categoryName: string) {
             display: flex;
             margin: 1rem 0;
             align-items: center;
-            //border-bottom: 1px solid var(--webPriColor);
+            border-top: 1px solid gainsboro;
+            // border: 1px solid;
             padding: 0.3rem;
             div {
               img {

@@ -275,12 +275,13 @@ async function getAllProducts() {
                 padding: .5rem;
                 place-items: center;
                 .items-content{
-                    padding: 2rem 0rem;
+                    // padding: 2rem 0rem;
                     height: auto;
                     width: 95%;
                     // box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-                    
                     height: 99%;
+                    width: auto;
+                    width: 96%;
                     text-align: center;
                     position: relative;
 
