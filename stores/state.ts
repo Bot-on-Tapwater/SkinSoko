@@ -3,7 +3,7 @@ import axios from "axios";
 export const axiosInstance = axios.create({
     // baseURL: "http://127.0.0.1:8000/eridosolutions",
     // baseURL: "https://exceed.botontapwater.tech/eridosolutions",
-    baseURL:"http://skinsoko.botontapwater.tech/skinsoko",
+    baseURL:"https://skinsoko.botontapwater.tech/skinsoko",
     withCredentials: true,
     headers: {
         "Accept": "application/json",
@@ -196,6 +196,23 @@ export const useStore = defineStore("user_state", {
             } catch (error) {
             } 
         },
+        /**adding item to wishlist */
+        async addItemToWishlist(productID: number) {
+            await this.getUser()
+
+            if (!this.isAuth) { /**if use rnot authenticated, can't add item to wishlist */
+                this.errorMessageToShowOnToast = "Please login in order to add item to wishlist"
+                this.showToast()
+                return
+            }
+
+            const add_product_to_user_wishlist_url = `/users/wishlists/add/${productID}/`
+
+            try {
+                await axiosInstance.post(add_product_to_user_wishlist_url)
+            } catch (error) {
+            } 
+        },
 
         hideToast() {  /**function to hide the toast showing any errors on UI to user */
             const toastDiv = document.querySelector(".toast-ord-wrp")
@@ -226,7 +243,51 @@ export const useStore = defineStore("user_state", {
             return
 
         },
-    
+        /**get available categories */
+        async getCategories() {
+            const categories_url = "/main-categories/"
+            try {
+                const {data} = await axiosInstance(categories_url)
+                if (data.query_results) {
+                    return data
+                }
+            } catch (error) {
+                
+            }
+        },
+        /**func to get all wishlist products from db */
+        async getAllWishlistProducts() {
+            try {
+                const response = await axiosInstance(`users/wishlists/`)
+                if (response.data && response.status === 200) {
+                    return response.data
+                }
+
+            } catch (error) {
+                
+            }
+        },
+        /**function to get products */
+        async getAllProducts(products_url: string) {
+            try {
+              const response = await axiosInstance(products_url);
+              if (response.data && response.status === 200) {
+                return response.data;
+              }
+            } catch (error) {}
+        },
+        /**get available brands */
+        async getBrands() {
+            const brands_url = "/brands/"
+            try {
+                const {data} = await axiosInstance(brands_url)
+                if (data.query_results) {
+                    return data
+                }
+            } catch (error) {
+                
+            }
+        },
         async createProductReview(reviewDetails: any, productID: string | string[]) {
             await this.getUser()
             
