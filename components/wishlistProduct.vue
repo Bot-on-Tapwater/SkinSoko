@@ -94,8 +94,17 @@ const appStore = useStore(); /**using our store */
 const props = defineProps(["item"]);
 
 
-function removeProductFromWishlist(product_id: number) {
+async function removeProductFromWishlist(product_id: number) {
+  const remove_product_from_wishlist_url = `/users/wishlists/remove/${product_id}/`
   alert(`removing ${product_id}`)
+
+  try {
+      await axiosInstance.delete(remove_product_from_wishlist_url)
+      /**refresh items shown on the page */
+
+  } catch (error) {
+  }
+
 }
 </script>
 
