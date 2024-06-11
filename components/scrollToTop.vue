@@ -23,8 +23,8 @@ function scrollToTop() {
 
 .scroll-to-top{
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 0;
+    right: 0;
 
     .stt-wrp{
         width: 4rem;
