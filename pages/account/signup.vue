@@ -4,7 +4,8 @@
             <div class="signup-form-container">
                 <h3 class="sign-up-title">Sign Up</h3>
                 <div class="signup-form">
-                    <form @submit.prevent="appStore.createUser(registerDetails)" id="signup-form" method="post">
+                    <!-- <form @submit.prevent="appStore.createUser(registerDetails)" id="signup-form" method="post"> -->
+                    <form id="signup-form" method="post">
 
                         <div class="username-div">
                             <FormInput

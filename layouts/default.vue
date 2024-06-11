@@ -20,7 +20,8 @@
                 <div class="menu-links">
                     <ul>
                         <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="/">home</NuxtLink> </li>
-                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="/products/all/1"> products</NuxtLink> </li>
+                        <li> <a @click=" closeMobileNav()" class="nav-router-links mobile-link-items" href="/products/all/1"> products</a> </li>
+                        <!-- <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="/products/all/1"> products</NuxtLink> </li> -->
 
                         <li>
                             <div id="ctc" class="categories-container">
@@ -30,7 +31,8 @@
                                     <div class="categories-content-grid">
                                         <template v-if="categories">
                                             <div class="categories-link-tags">
-                                                <NuxtLink @click="closeMobileNav()" v-for="category in categories.query_results" :key="category.name" :to="'/products/category/'+category.name+'?page=1'" class="dropdown-menu-links nav-router-links">{{ category.name }}</NuxtLink>
+                                                <a @click="closeMobileNav()" v-for="category in categories.query_results" :key="category.name" :href="`/products/all/1?filter_main_category=${category.name}`" class="dropdown-menu-links nav-router-links">{{ category.name }}</a>
+                                                <!-- <NuxtLink @click="closeMobileNav()" v-for="category in categories.query_results" :key="category.name" :to="'/products/category/'+category.name+'?page=1'" class="dropdown-menu-links nav-router-links">{{ category.name }}</NuxtLink> -->
                                             </div>
 
                                         </template>
@@ -46,18 +48,22 @@
                                     <ul>
                                         <template v-if="brands">
                                             <li v-for="brand in brands.query_results" :key="brand.brand_id">
-                                                <NuxtLink class="dropdown-menu-links">{{ brand.name }}</NuxtLink>
+                                                <a :href="`/products/all/1?filter_brand=${brand.name}`" class="dropdown-menu-links">{{ brand.name }}</a>
+                                                <!-- <NuxtLink :to="`/products/all/1?filter_brand=${brand.name}`" class="dropdown-menu-links">{{ brand.name }}</NuxtLink> -->
                                             </li>
                                         </template>
                                     </ul>
                                 </div>
                             </div>
                         </li>
-                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="/faqs">F.A.Q.s</NuxtLink> </li>
+                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="">F.A.Q.s</NuxtLink> </li>
+                        <!-- <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="/faqs">F.A.Q.s</NuxtLink> </li> -->
 
-                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="/policy/refund-policy">refund policy</NuxtLink> </li>
-                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="/policy/privacy-policy">privacy policy</NuxtLink> </li>
-                        <li> <a href="mailto:" class="nav-router-links mobile-link-items showOnMobile">customer support</a> </li>
+                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="">refund policy</NuxtLink> </li>
+                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="">privacy policy</NuxtLink> </li>
+                        <!-- <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="/policy/refund-policy">refund policy</NuxtLink> </li>
+                        <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items showOnMobile" to="/policy/privacy-policy">privacy policy</NuxtLink> </li> -->
+                        <li> <a href="" class="nav-router-links mobile-link-items showOnMobile">customer support</a> </li>
 
                     </ul>
                 </div>
@@ -131,9 +137,9 @@
 
                     <div class="quick-links">
                         <p>quick links</p>
-                        <NuxtLink to="/faqs">FAQs</NuxtLink>
-                        <NuxtLink to="/policy/privacy-policy">Privacy policy</NuxtLink>
-                        <NuxtLink to="/policy/refund-policy">Refund policy</NuxtLink>
+                        <NuxtLink to="">FAQs</NuxtLink>
+                        <NuxtLink to="">Privacy policy</NuxtLink>
+                        <NuxtLink to="">Refund policy</NuxtLink>
                         <a href="">contact us</a>
                     </div>
                         
@@ -189,36 +195,12 @@ onMounted(async ()=>{
 
 
 /**fetch categories from backend and show on UI */
-const categories = ref(await getCategories())
+const categories = ref(await appStore.getCategories())
 
-/**get available categories */
-async function getCategories() {
-    const categories_url = "/main-categories/"
-    try {
-        const {data} = await axiosInstance(categories_url)
-        if (data.query_results) {
-            return data
-        }
-    } catch (error) {
-        
-    }
-}
 
 /**fetch brands from backend and show on UI */
-const brands = ref(await getBrands())
+const brands = ref(await appStore.getBrands())
 
-/**get available brands */
-async function getBrands() {
-    const brands_url = "/brands/"
-    try {
-        const {data} = await axiosInstance(brands_url)
-        if (data.query_results) {
-            return data
-        }
-    } catch (error) {
-        
-    }
-}
 
 
 /**func to close navbar on mobile */
@@ -520,6 +502,7 @@ opens menu */
             // grid-template-columns: 1fr 1fr;
             display: flex;
             justify-content: space-between;
+            text-transform: capitalize;
 
             height: 100%;
             width: 100%;
