@@ -370,6 +370,7 @@ const createReviewForm = ref(null);
 onMounted(() => {
   getProductDetails(); /**get info of the product to be shown  */
   showMoreDetails();
+  imageHovered();
 });
 
 /**to be toggled to show/hide the write div */
@@ -567,7 +568,7 @@ Cheers.`;
   let encodedMessage = encodeURIComponent(message);
   let whatsappLink = "https://wa.me/+254795494587?text=" + encodedMessage;
 
-  const orderOnWhatsappBtn = document.getElementById("chat-on-whatsapp-btn");
+  const orderOnWhatsappBtn = document.getElementById("chat-on-whatsapp-btn") as HTMLAnchorElement;
   if (orderOnWhatsappBtn) {
     orderOnWhatsappBtn.href = whatsappLink;
   } else {
@@ -595,6 +596,32 @@ function showMoreDetails() {
       item.querySelector(".serv-arrow")?.classList.toggle("active-svg");
     });
   });
+}
+
+/**function to be called when the image is hovered */
+function imageHovered() {
+  const container = document.querySelector(".image-container") as HTMLDivElement;
+  const image = document.getElementById("aic-image") as HTMLImageElement;
+
+  if (container && image) {
+    container.addEventListener("mousemove", (e) => {
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const xPercent = (x / rect.width) * 100;
+      const yPercent = (y / rect.height) * 100;
+
+      image.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+      image.style.transform = "scale(2)";
+    });
+
+    container.addEventListener("mouseleave", () => {
+      image.style.transformOrigin = "center center";
+      image.style.transform = "scale(1)";
+    });
+  } else {
+    alert("on imageHovered function, container and image not found");
+  }
 }
 </script>
 
@@ -655,11 +682,11 @@ function showMoreDetails() {
       align-items: center;
       margin-right: 2rem;
       .image-container {
+        overflow: hidden;
+        // display: grid;
+        // place-items: center;
+
         margin-right: 5rem;
-        // padding: 1rem;
-        display: grid;
-        place-items: center;
-        grid-template-columns: 1fr;
         img {
           width: 98%;
           object-fit: contain;
@@ -676,37 +703,11 @@ function showMoreDetails() {
           opacity: 0.9;
           margin: 1rem 0;
         }
-        .ov-container {
-          margin: 3rem 0 1rem 0;
-          width: 100%;
-          cursor: pointer;
-          border-bottom: 1px solid var(--webPriColor);
-          border-top: 1px solid var(--webPriColor);
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          h2 {
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: var(--webPriColor);
-            padding: 1rem 0;
-          }
-          .overview-arrow {
-            width: 0;
-            margin: 0 0.4rem;
-            height: 0;
-            border-left: 7px solid transparent;
-            border-right: 7px solid transparent;
-            border-top: 7px solid rgb(79, 73, 73);
-            border-top: 7px solid var(--webPriColor);
-            transition: all 0.2s ease;
-            display: grid;
-            place-items: center;
-          }
-          .arrowClicked {
-            transform: rotate(180deg);
-          }
-        }
+      }
+
+      .image-container::before {
+        content: "";
+        display: block;
       }
 
       .product-details-wrp-sticky {
@@ -1107,12 +1108,18 @@ function showMoreDetails() {
 
 @media screen and (max-width: 650px) {
   .cart-section-wrapper .cart-section .cart-container {
-    grid-template-columns: 1fr;
+    // grid-template-columns: 1fr;
     margin-right: unset;
+    display: flex;
+    flex-direction: column;
 
     .image-container {
+      height: 40rem;
+      width: 100%;
+
       margin-right: unset;
       img {
+        object-fit: cover;
         width: 100%;
       }
     }
