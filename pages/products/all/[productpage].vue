@@ -84,25 +84,30 @@ useHead({
 
 const appStore = useStore() /**using our store */
 
+let products_url = "/products/"
+
 
 const parameter = useRoute();
 let pageNumber = parameter.params.productpage;
 
-const products = ref(await getAllProducts())
 
-/**func to get all products from db */
-async function getAllProducts() {
-    try {
-        // const response = await axiosInstance(`/products/?page=${pageNumber}`)
-        const response = await axiosInstance(`/products/`)
-        if (response.data && response.status === 200) {
-            return response.data
-        }
+let query_params = parameter.query
 
-    } catch (error) {
+if ("filter_brand" in query_params){
+    let brands = query_params["filter_brand"]
+    products_url += `?filter_brand=${brands}`
+    } else if ("filter_main_category" in query_params) {
+        let main_category = query_params["filter_main_category"]
+        products_url += `?filter_main_category=${main_category}`
         
-    }
+    } else if ("filter_sub_category" in query_params) {
+        let sub_category = query_params["filter_sub_category"]
+        products_url += `?filter_sub_category=${sub_category}`
 }
+
+
+const products = ref(await appStore.getAllProducts(products_url))
+
 
 /**func to get page to show */
 function getPageLink(page: number) {
@@ -127,6 +132,7 @@ function showSideBar() {
 .products-page-ord{
     position: relative;
     max-width: var(--maxWidth);
+    min-height: 50rem;
     margin: 8rem auto;
 
     .products-container{
@@ -220,10 +226,6 @@ function showSideBar() {
             }
         }
         
-        .navigation-btn{
-            // border-radius: 4rem;
-
-        }
         .no-nav-page{
             opacity: .3;
         }
