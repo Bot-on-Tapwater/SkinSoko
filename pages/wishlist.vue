@@ -5,18 +5,15 @@
 
             <div class="item">
 
-                <template v-if="products">
-                    <div v-for="item in products.query_results" :key="item"  class="items-content">
-                        <!-- product component -->
+                <template v-if="wishlist_products">
+                    <div v-for="item in wishlist_products.query_results" :key="item"  class="items-content">
                         <WishlistProduct :item="item"/>
 
                     </div>
                 </template>
                 
                 <template v-else>
-                    <h2>Your wishlist is empty.</h2>
                     <CartEmpty/>
-
                 </template>
             </div>
             
@@ -30,33 +27,13 @@
 
 <script lang="ts" setup>
 
-import {useStore, axiosInstance} from '@/stores/state'
-
 useHead({
     title:'Skin Soko | Wishlist',
 })
 
+const appStore = useStore()
+const wishlist_products = ref(await appStore.getAllWishlistProducts())
 
-const appStore = useStore() /**using our store */
-
-
-const parameter = useRoute();
-let pageNumber = parameter.params.productpage;
-
-const products = ref(await getAllWishlistProducts())
-
-/**func to get all wishlist products from db */
-async function getAllWishlistProducts() {
-    try {
-        const response = await axiosInstance(`/products/?page=${pageNumber}`)
-        if (response.data && response.status === 200) {
-            return response.data
-        }
-
-    } catch (error) {
-        
-    }
-}
 
 
 </script>
