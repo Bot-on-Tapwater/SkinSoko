@@ -2,7 +2,7 @@
 <template>
     <div>
         <div>
-            <p class="cart-empty-ttl">Your cart is empty</p>
+            <p class="cart-empty-ttl">Nothing here :(</p>
             <div class="a-null-div">
                 <NuxtLink to="/products/all/1">Continue Shopping</NuxtLink>
             </div>
@@ -22,6 +22,7 @@
     
 }
 div{
+    margin: 1rem 0;
     .cart-empty-ttl{
         font-size: 1.5rem;
         font-weight: 400;
