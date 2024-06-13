@@ -76,7 +76,7 @@ const props = defineProps(["item"])
             position: absolute;
             top: .5rem;
             right: .5rem;
-            z-index: 3;
+            z-index: 2;
             // margin: .5rem;
             padding: 0 1rem;
             display: flex;
