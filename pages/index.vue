@@ -62,7 +62,7 @@
                     Yuja Niacin Anti Blemish Starter Kit
                   </h1>
                   <p class="prod-price">KSh 3,000</p>
-                  <NuxtLink to="/">
+                  <NuxtLink to="/products/17">
                     <button>Buy Now</button>
                   </NuxtLink>
                 </div>
@@ -72,7 +72,7 @@
                 <div>
                   <h1 class="prod-name">Super Matcha Pore Care Starter Kit</h1>
                   <p class="prod-price">KSh 2,800</p>
-                  <NuxtLink to="/">
+                  <NuxtLink to="/products/18">
                     <button>Buy Now</button>
                   </NuxtLink>
                 </div>
