@@ -82,54 +82,68 @@
         </div>
       </section>
 
-      <section class="tsection">
-        <div class="ts-container">
-          <div class="ts-content">
+      <section class="categories-section">
+        <div class="categories-container">
+          <div class="categories-content">
             <div class="ts-header">
               <h1 class="all-section-ttl">Shop By Category</h1>
             </div>
-            <div class="ts-p">
-              <div class="items-content">
-                <img
-                  src="https://www.greenpeople.co.uk/cdn/shop/files/B-Range-Collection.jpg?height=454&v=1707211541&width=604"
-                  alt="image of skin products"
-                />
-                <p>SKIN CARE</p>
+            <div class="categories-p">
+
+              <div class="category-items-content">
+                <NuxtLink to="/products/all/1?filter_main_category=SKINCARE">
+                  <img
+                    src="https://www.greenpeople.co.uk/cdn/shop/files/B-Range-Collection.jpg?height=454&v=1707211541&width=604"
+                    alt="image of skin products"
+                  />
+                </NuxtLink>
+                <p class="category-ttl">SKIN CARE</p>
+                <p>From cleansers to moisturizers, find everything you need to build a skincare routine that leaves your complexion glowing and refreshed.</p>
               </div>
-              <div class="items-content">
-                <img
-                  src="https://www.greenpeople.co.uk/cdn/shop/files/sunprotect-l.jpg?height=454&v=1697122312&width=604"
-                  alt="image of beauty products"
-                />
-                <p>SUN PROTECTION</p>
+
+              <div class="category-items-content">
+                <NuxtLink to="/products/all/1?filter_main_category=SKIN+TYPE">
+                  <img
+                    src="https://www.greenpeople.co.uk/cdn/shop/files/sunprotect-l.jpg?height=454&v=1697122312&width=604"
+                    alt="image of beauty products"
+                  />
+                </NuxtLink>
+                <p class="category-ttl">Skin type</p>
+                <p>Discover products designed specifically for your skin type, ensuring you get the best care whether you're oily, dry, combination, or sensitive.</p>
               </div>
-              <div class="items-content">
-                <img
-                  src="https://www.greenpeople.co.uk/cdn/shop/files/grooming-l.jpg?height=454&v=1697122311&width=604"
-                  alt="image of skin products"
-                />
-                <p>MEN</p>
+
+
+              <div class="category-items-content">
+                <NuxtLink to="/products/all/1?filter_main_category=HAIR+CARE">
+                  <img
+                    src="https://sokoglam.com/cdn/shop/files/New-Product_-Neogen-A-Clear-Soothing-Essence-Pad_PDP_1_low_600x.jpg?v=1613711534"
+                    alt="image of skin products"
+                  />
+                </NuxtLink>
+                <p class="category-ttl">hair care</p>
+                <p>Explore a range of hair care products that keep your hair healthy, shiny, and strong, no matter your hair type or concern.</p>
               </div>
-              <div class="items-content">
-                <img
-                  src="https://sokoglam.com/cdn/shop/files/New-Product_-Neogen-A-Clear-Soothing-Essence-Pad_PDP_1_low_600x.jpg?v=1613711534"
-                  alt="image of skin products"
-                />
-                <p>EXFOLIATOR</p>
+
+              <div class="category-items-content">
+                <NuxtLink to="/products/all/1?filter_main_category=SKIN+CONCERNS">
+                  <img
+                    src="https://www.greenpeople.co.uk/cdn/shop/files/makeup-l.jpg?height=454&v=1697122312&width=604"
+                    alt="image of skin products"
+                  />
+                </NuxtLink>
+                <p class="category-ttl">skin concern</p>
+                <p>Address your specific skin concerns with targeted treatments for acne, aging, hyperpigmentation, redness, and more.</p>
               </div>
-              <div class="items-content">
-                <img
-                  src="https://www.greenpeople.co.uk/cdn/shop/files/makeup-l.jpg?height=454&v=1697122312&width=604"
-                  alt="image of skin products"
-                />
-                <p>MAKE-UP</p>
-              </div>
-              <div class="items-content">
-                <img
-                  src="https://www.greenpeople.co.uk/cdn/shop/files/H-Range-Collection.jpg?height=454&v=1707211600&width=604"
-                  alt="image of skin products"
-                />
-                <p>SCENT-FREE</p>
+
+              <div class="category-items-content">
+                <NuxtLink to="/products/all/1?filter_main_category=SCENTFREE">
+                  <img
+                    src="https://www.greenpeople.co.uk/cdn/shop/files/H-Range-Collection.jpg?height=454&v=1707211600&width=604"
+                    alt="image of skin products"
+                  />
+                </NuxtLink>
+                <p class="category-ttl">SCENT-FREE</p>
+                <p>Perfect for sensitive skin or those who prefer no added scents, these fragrance-free products provide effective care without any irritation.</p>
               </div>
             </div>
           </div>
@@ -386,6 +400,61 @@ const discounted_products = products.value.query_results.filter(
   }
 }
 
+.categories-section{
+  width: 100%;
+  margin: 2rem auto;
+  .categories-container{
+    // height: 100%;
+    max-width: var(--maxWidth);
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    .categories-content{
+      .categories-p{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        margin: 1rem;
+        
+        padding: 0.5rem;
+
+        .category-items-content{
+          width: 30rem;
+          height: auto;
+          text-align: center;
+          margin: 2rem 0;
+          img {
+            height: 90%;
+            height: 27rem;
+            width: 100%;
+            object-fit: cover;
+          }
+          .category-ttl{
+            text-transform: uppercase;
+          }
+          p{
+            font-size: 1.1rem;
+            line-height: 190%;
+            opacity: .9;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .categories-section .categories-container .categories-content .categories-p{
+    margin: unset;
+
+    .category-items-content{
+      width: 25rem;
+    }
+
+  }
+
+}
+
 @media screen and (max-width: 900px) {
   .main-container .main-content .image-container {
     #div1 {
@@ -449,6 +518,15 @@ const discounted_products = products.value.query_results.filter(
         height: 17rem;
         width: 17rem;
       }
+    }
+  }
+
+  .categories-section .categories-container .categories-content .categories-p{
+
+    .category-items-content{
+
+      width: 20rem;
+      width: 95vw;
     }
   }
 }
