@@ -99,7 +99,7 @@ opens menu */
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
-  z-index: 1;
+  z-index: 3;
 }
 .filters-sidebar-overlay.showSidebarOverlay {
   /**toggle showing overlay on mobile */
