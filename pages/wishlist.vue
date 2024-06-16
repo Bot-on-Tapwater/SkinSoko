@@ -35,6 +35,21 @@ const appStore = useStore()
 const wishlist_products = ref(await appStore.getAllWishlistProducts())
 
 
+/**func to remove item from wishlist */
+async function removeWishlistProduct(productID: number) {
+    const remove_wishlist_item_url = `/users/wishlists/remove/${productID}/`
+
+    try {
+        await axiosInstance.delete(remove_wishlist_item_url)
+
+        /**refresh items shown on the page */
+        wishlist_products.value = await appStore.getAllWishlistProducts()
+
+
+    } catch (error) {
+    }
+}
+
 
 </script>
 
