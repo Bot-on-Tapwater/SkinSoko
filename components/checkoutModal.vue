@@ -13,7 +13,7 @@
                         </div>
                         <h2>Order Confirmed!</h2>
                         <p>Thank you for shopping with us.Check your email for the confirmation and tracking information.</p>
-                        <p>Any questions? Reach out to our support team <a href="mailto:">here</a> </p>
+                        <p>Any questions? Reach out to our support team <a href="mailto:skinsoko@gmail.com">here</a> </p>
                         <div class="login-container">
                             <NuxtLink to="/products/all/1" class="modal-btn">Continue Shopping</NuxtLink>
                             <div class="arrow-div">
