@@ -1,7 +1,7 @@
 <!-- component to show when user cart is empty -->
 <template>
     <div>
-        <div>
+        <div class="empty-wrp">
             <p class="cart-empty-ttl">Nothing here :(</p>
             <div class="a-null-div">
                 <NuxtLink to="/products/all/1">Continue Shopping</NuxtLink>
@@ -18,6 +18,10 @@
 
 <style lang="scss" scoped>
 
+
+.empty-wrp{
+    text-align: center;
+}
 @media screen  and (max-width: 500px) {
     
 }

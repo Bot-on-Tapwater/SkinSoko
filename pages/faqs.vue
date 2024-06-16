@@ -149,7 +149,11 @@
 </template>
 
 <script setup lang="ts">
-      
+
+
+useHead({
+  "title": "Skin Soko | FAQs"
+})
 onMounted(FAQs)
 /**func to show more details about a FA Question */
 function FAQs(){
@@ -223,13 +227,13 @@ function FAQs(){
           }
           .wc-wrapper{
             .wc-p-div{
-              border-bottom: 1px solid rgba(0,0,0,.4);
+              border-bottom: 1px solid rgba(0,0,0,.2);
               padding: 2rem 1.2rem;
               cursor: pointer;
               transition: background-color .2s ease-in-out;
               
               &:nth-child(1) {
-                border-top: 1px solid rgba(0,0,0,.4);
+                border-top: 1px solid rgba(0,0,0,.2);
               }
 
               .svgp{

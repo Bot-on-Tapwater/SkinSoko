@@ -6,29 +6,24 @@
     <div class="filter-products-wrp">
       <div class="fpw-container">
         <div class="fpw-content">
-          <div
-            v-for="category in categories.query_results"
-            :key="category.name"
-            class="fpw"
-          >
+          <div v-for="category in categories" :key="category.name" class="fpw">
             <p class="fpw-ttl">{{ category.name }}</p>
             <ul>
-              <li
+              <a
+                :href="`/products/all/1?filter_sub_category=${subcategory.name}`"
                 v-for="subcategory in subcategories[category.name]"
                 :key="subcategory.name"
               >
-                <a
-                  :href="`/products/all/1?filter_sub_category=${subcategory.name}`"
-                  >{{ subcategory.name }}</a
-                >
-              </li>
+                {{ subcategory.name }}
+                <!-- <a>{{ subcategory.name }}</a> -->
+              </a>
             </ul>
           </div>
 
           <div class="fpw">
             <p class="fpw-ttl">Brands</p>
             <ul v-if="brands">
-              <li v-for="brand in brands.query_results" :key="brand.brand_id">
+              <li v-for="brand in brands" :key="brand.brand_id">
                 <a :href="`/products/all/1?filter_brand=${brand.name}`">{{
                   brand.name
                 }}</a>
@@ -46,20 +41,16 @@
 const appStore = useStore(); /**accessing out store */
 
 //get available brands
-const brands = ref(await appStore.getBrands());
-
-/**fetch categories from backend and show on UI */
-const categories = ref(await appStore.getCategories());
+const brands = appStore.brands;
+const categories = appStore.categories;
 
 const subcategories = ref({});
-console.log("subcategories ", subcategories);
 
 onMounted(async () => {
-  for (let category of categories.value.query_results) {
+  for (let category of categories) {
     const subs = await getSubCategories(category.name);
     subcategories.value[category.name] = subs;
   }
-  console.log("sucba ", subcategories.value);
 });
 
 function hideOverlay() {
@@ -143,23 +134,38 @@ opens menu */
           text-transform: uppercase;
           font-size: 1.2rem;
         }
-        ul li {
-          font-size: 1.2rem;
+
+        a {
+          display: block;
           font-weight: 400;
           text-transform: capitalize;
           font-size: 1.1rem;
           opacity: 0.8;
-          list-style-type: none;
-          margin: 0.8rem 0;
-          // margin-left: 1.5rem;
-          padding: 0.4rem 1rem;
+          margin: 0.6rem 0;
+          padding: 0.4rem;
 
           &:hover {
             border-radius: 0.2rem;
             background-color: rgba(176, 197, 237, 0.2);
-            // text-decoration: underline;
           }
         }
+        // ul li {
+        //   font-size: 1.2rem;
+        //   font-weight: 400;
+        //   text-transform: capitalize;
+        //   font-size: 1.1rem;
+        //   opacity: 0.8;
+        //   list-style-type: none;
+        //   margin: 0.8rem 0;
+        //   // margin-left: 1.5rem;
+        //   padding: 0.4rem 1rem;
+
+        //   &:hover {
+        //     border-radius: 0.2rem;
+        //     background-color: rgba(176, 197, 237, 0.2);
+        //     // text-decoration: underline;
+        //   }
+        // }
       }
     }
   }
