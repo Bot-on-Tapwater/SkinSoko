@@ -53,22 +53,10 @@
                       </div>
                     </div>
                     <div class="serv-p">
-                      <p>
-                        this WATER / AQUA / EAU, BUTYLENE GLYCOL, GLYCERIN,
-                        SQUALANE, 1,2-HEXANEDIOL, ACRYLATES/C10-30 ALKYL
-                        ACRYLATE CROSSPOLYMER, CARBOMER, TROMETHAMINE, GLYCERYL
-                        CAPRYLATE, ETHYLHEXYLGLYCERIN, DISODIUM EDTA, NATTO GUM,
-                        STEARIC ACID, HYDROXYPROPYL BISPALMITAMIDE MEA,
-                        MANNITOL, PCA, LACTIC ACID, GLUCOSE, GLYCINE, UREA,
-                        SODIUM GLYCEROPHOSPHATE, SERINE, GLUTAMIC ACID,
-                        TOCOPHEROL, ACRYLATES/AMMONIUM METHACRYLATE COPOLYMER,
-                        POTASSIUM MAGNESIUM ASPARTATE, ASPARTIC ACID, LEUCINE,
-                        SODIUM CHLORIDE, ALANINE, LYSINE, ARGININE, CALCIUM
-                        GLUCONATE, MAGNESIUM GLUCONATE, TYROSINE, PHENYLALANINE,
-                        PROLINE, THREONINE, VALINE, ISOLEUCINE, CITRIC ACID,
-                        CHOLESTEROL, HISTIDINE, SILICA, ACETYL GLUCOSAMINE,
-                        CREATINE, URIC ACID, CYSTEINE, METHIONINE
-                      </p>
+                      <p
+                        class="product-ingredients"
+                        v-html="product.ingredients.replace(/\r?\n/g, '<br>')"
+                      ></p>
                     </div>
                   </div>
                 </div>
