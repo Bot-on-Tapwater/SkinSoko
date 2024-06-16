@@ -8,6 +8,9 @@ export default defineNuxtConfig({
       }
     ],
   ],
+  plugins: [
+    '~/plugins/fetch.ts'
+  ],
   imports: {
     dirs: ["stores"]
   },
