@@ -6,8 +6,7 @@
                 <h2 class="lg-title">Login</h2>
                 <div class="login-container">
                     <div class="login-content">
-                        <!-- <form @submit.prevent="appStore.loginUser(loginDetails)" id="login-form">  -->
-                        <form id="login-form"> 
+                        <form @submit.prevent="appStore.loginUser(loginDetails)" id="login-form"> 
 
                             <div class="email-container">
                                 <label for="login-email">Email Address</label>
