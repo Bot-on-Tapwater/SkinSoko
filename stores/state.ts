@@ -1,8 +1,8 @@
 import axios from "axios";
 
+import type { BrandInterface, CategoriesInterface } from "~/interfaces/types";
+
 export const axiosInstance = axios.create({
-    // baseURL: "http://127.0.0.1:8000/eridosolutions",
-    // baseURL: "https://exceed.botontapwater.tech/eridosolutions",
     baseURL:"https://skinsoko.botontapwater.tech/skinsoko",
     withCredentials: true,
     headers: {
@@ -57,7 +57,22 @@ export const useStore = defineStore("user_state", {
         errorMessageToShowOnToast: "", /**hold error msg to show to user on ui */
         pageLoading: false,  /**determine when to show loading spinner */
         totalItemsInCart: 0,  /** show user total number of items in their cart */
-        showLogin: false
+        showLogin: false,
+        cartSummaryDetails: {
+            totalItems: 20,
+            itemsSubtotal: 30,
+            shippingFee: 40,
+            estimatedTax: 60,
+            orderTotal: 70,
+          },
+        brands_loaded: false, /**will help call some apis only once */
+        main_categories: null,
+        // sub_categories: null,
+        brands: [] as BrandInterface[],
+        categories: [] as CategoriesInterface[],
+        categories_loaded: false,
+        age: 32
+
     }),
 
     actions: {
@@ -69,7 +84,7 @@ export const useStore = defineStore("user_state", {
 
             const loginFormData = new FormData()
             loginFormData.append("password", loginDetails.password)
-            loginFormData.append("username", loginDetails.email)
+            loginFormData.append("email", loginDetails.email)
 
             try{
                 const response = await axiosInstance.post("/login/", loginFormData, {
@@ -99,10 +114,10 @@ export const useStore = defineStore("user_state", {
         
             const registerFormData = new FormData()
 
-            registerFormData.append("username", registerDetails.username)
+            // registerFormData.append("username", registerDetails.username)
             registerFormData.append("password", registerDetails.password)
-            registerFormData.append("first_name", registerDetails.first_name)
-            registerFormData.append("last_name", registerDetails.last_name)
+            // registerFormData.append("first_name", registerDetails.first_name)
+            // registerFormData.append("last_name", registerDetails.last_name)
             registerFormData.append("email", registerDetails.email)
         
             try{
@@ -245,11 +260,20 @@ export const useStore = defineStore("user_state", {
         },
         /**get available categories */
         async getCategories() {
+
+            console.log("before");
+            if (this.categories_loaded) return
+            console.log("after");
+
             const categories_url = "/main-categories/"
             try {
                 const {data} = await axiosInstance(categories_url)
+                console.log("data ", data.query_results);
                 if (data.query_results) {
-                    return data
+                    this.categories = data.query_results
+                    this.categories_loaded = true
+
+                    // return data
                 }
             } catch (error) {
                 
@@ -267,6 +291,7 @@ export const useStore = defineStore("user_state", {
                 
             }
         },
+
         /**function to get products */
         async getAllProducts(products_url: string) {
             try {
@@ -278,11 +303,14 @@ export const useStore = defineStore("user_state", {
         },
         /**get available brands */
         async getBrands() {
+            if (this.brands_loaded) return
+
             const brands_url = "/brands/"
             try {
                 const {data} = await axiosInstance(brands_url)
                 if (data.query_results) {
-                    return data
+                    this.brands = data.query_results
+                    this.brands_loaded = true
                 }
             } catch (error) {
                 
@@ -341,6 +369,7 @@ export const useStore = defineStore("user_state", {
         
             try {
                 const {data: cart_items} = await axiosInstance(get_user_cart_items_url)
+                
                 this.totalItemsInCart = cart_items.cart_summary.totalItems
         
             } catch (error) {
