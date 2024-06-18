@@ -98,7 +98,7 @@
             </div>
 
 
-            <CartSummary
+            <!-- <CartSummary
               :shipping-fee="cart_items.cart_summary.shippingFee"
               :cart-items-subtotal="
                 appStore.formatNumber(cart_items.cart_summary.itemsSubtotal)
@@ -110,9 +110,9 @@
               :order-total="
                 appStore.formatNumber(cart_items.cart_summary.orderTotal)
               "
-            />
+            /> -->
 
-            <!-- <CartSummary
+            <CartSummary
               :shipping-fee="appStore.cartSummaryDetails.shippingFee"
               :cart-items-subtotal="
                 appStore.formatNumber(appStore.cartSummaryDetails.itemsSubtotal)
@@ -124,7 +124,7 @@
               :order-total="
                 appStore.formatNumber(appStore.cartSummaryDetails.orderTotal)
               "
-            /> -->
+            />
 
           </div>
         </div>

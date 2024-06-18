@@ -67,7 +67,7 @@
         
                     <!-- <div> -->
 
-                        <CartSummary
+                        <!-- <CartSummary
     
                         :shipping-fee=cartSummaryDetails.shippingFee
                         :cart-items-subtotal=appStore.formatNumber(cartSummaryDetails.itemsSubtotal)
@@ -75,8 +75,20 @@
                         :total-cart-items=appStore.formatNumber(cartSummaryDetails.totalItems)
                         :order-total=appStore.formatNumber(cartSummaryDetails.orderTotal)
     
+                        /> -->
+                        <CartSummary
+                        :shipping-fee="appStore.cartSummaryDetails.shippingFee"
+                        :cart-items-subtotal="
+                            appStore.formatNumber(appStore.cartSummaryDetails.itemsSubtotal)
+                        "
+                        :estimated-tax="appStore.cartSummaryDetails.estimatedTax"
+                        :total-cart-items="
+                            appStore.formatNumber(appStore.cartSummaryDetails.totalItems)
+                        "
+                        :order-total="
+                            appStore.formatNumber(appStore.cartSummaryDetails.orderTotal)
+                        "
                         />
-                    
                 </div>
             </div>
             
@@ -127,9 +139,9 @@ let cart_items: any = ref();
 
 cart_items.value = await appStore.getCartItems();
 
-if (cart_items.value) { /**if there are items in cart, update the cart summary */
-    getCartSummary()
-}
+// if (cart_items.value) { /**if there are items in cart, update the cart summary */
+//     getCartSummary()
+// }
 
 
 /** getting details to show on the cart summary
@@ -161,7 +173,7 @@ async function getCartSummary() {
 async function updateCartItemsShown() {
     cart_items.value = await appStore.getCartItems()
     appStore.getCartTotalItems() 
-    getCartSummary()
+    // getCartSummary()
 }
 
 /**remove cart item and update UI */
