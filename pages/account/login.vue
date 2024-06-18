@@ -45,7 +45,6 @@ useHead({
     title:'Skin Soko | Account Login'
 })
 
-const loading = ref(false)
 
 const appStore = useStore()
 
