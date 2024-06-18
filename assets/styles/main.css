@@ -10,7 +10,7 @@
     --dashboardBgColor: #F8FAFC;
     --maxWidth:1200px;
     --navColor:#fff9f9;
-    --dashboardBoxShadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+    --dashboardBoxShadow: 3px 3px 8px -3px rgba(0,0,0,0.1);
 }
 
 
