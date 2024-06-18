@@ -60,9 +60,9 @@ const props = defineProps(["item"])
     // padding: .5rem;
     .discount-wrp{
         position: absolute;
-        top: .5rem;
-        border-radius: .3rem;
         left: .5rem;
+        left: 0;
+        top: 0;
         background-color: var(--webPriColor);
         color: white;
         padding: .4rem .6rem;
@@ -116,7 +116,7 @@ const props = defineProps(["item"])
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    // object-fit: contain;
+                    object-fit: contain;
                 }
             }
 
