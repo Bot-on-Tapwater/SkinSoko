@@ -15,7 +15,6 @@
                 :key="subcategory.name"
               >
                 {{ subcategory.name }}
-                <!-- <a>{{ subcategory.name }}</a> -->
               </a>
             </ul>
           </div>
@@ -37,21 +36,16 @@
 </template>
 
 <script setup lang="ts">
-// getSubCategories("SKINCARE")
+import type { BrandInterface, CategoriesInterface, Subcategories } from "~/interfaces/types";
+
 const appStore = useStore(); /**accessing out store */
 
 //get available brands
 const brands = appStore.brands;
 const categories = appStore.categories;
 
-const subcategories = ref({});
+const subcategories: Subcategories = appStore.subcategories
 
-onMounted(async () => {
-  for (let category of categories) {
-    const subs = await getSubCategories(category.name);
-    subcategories.value[category.name] = subs;
-  }
-});
 
 function hideOverlay() {
   const sideBarElement = document.querySelector(".filter-products-wrp");
@@ -65,17 +59,7 @@ function hideOverlay() {
     : alert("sideBarElement not found");
 }
 
-// Fetch categories and subcategories on mount
-async function getSubCategories(main_category: string) {
-  const subcategories_url = `/subcategories/${main_category}/`;
-  try {
-    const response = await axiosInstance(subcategories_url);
-    if (response.data && response.status === 200) {
-      return response.data.query_results;
-    }
-  } catch (error) {}
-  return [];
-}
+
 </script>
 
 <style scoped lang="scss">
