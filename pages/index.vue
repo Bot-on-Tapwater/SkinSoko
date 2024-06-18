@@ -49,6 +49,7 @@
           </div>
         </div>
       </section>
+      
 
       <section class="latest-products-wp">
         <div class="lp-wrp">
@@ -149,6 +150,30 @@
           </div>
         </div>
       </section>
+
+
+      <section class="tsection">
+        <div class="ts-container">
+          <div class="ts-content">
+            <div class="ts-header">
+              <h1 class="all-section-ttl">Best Sellers</h1>
+            </div>
+            <div class="ts-p">
+              <template v-if="products">
+                <div
+                  v-for="product in best_selling_products"
+                  :key="product.product_id"
+                  style="border: 0.1px solid gainsboro"
+                  class="items-content"
+                >
+                  <ProductItem :item="product" />
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+      </section>
+      
     </main>
   </div>
 </template>
@@ -162,6 +187,11 @@ const products = ref(await appStore.getAllProducts(`/products/`));
 const discounted_products = products.value.query_results.filter(
   (item) => item.discount > 0
 );
+/**get discounted products to show on home page */
+const best_selling_products = products.value.query_results.filter(
+  (item) => item.best_seller
+);
+
 </script>
 
 <style lang="scss" scoped>
@@ -280,11 +310,11 @@ const discounted_products = products.value.query_results.filter(
     max-width: 1000px;
     max-width: var(--maxWidth);
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 2rem 0;
 
     .ts-content {
       padding: 1rem 0;
-
+      
       .ts-p {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
@@ -294,11 +324,10 @@ const discounted_products = products.value.query_results.filter(
         .items-content {
           // padding: 2rem 0rem;
           height: auto;
-          width: 95%;
           // box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-          height: 99%;
-          width: auto;
-          width: 96%;
+          height: 98%;
+          padding-bottom: 1rem;
+          width: 96.2%;
           text-align: center;
           position: relative;
 
@@ -511,8 +540,10 @@ const discounted_products = products.value.query_results.filter(
   }
 
   .tsection .ts-container {
+    padding: 2rem 0;
     .ts-content .ts-p {
       grid-template-columns: 1fr 1fr;
+      padding: 0.5rem 0;
 
       .items-content img {
         height: 17rem;
