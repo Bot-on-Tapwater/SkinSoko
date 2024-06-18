@@ -5,7 +5,7 @@
       <div class="towns-wrp">
         <div class="towns-content">
             <h2>{{ selectedTown }}</h2>
-          <p @click="showAvailableTowns()" class="town-ttl">Select town</p>
+          <p @click="showAvailableTowns()" class="town-ttl">Select town *</p>
           <div class="towns-div">
             <p
               class="town"

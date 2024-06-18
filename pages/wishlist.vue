@@ -17,8 +17,6 @@
                 </template>
             </div>
             
-            <ScrollToTop/>
-            
         </div>
 
 

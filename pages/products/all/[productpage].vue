@@ -200,7 +200,6 @@
           </div>
         </div>
       </template>
-      <ScrollToTop />
     </div>
   </div>
 </template>
@@ -237,7 +236,6 @@ if ("filter_brand" in query_params) {
   products_url += `?filter_sub_category=${sub_category}`;
 }
 
-console.log("url ", products_url);
 const products = ref(await appStore.getAllProducts(products_url));
 
 /**func to get page to show */
@@ -325,7 +323,7 @@ async function getProductsWithProductPage(page: number) {
       .cp-dets {
         height: 3rem;
         width: 3rem;
-        border-radius: 50%;
+        // border-radius: 50%;
         text-align: center;
         display: grid;
         place-items: center;
