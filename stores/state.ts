@@ -57,7 +57,6 @@ axiosInstance.interceptors.response.use(
 export const useStore = defineStore("user_state", {
   state: () => ({
     isAuth: false /**tells if current user is logged in */,
-    userID: false /**logged in user's ID */,
     errorMessageToShowOnToast: "" /**hold error msg to show to user on ui */,
     pageLoading: false /**determine when to show loading spinner */,
     totalItemsInCart: 0 /** show user total number of items in their cart */,
