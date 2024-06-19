@@ -9,7 +9,7 @@
                 <li><NuxtLink class="router-link-class" to="/account/orders">orders</NuxtLink></li>
                 <li><NuxtLink class="router-link-class" to="/account/reviews">Reviews</NuxtLink></li>
                 <!-- <li><a href="mailto:skinsoko@gmail.com">Customer support</a></li> -->
-                <li><NuxtLink>sign out</NuxtLink></li>
+                <li><NuxtLink @click="appStore.logoutUser">sign out</NuxtLink></li>
             </ul>
         </div>
         </div>
@@ -17,6 +17,10 @@
 </template>
 
 <script setup lang="ts">
+
+
+const appStore = useStore();
+
 
 </script>
 
@@ -50,8 +54,11 @@
           opacity: .9;
 
 
+          a{
+            cursor: pointer;
+          }
           .router-link-class{
-
+          
             &.router-link-exact-active{
               border-bottom: .1px solid black;
             }

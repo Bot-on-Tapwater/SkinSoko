@@ -73,7 +73,8 @@ const loginDetails = ref({
 }
 
 .login-page-ord{
-    margin: 10rem 0;
+    margin-top: 10rem;
+    // border: 2px solid;
 }
 
 .login-main-section{

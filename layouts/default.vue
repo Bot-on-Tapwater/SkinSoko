@@ -8,6 +8,7 @@
 
     <header class="header">
       <nav class="nav">
+
         <div class="logo-container">
           <div @click="showMenuLinks()" class="hamburger-button">
             <svg
@@ -48,13 +49,12 @@
               >
             </li>
             <li>
-              <a
+              <NuxtLink
                 @click="closeMobileNav()"
                 class="nav-router-links mobile-link-items"
-                href="/products/all/1"
+                to="/products/all/1"
               >
-                products</a
-              >
+                products</NuxtLink>
             </li>
             <!-- <li> <NuxtLink @click=" closeMobileNav()" class="nav-router-links mobile-link-items" to="/products/all/1"> products</NuxtLink> </li> -->
 
@@ -161,6 +161,7 @@
               </svg>
             </NuxtLink>
           </div>
+
 
           <!-- user signed in -->
           <template v-if="appStore.isAuth">
@@ -485,8 +486,8 @@ function showMenuLinks() {
     align-items: center;
     justify-content: space-between;
     padding: 0 1.7rem;
-
     margin-bottom: 4rem;
+
 
     .logo-container {
       display: flex;
@@ -634,10 +635,10 @@ function showMenuLinks() {
       padding: 1rem;
       position: relative;
       display: flex;
-
       .menu-svg-container {
         padding: 0 0.5rem;
       }
+
 
       .cart-icon {
         .cart {

@@ -94,6 +94,7 @@
               <div class="category-items-content">
                 <NuxtLink to="/products/all/1?filter_main_category=SKINCARE">
                   <img
+                  loading="lazy"
                     src="https://www.greenpeople.co.uk/cdn/shop/files/B-Range-Collection.jpg?height=454&v=1707211541&width=604"
                     alt="image of skin products"
                   />
@@ -105,6 +106,7 @@
               <div class="category-items-content">
                 <NuxtLink to="/products/all/1?filter_main_category=SKIN+TYPE">
                   <img
+                    loading="lazy"
                     src="https://www.greenpeople.co.uk/cdn/shop/files/sunprotect-l.jpg?height=454&v=1697122312&width=604"
                     alt="image of beauty products"
                   />
@@ -117,6 +119,7 @@
               <div class="category-items-content">
                 <NuxtLink to="/products/all/1?filter_main_category=HAIR+CARE">
                   <img
+                    loading="lazy"
                     src="https://sokoglam.com/cdn/shop/files/New-Product_-Neogen-A-Clear-Soothing-Essence-Pad_PDP_1_low_600x.jpg?v=1613711534"
                     alt="image of skin products"
                   />
@@ -128,6 +131,7 @@
               <div class="category-items-content">
                 <NuxtLink to="/products/all/1?filter_main_category=SKIN+CONCERNS">
                   <img
+                    loading="lazy"
                     src="https://www.greenpeople.co.uk/cdn/shop/files/makeup-l.jpg?height=454&v=1697122312&width=604"
                     alt="image of skin products"
                   />
@@ -139,6 +143,7 @@
               <div class="category-items-content">
                 <NuxtLink to="/products/all/1?filter_main_category=SCENTFREE">
                   <img
+                    loading="lazy"
                     src="https://www.greenpeople.co.uk/cdn/shop/files/H-Range-Collection.jpg?height=454&v=1707211600&width=604"
                     alt="image of skin products"
                   />
