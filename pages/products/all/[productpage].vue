@@ -1,7 +1,10 @@
 <!-- PAGE SHOWING ALL PRODUCTS AVAILABLE IN THE DB -->
 <template>
   <div class="products-page-ord">
-    <FilterProducts />
+    <FilterProducts /> <!--the 'sidebar' on the products page-->
+    <ItemAddedToCartPopup/>  <!-- popup to be shown when product added to cart -->
+
+
 
     <div class="products-container">
       <div @click="showSideBar()" class="open-sidebar">
@@ -34,6 +37,8 @@
       </div>
 
       <div class="item">
+        
+
         <template v-if="products">
           <div
             v-for="item in products.query_results"
@@ -290,6 +295,7 @@ async function getProductsWithProductPage(page: number) {
     }
 
     .item {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
       padding: 0.5rem;

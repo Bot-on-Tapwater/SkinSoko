@@ -25,8 +25,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     "/account/orders",
     "/account/shipping-address",
     "/account/reviews",
-    "/cart",
-    "/checkout",
+    // "/cart",
+    // "/checkout",
   ];
 
   /**user tries to access protected routes */
