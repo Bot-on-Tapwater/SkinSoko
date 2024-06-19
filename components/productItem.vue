@@ -19,7 +19,7 @@
 
                 <NuxtLink :to="'/products/'+item.product_id">
                     <div class="image-container">
-                        <img :src="item.image" :alt="item.name">
+                        <img loading="lazy" :src="item.image" :alt="item.name">
                     </div>
 
                     <div class="product-details-div">
