@@ -1,4 +1,3 @@
-
 The owner to provide favicon for website
 hide other fronted routes before showing them 
 
