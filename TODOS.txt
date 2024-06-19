@@ -2,13 +2,18 @@
 The owner to provide favicon for website
 hide other fronted routes before showing them 
 
-anonymous adding items to cart/wishlist
+when returning list of products, return the slug field too (to_dict() method)
+
+✅anonymous adding items to cart
 
 remove console.log statements
 remove cartSummary variable from our store(state.ts)
 if we get url for cartSummary, use that to get the totalItemsInCart value
-pagination and filtering products doesn't work together
+✅pagination and filtering products doesn't work together
 
+i need route to get the cartSummary
+
+also, delivery fee, i'm thinking we should have a route that sets the fee
 url ya all user reviews, user profile
 
 updateCartSummary after updating cart in cart.vue (updateCartItemsShown())
@@ -19,7 +24,6 @@ check the error when login failed
 
 
 problem on getting cart items. i need the summary too
-i need route to get the cartSummary. also, delivery fee, i'm thinking we should have a route that sets the fee
 on the cartSummary object, eg when they click on "Dar es Sal", I'll call that url, and you'll update the cartSummary. I'm avoiding doing calculations on the frontend. risky
 
 BACKEND
