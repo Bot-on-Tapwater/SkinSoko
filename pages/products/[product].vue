@@ -220,7 +220,7 @@
       <section class="product-reviews-wrp">
         <div class="review-ttl-wrp">
           <h1 class="review-ttl">Reviews</h1>
-          <p @click="toggleWriteReviewDiv()">Write a review</p>
+          <p @click="toggleWriteReviewDiv()">Leave a review</p>
         </div>
 
         <div
