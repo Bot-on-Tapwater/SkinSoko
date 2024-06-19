@@ -61,6 +61,7 @@ export const useStore = defineStore("user_state", {
     pageLoading: false /**determine when to show loading spinner */,
     totalItemsInCart: 0 /** show user total number of items in their cart */,
     showLogin: false,
+    showItemAddedToCartMessage: false, /**will help know when to show the "product added to cart message on the products page" */
     cartSummaryDetails: {
       totalItems: 20,
       itemsSubtotal: 30,
@@ -69,7 +70,7 @@ export const useStore = defineStore("user_state", {
       orderTotal: 70,
     },
     /**these states below will help avoid multiple api calls, we'll store their data here instead */
-    cart: [],
+    // cart: [],
     cart_loaded: false,
     subcategories: {} as Subcategories,
     brands: [] as BrandInterface[],
@@ -223,15 +224,6 @@ export const useStore = defineStore("user_state", {
     },
 
     async addItemToCart(productID: number, productQuantity = "1") {
-      //   await this.getUser();
-
-      if (!this.isAuth) {
-        /**if use rnot authenticated, can't add item to cart */
-        this.errorMessageToShowOnToast =
-          "Please login in order to add item to cart";
-        this.showToast();
-        return;
-      }
 
       const add_product_to_user_cart_url = `/users/cart/add/${productID}/`;
       const formData = new FormData();
@@ -243,6 +235,13 @@ export const useStore = defineStore("user_state", {
             "Content-Type": "multipart/form-data",
           },
         });
+
+        this.showItemAddedToCartMessage = true /**show the "product added to cart msg" for 2s*/
+        
+        setTimeout(() => { 
+          this.showItemAddedToCartMessage = false /**hide the "product added to cart msg" for 2s*/
+        }, 2000);
+
         await this.getCartTotalItems(); /**will update items in cart */
       } catch (error) {}
     },
