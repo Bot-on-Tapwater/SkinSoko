@@ -380,18 +380,19 @@ async function getProductsWithProductPage(page: number) {
   }
 }
 
-@media screen and (max-width: 789px) {
-  .products-container .item {
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  }
-}
+// @media screen and (max-width: 789px) {
+//   .products-container .item {
+//     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+//   }
+// }
 
 @media screen and (max-width: 630px) {
-  .products-container {
+  .products-page-ord .products-container {
     width: 100vw;
-
+    
     .item {
       border: none;
+      grid-template-columns: unset;
       grid-template-columns: 1fr 1fr;
       margin: unset;
       padding: unset;
