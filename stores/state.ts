@@ -59,7 +59,6 @@ export const useStore = defineStore("user_state", {
     isAuth: false /**tells if current user is logged in */,
     errorMessageToShowOnToast: "" /**hold error msg to show to user on ui */,
     pageLoading: false /**determine when to show loading spinner */,
-    totalItemsInCart: 0 /** show user total number of items in their cart */,
     showLogin: false,
     showItemAddedToCartMessage:
       false /**will help know when to show the "product added to cart message on the products page" */,
@@ -87,15 +86,18 @@ export const useStore = defineStore("user_state", {
       county: "",
       phone_number: "",
       additional_details: "",
-    }
+    },
   }),
 
   getters: {
-    cartSummaryDetailsOrderTotal: (state) => { /**total order of items in cart */
-      return state.cartSummaryDetails.itemsSubtotal + 
-             state.cartSummaryDetails.shippingFee + 
-             state.cartSummaryDetails.estimatedTax;
-    }
+    cartSummaryDetailsOrderTotal: (state) => {
+      /**total order of items in cart */
+      return (
+        state.cartSummaryDetails.itemsSubtotal +
+        state.cartSummaryDetails.shippingFee +
+        state.cartSummaryDetails.estimatedTax
+      );
+    },
   },
 
   actions: {
@@ -151,7 +153,7 @@ export const useStore = defineStore("user_state", {
           await this.getUser();
           this.showLogin =
             false; /**set to false so as to hide the login prompt on ui */
-            
+
           await this.getCartItems(); /**load cart items after login, in case they had any */
 
           window.history.back(); /**return to prev url */
@@ -269,7 +271,6 @@ export const useStore = defineStore("user_state", {
     },
     /**adding item to wishlist */
     async addItemToWishlist(productID: number) {
-
       if (!this.isAuth) {
         /**if use rnot authenticated, can't add item to wishlist */
         this.errorMessageToShowOnToast =
@@ -392,9 +393,9 @@ export const useStore = defineStore("user_state", {
           get_user_cart_items_url
         );
 
-
         if (user_cart) {
-          if (user_cart.cart_summary) { /**populate our cartSummary dict */
+          if (user_cart.cart_summary) {
+            /**populate our cartSummary dict */
             this.cartSummaryDetails.itemsSubtotal =
               user_cart.cart_summary["itemsSubtotal"];
             this.cartSummaryDetails.totalItems =
@@ -434,7 +435,8 @@ export const useStore = defineStore("user_state", {
     async saveShippingAddress() {
       const create_address_url = `/users/addresses/create/`;
 
-      if (!this.userShippingAddress.town) { /**town not selected */
+      if (!this.userShippingAddress.town) {
+        /**town not selected */
         this.errorMessageToShowOnToast = "Please select the town field";
         this.showToast();
         return;
@@ -446,8 +448,14 @@ export const useStore = defineStore("user_state", {
 
       const shippingFormData = new FormData();
       shippingFormData.append("town", this.userShippingAddress.town);
-      shippingFormData.append("street_address", this.userShippingAddress.street_address);
-      shippingFormData.append("phone_number", this.userShippingAddress.phone_number);
+      shippingFormData.append(
+        "street_address",
+        this.userShippingAddress.street_address
+      );
+      shippingFormData.append(
+        "phone_number",
+        this.userShippingAddress.phone_number
+      );
       shippingFormData.append("county", this.userShippingAddress.county);
       shippingFormData.append(
         "additional_details",
