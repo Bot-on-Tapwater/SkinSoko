@@ -47,13 +47,14 @@ async function getTowns() {
 
 /**func to get the town selected by user, and to close the 'towns dropdown' */
 function setSelectedTown(town){
-    selectedTown.value = town.name
 
-    /**set the delivery fee to be shown on UI */
-    // appStore.cartSummaryDetails.shippingFee = town.delivery_fee
+    /**populate the respective fields in our state file */
+    appStore.userShippingAddress.town = town.name
+    appStore.cartSummaryDetails.shippingFee = town.delivery_fee
+
 
     const TownTitle = document.querySelector(".town-ttl")
-    TownTitle ? TownTitle.textContent = selectedTown.value : alert("Can't find TownTitle element")
+    TownTitle ? TownTitle.textContent = town.name : alert("Can't find TownTitle element")
 
     // close the dropdown if  a town is clicked
     const townsDropdown = document.querySelector(".towns-div")
@@ -105,6 +106,8 @@ function showAvailableTowns() {
     }
     .town-ttl {
         border: 0.1px solid gainsboro;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
     .town {
         border-bottom: .1px solid gainsboro;
