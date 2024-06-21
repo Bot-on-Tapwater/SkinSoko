@@ -61,13 +61,14 @@ export const useStore = defineStore("user_state", {
     pageLoading: false /**determine when to show loading spinner */,
     totalItemsInCart: 0 /** show user total number of items in their cart */,
     showLogin: false,
-    showItemAddedToCartMessage: false, /**will help know when to show the "product added to cart message on the products page" */
+    showItemAddedToCartMessage:
+      false /**will help know when to show the "product added to cart message on the products page" */,
     cartSummaryDetails: {
-      totalItems: 20,
-      itemsSubtotal: 30,
-      shippingFee: 40,
-      estimatedTax: 60,
-      orderTotal: 70,
+      totalItems: 0,
+      itemsSubtotal: 0,
+      shippingFee: 0,
+      estimatedTax: 0,
+      // orderTotal: this.cartSummaryDetails.itemsSubtotal + this.cartSummaryDetails.shippingFee + this.cartSummaryDetails.estimatedTax,
     },
     /**these states below will help avoid multiple api calls, we'll store their data here instead */
     // cart: [],
@@ -78,7 +79,24 @@ export const useStore = defineStore("user_state", {
     categories_loaded: false,
     subcategories_loaded: false,
     brands_loaded: false /**will help call some apis only once */,
+
+    /**user shipping address */
+    userShippingAddress: {
+      town: "",
+      street_address: "",
+      county: "",
+      phone_number: "",
+      additional_details: "",
+    }
   }),
+
+  getters: {
+    cartSummaryDetailsOrderTotal: (state) => { /**total order of items in cart */
+      return state.cartSummaryDetails.itemsSubtotal + 
+             state.cartSummaryDetails.shippingFee + 
+             state.cartSummaryDetails.estimatedTax;
+    }
+  },
 
   actions: {
     /**function to hide the toast showing any errors on UI to user */
@@ -133,6 +151,9 @@ export const useStore = defineStore("user_state", {
           await this.getUser();
           this.showLogin =
             false; /**set to false so as to hide the login prompt on ui */
+            
+          await this.getCartItems(); /**load cart items after login, in case they had any */
+
           window.history.back(); /**return to prev url */
         }
       } catch (error) {}
@@ -224,7 +245,6 @@ export const useStore = defineStore("user_state", {
     },
 
     async addItemToCart(productID: number, productQuantity = "1") {
-
       const add_product_to_user_cart_url = `/users/cart/add/${productID}/`;
       const formData = new FormData();
       formData.append("quantity", productQuantity);
@@ -236,18 +256,19 @@ export const useStore = defineStore("user_state", {
           },
         });
 
-        this.showItemAddedToCartMessage = true /**show the "product added to cart msg" for 2s*/
-        
-        setTimeout(() => { 
-          this.showItemAddedToCartMessage = false /**hide the "product added to cart msg" for 2s*/
+        this.showItemAddedToCartMessage =
+          true; /**show the "product added to cart msg" for 2s*/
+
+        setTimeout(() => {
+          this.showItemAddedToCartMessage =
+            false; /**hide the "product added to cart msg" for 2s*/
         }, 2000);
 
-        await this.getCartTotalItems(); /**will update items in cart */
+        await this.getCartItems(); /**will help show the correct number of items in cart */
       } catch (error) {}
     },
     /**adding item to wishlist */
     async addItemToWishlist(productID: number) {
-      //   await this.getUser();
 
       if (!this.isAuth) {
         /**if use rnot authenticated, can't add item to wishlist */
@@ -282,7 +303,7 @@ export const useStore = defineStore("user_state", {
         const response = await axiosInstance(subcategories_url);
 
         if (response.data && response.status === 200) {
-          return response.data.query_results;
+          return response.data;
         }
       } catch (error) {}
       return [];
@@ -294,8 +315,8 @@ export const useStore = defineStore("user_state", {
       const categories_url = "/main-categories/";
       try {
         const { data } = await axiosInstance(categories_url);
-        if (data.query_results) {
-          this.categories = data.query_results;
+        if (data) {
+          this.categories = data;
           this.categories_loaded = true;
 
           // return data
@@ -305,7 +326,7 @@ export const useStore = defineStore("user_state", {
     /**func to get all wishlist products from db */
     async getAllWishlistProducts() {
       try {
-        const response = await axiosInstance(`users/wishlists/`);
+        const response = await axiosInstance(`/users/wishlists/`);
         if (response.data && response.status === 200) {
           return response.data;
         }
@@ -328,8 +349,8 @@ export const useStore = defineStore("user_state", {
       const brands_url = "/brands/";
       try {
         const { data } = await axiosInstance(brands_url);
-        if (data.query_results) {
-          this.brands = data.query_results;
+        if (data) {
+          this.brands = data;
           this.brands_loaded = true;
         }
       } catch (error) {}
@@ -367,14 +388,24 @@ export const useStore = defineStore("user_state", {
       const get_user_cart_items_url = `/users/cart/`;
       try {
         // const {data: cartItems} = await axiosInstance(get_user_cart_items_url)
-        const { data: cartItems } = await axiosInstance(
+        const { data: user_cart } = await axiosInstance(
           get_user_cart_items_url
         );
 
-        if (cartItems.query_results) {
-          // this.getCartSummary(cartItems)
+
+        if (user_cart) {
+          if (user_cart.cart_summary) { /**populate our cartSummary dict */
+            this.cartSummaryDetails.itemsSubtotal =
+              user_cart.cart_summary["itemsSubtotal"];
+            this.cartSummaryDetails.totalItems =
+              user_cart.cart_summary["totalItems"];
+            // this.cartSummaryDetails.orderTotal =
+            //   user_cart.cart_summary["orderTotal"];
+          }
+          // this.getCartSummary(user_cart)
           this.showLogin = false;
-          return cartItems;
+          this.cart_loaded = true; /**set to True to avoid redundtant calls */
+          return user_cart.cart_items;
         }
         return null;
       } catch (error) {}
@@ -400,23 +431,27 @@ export const useStore = defineStore("user_state", {
     },
 
     /** function to get user shipping address and save it in db */
-    async saveShippingAddress(shippingDetails: any) {
+    async saveShippingAddress() {
       const create_address_url = `/users/addresses/create/`;
 
-      /** if user has a shipping address already,
-       * autofill the form with those values
-       */
+      if (!this.userShippingAddress.town) { /**town not selected */
+        this.errorMessageToShowOnToast = "Please select the town field";
+        this.showToast();
+        return;
+      }
+
+      // /** if user has a shipping address already,
+      //  * autofill the form with those values
+      //  */
 
       const shippingFormData = new FormData();
-      shippingFormData.append("town", shippingDetails.town);
-      shippingFormData.append("street_address", shippingDetails.street_address);
-      shippingFormData.append("phone_number_1", shippingDetails.phone_number_1);
-      shippingFormData.append("phone_number_2", shippingDetails.phone_number_2);
-      shippingFormData.append("zipcode", shippingDetails.zipcode);
-      shippingFormData.append("county", shippingDetails.county);
+      shippingFormData.append("town", this.userShippingAddress.town);
+      shippingFormData.append("street_address", this.userShippingAddress.street_address);
+      shippingFormData.append("phone_number", this.userShippingAddress.phone_number);
+      shippingFormData.append("county", this.userShippingAddress.county);
       shippingFormData.append(
         "additional_details",
-        shippingDetails.additional_details
+        this.userShippingAddress.additional_details
       );
 
       try {
