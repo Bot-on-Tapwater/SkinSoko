@@ -39,7 +39,6 @@
                 <div
                   v-for="product in discounted_products"
                   :key="product.product_id"
-                  style="border: 0.1px solid gainsboro"
                   class="items-content"
                 >
                   <ProductItem :item="product" />
@@ -49,7 +48,6 @@
           </div>
         </div>
       </section>
-      
 
       <section class="latest-products-wp">
         <div class="lp-wrp">
@@ -90,17 +88,20 @@
               <h1 class="all-section-ttl">Shop By Category</h1>
             </div>
             <div class="categories-p">
-
               <div class="category-items-content">
                 <NuxtLink to="/products/all/1?filter_main_category=SKINCARE">
                   <img
-                  loading="lazy"
+                    loading="lazy"
                     src="https://www.greenpeople.co.uk/cdn/shop/files/B-Range-Collection.jpg?height=454&v=1707211541&width=604"
                     alt="image of skin products"
                   />
                 </NuxtLink>
                 <p class="category-ttl">SKIN CARE</p>
-                <p>From cleansers to moisturizers, find everything you need to build a skincare routine that leaves your complexion glowing and refreshed.</p>
+                <p>
+                  From cleansers to moisturizers, find everything you need to
+                  build a skincare routine that leaves your complexion glowing
+                  and refreshed.
+                </p>
               </div>
 
               <div class="category-items-content">
@@ -112,9 +113,12 @@
                   />
                 </NuxtLink>
                 <p class="category-ttl">Skin type</p>
-                <p>Discover products designed specifically for your skin type, ensuring you get the best care whether you're oily, dry, combination, or sensitive.</p>
+                <p>
+                  Discover products designed specifically for your skin type,
+                  ensuring you get the best care whether you're oily, dry,
+                  combination, or sensitive.
+                </p>
               </div>
-
 
               <div class="category-items-content">
                 <NuxtLink to="/products/all/1?filter_main_category=HAIR+CARE">
@@ -125,11 +129,17 @@
                   />
                 </NuxtLink>
                 <p class="category-ttl">hair care</p>
-                <p>Explore a range of hair care products that keep your hair healthy, shiny, and strong, no matter your hair type or concern.</p>
+                <p>
+                  Explore a range of hair care products that keep your hair
+                  healthy, shiny, and strong, no matter your hair type or
+                  concern.
+                </p>
               </div>
 
               <div class="category-items-content">
-                <NuxtLink to="/products/all/1?filter_main_category=SKIN+CONCERNS">
+                <NuxtLink
+                  to="/products/all/1?filter_main_category=SKIN+CONCERNS"
+                >
                   <img
                     loading="lazy"
                     src="https://www.greenpeople.co.uk/cdn/shop/files/makeup-l.jpg?height=454&v=1697122312&width=604"
@@ -137,7 +147,10 @@
                   />
                 </NuxtLink>
                 <p class="category-ttl">skin concern</p>
-                <p>Address your specific skin concerns with targeted treatments for acne, aging, hyperpigmentation, redness, and more.</p>
+                <p>
+                  Address your specific skin concerns with targeted treatments
+                  for acne, aging, hyperpigmentation, redness, and more.
+                </p>
               </div>
 
               <div class="category-items-content">
@@ -149,13 +162,16 @@
                   />
                 </NuxtLink>
                 <p class="category-ttl">SCENT-FREE</p>
-                <p>Perfect for sensitive skin or those who prefer no added scents, these fragrance-free products provide effective care without any irritation.</p>
+                <p>
+                  Perfect for sensitive skin or those who prefer no added
+                  scents, these fragrance-free products provide effective care
+                  without any irritation.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
 
       <section class="tsection">
         <div class="ts-container">
@@ -168,7 +184,6 @@
                 <div
                   v-for="product in best_selling_products"
                   :key="product.product_id"
-                  style="border: 0.1px solid gainsboro"
                   class="items-content"
                 >
                   <ProductItem :item="product" />
@@ -178,7 +193,6 @@
           </div>
         </div>
       </section>
-      
     </main>
   </div>
 </template>
@@ -196,7 +210,6 @@ const discounted_products = products.value.query_results.filter(
 const best_selling_products = products.value.query_results.filter(
   (item) => item.best_seller
 );
-
 </script>
 
 <style lang="scss" scoped>
@@ -319,16 +332,18 @@ const best_selling_products = products.value.query_results.filter(
 
     .ts-content {
       padding: 1rem 0;
-      
+
       .ts-p {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
         margin: 1rem;
         padding: 0.5rem;
         place-items: center;
         .items-content {
           // padding: 2rem 0rem;
+          max-width: 20rem;
           height: auto;
+          border: 0.1px solid gainsboro;
           // box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
           height: 98%;
           padding-bottom: 1rem;
@@ -434,25 +449,25 @@ const best_selling_products = products.value.query_results.filter(
   }
 }
 
-.categories-section{
+.categories-section {
   width: 100%;
   margin: 2rem auto;
-  .categories-container{
+  .categories-container {
     // height: 100%;
     max-width: var(--maxWidth);
     margin: 0 auto;
     padding: 3rem 1rem;
-    .categories-content{
-      .categories-p{
+    .categories-content {
+      .categories-p {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-evenly;
         margin: 1rem;
-        
+
         padding: 0.5rem;
 
-        .category-items-content{
+        .category-items-content {
           width: 30rem;
           height: auto;
           text-align: center;
@@ -463,13 +478,13 @@ const best_selling_products = products.value.query_results.filter(
             width: 100%;
             object-fit: cover;
           }
-          .category-ttl{
+          .category-ttl {
             text-transform: uppercase;
           }
-          p{
+          p {
             font-size: 1.1rem;
             line-height: 190%;
-            opacity: .9;
+            opacity: 0.9;
           }
         }
       }
@@ -478,15 +493,13 @@ const best_selling_products = products.value.query_results.filter(
 }
 
 @media screen and (max-width: 980px) {
-  .categories-section .categories-container .categories-content .categories-p{
+  .categories-section .categories-container .categories-content .categories-p {
     margin: unset;
 
-    .category-items-content{
+    .category-items-content {
       width: 25rem;
     }
-
   }
-
 }
 
 @media screen and (max-width: 900px) {
@@ -557,10 +570,8 @@ const best_selling_products = products.value.query_results.filter(
     }
   }
 
-  .categories-section .categories-container .categories-content .categories-p{
-
-    .category-items-content{
-
+  .categories-section .categories-container .categories-content .categories-p {
+    .category-items-content {
       width: 20rem;
       width: 95vw;
     }
