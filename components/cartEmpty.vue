@@ -1,6 +1,6 @@
 <!-- component to show when user cart is empty -->
 <template>
-    <div>
+    <div class="empty-wrp-container">
         <div class="empty-wrp">
             <p class="cart-empty-ttl">Nothing here :(</p>
             <div class="a-null-div">
@@ -19,7 +19,11 @@
 <style lang="scss" scoped>
 
 
-.empty-wrp{
+
+.empty-wrp-container{
+    height: 40vh;
+    display: grid;
+    place-items: center;
     text-align: center;
 }
 @media screen  and (max-width: 500px) {
@@ -28,7 +32,7 @@
 div{
     margin: 1rem 0;
     .cart-empty-ttl{
-        font-size: 1.5rem;
+        font-size: 2rem;
         font-weight: 400;
     }
     .a-null-div{
