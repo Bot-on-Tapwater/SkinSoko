@@ -1,23 +1,15 @@
 <!-- PAGE SHOWING A SPECIFIC PRODUCT -->
 <template>
   <div class="pr-outer-root-div">
+    <ItemAddedToCartPopup />
+    <!-- popup to be shown when product added to cart -->
+
     <template v-if="product">
       <section class="cart-section-wrapper">
         <div class="cart-section">
           <div class="cart-container">
             <div class="image-container">
               <img :alt="product.name" id="aic-image" :src="product.image" />
-
-              <!-- <div @click="arrowClicked" class="ov-container">
-                <h2>Product overview</h2>
-                <div class="overview-arrow"></div>
-              </div>
-
-              <div class="product-overview">
-                <ul class="overview-content">
-                  <p>{{ product.description }}</p>
-                </ul>
-              </div> -->
             </div>
 
             <div class="product-details-wrp-sticky">
@@ -286,7 +278,7 @@
 
         <div class="prw-container">
           <div class="prw-div">
-            <template v-if="product_reviews.query_results.length > 0">
+            <template v-if="product_reviews && product_reviews.length > 0">
               <!-- format of each review -->
               <div
                 v-for="review in product_reviews.query_results"
@@ -404,7 +396,6 @@ async function getProductDetails() {
 
   try {
     const { data } = await axiosInstance(product_url);
-    console.log("data ", data);
     if (data.name) {
       productName.value = data.name;
       return data;
@@ -556,7 +547,9 @@ Cheers.`;
   let encodedMessage = encodeURIComponent(message);
   let whatsappLink = "https://wa.me/+254795494587?text=" + encodedMessage;
 
-  const orderOnWhatsappBtn = document.getElementById("chat-on-whatsapp-btn") as HTMLAnchorElement;
+  const orderOnWhatsappBtn = document.getElementById(
+    "chat-on-whatsapp-btn"
+  ) as HTMLAnchorElement;
   if (orderOnWhatsappBtn) {
     orderOnWhatsappBtn.href = whatsappLink;
   } else {
@@ -570,7 +563,7 @@ async function getRelatedProducts(categoryName: string) {
     const { data: response } = await axiosInstance(
       `/categories/${categoryName}/`
     );
-    relatedProducts.value = response.query_results;
+    relatedProducts.value = response;
   } catch (error) {}
 }
 
@@ -588,7 +581,9 @@ function showMoreDetails() {
 
 /**function to be called when the image is hovered */
 function imageHovered() {
-  const container = document.querySelector(".image-container") as HTMLDivElement;
+  const container = document.querySelector(
+    ".image-container"
+  ) as HTMLDivElement;
   const image = document.getElementById("aic-image") as HTMLImageElement;
 
   if (container && image) {
@@ -671,10 +666,8 @@ function imageHovered() {
       margin-right: 2rem;
       .image-container {
         overflow: hidden;
-        // display: grid;
-        // place-items: center;
-
-        margin-right: 5rem;
+        height: 50rem;
+        margin-right: 3rem;
         img {
           width: 98%;
           object-fit: contain;
@@ -1107,7 +1100,7 @@ function imageHovered() {
 
       margin-right: unset;
       img {
-        object-fit: cover;
+        object-fit: contain;
         width: 100%;
       }
     }
