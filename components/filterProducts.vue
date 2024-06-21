@@ -127,6 +127,7 @@ opens menu */
           opacity: 0.8;
           margin: 0.6rem 0;
           padding: 0.4rem;
+          text-transform: uppercase;
 
           &:hover {
             border-radius: 0.2rem;
