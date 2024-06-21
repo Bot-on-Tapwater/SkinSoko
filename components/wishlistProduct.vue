@@ -224,7 +224,7 @@ async function removeProductFromWishlist(product_id: number) {
 
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
     .product-item .add-to-wishlist{
         opacity: 1;
         visibility: visible;
