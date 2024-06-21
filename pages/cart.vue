@@ -2,7 +2,7 @@
     <div class="cart-ord">
 
         <template v-if="cart_items">
-            <div v-if="cart_items.query_results.length > 0" class="cart-items-present">
+            <div v-if="cart_items.length > 0" class="cart-items-present">
                 
                 <div class="cart-header-ttl-wrp">
                     <h1 class="cart-header">Shopping Cart</h1>   
@@ -15,14 +15,13 @@
         
                             <div class="cart-items-wrp">
         
-                                <div v-for="product in cart_items.query_results" class="cart-item-div">
+                                <div v-for="product in cart_items" class="cart-item-div">
                                     <div class="item-dets">
-                                        <img :src="product.product.image" :alt="product.product.name">
+                                        <img :src="product.image" :alt="product.product_name">
 
                                         <div>
-                                            <p class="item-name">{{ product.product.name }}</p>
-                                            <!-- <p>Product ID: {{ product.product.product_id }}</p> -->
-                                            <p class="item-price">Ksh {{ appStore.formatNumber(product.product.price) }}</p>
+                                            <p class="item-name">{{ product.product_name }}</p>
+                                            <p class="item-price">Ksh {{ appStore.formatNumber(product.product_price) }}</p>
                                         </div>
         
                                     </div>
@@ -55,7 +54,7 @@
                                             <span class="update-cart-totals" @click="updateProductSubtotal(product)">Click here to update product sub total</span>
                                         </div>
                                         <div class="remove-item-div">
-                                            <span class="remove-cart-item" @click="removeCartItem(product.product.product_id)">Remove from cart</span>
+                                            <span class="remove-cart-item" @click="removeCartItem(product.product_id)">Remove from cart</span>
                                         </div>
                                     </div>
                                
@@ -86,7 +85,7 @@
                             appStore.formatNumber(appStore.cartSummaryDetails.totalItems)
                         "
                         :order-total="
-                            appStore.formatNumber(appStore.cartSummaryDetails.orderTotal)
+                            appStore.formatNumber(appStore.cartSummaryDetailsOrderTotal)
                         "
                         />
                 </div>
@@ -159,21 +158,10 @@ async function getCartSummary() {
 
 }
 
-// /**func to send user's updated cart item( eg when they add/subtract item) */
-// function sendUpdatedUserCartItem(product: any){
-//     console.log("prod ", product);
-//     console.log(`Updated quantity for product`);
-//     /**refresh items shown on the page */
-
-//     appStore.getCartTotalItems()
-// }
-
 /**func to refresh cart items shown on the page, eg after
  * user removes item from cart */
 async function updateCartItemsShown() {
     cart_items.value = await appStore.getCartItems()
-    appStore.getCartTotalItems() 
-    // getCartSummary()
 }
 
 /**remove cart item and update UI */
@@ -201,24 +189,23 @@ async function clearEntireCart() {
         /**refresh items shown on page */
         updateCartItemsShown()
 
-
     } catch (error) {
     } 
 }
 
 async function updateProductSubtotal(product: any) {
     const newCartDetails = {
-        product_id: product.product.product_id,
+        product_id: product.product_id,
         quantity: product.quantity
     }
 
     /**if user selects more items than available */
-    if (product.quantity > product.product.quantity_in_stock) {
-        appStore.errorMessageToShowOnToast = `You can only select a maximum of ${product.product.quantity_in_stock} items`
-        appStore.showToast()
-        return
-    }
-    const productID = product.product.product_id
+    // if (product.quantity > product.product.quantity_in_stock) {
+    //     appStore.errorMessageToShowOnToast = `You can only select a maximum of ${product.product.quantity_in_stock} items`
+    //     appStore.showToast()
+    //     return
+    // }
+    const productID = product.product_id
 
     const update_user_cart = `/users/cart/update/${productID}/`
     const formData = new FormData()
@@ -232,8 +219,7 @@ async function updateProductSubtotal(product: any) {
             }
         })
         
-        await appStore.getCartTotalItems() /**will update items in cart */
-        updateCartItemsShown()
+        updateCartItemsShown()  /**update products info shown on page */
     } catch (error) {
     } 
 }
@@ -259,7 +245,8 @@ function updateQuantity(product: any, operation: string) {
 
 
 .cart-ord{
-    margin: 10rem auto;
+    margin: 0 auto;
+    margin-top: 10rem;
     max-width: 1100px;
     padding: 1rem;
     position: relative;

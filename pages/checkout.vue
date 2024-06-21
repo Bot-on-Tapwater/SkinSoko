@@ -1,8 +1,7 @@
 <template>
   <div class="checkout-ord">
     <template v-if="cart_items">
-      
-      <div v-if="cart_items.query_results.length > 0">
+      <div v-if="cart_items.length > 0">
         <CheckoutModal v-if="orderPlacedSuccessfully" />
 
         <div class="checkout-ord-wrapper">
@@ -14,26 +13,26 @@
 
                 <form
                   @submit.prevent="
-                    appStore.saveShippingAddress(userShippingAddress)
+                    appStore.saveShippingAddress()
+                    // appStore.saveShippingAddress(userShippingAddress)
                   "
                   id="checkoutForm"
                 >
                   <div class="form-grid-wrp">
                     <div>
                       <FormInput
-                        v-model.trim="userShippingAddress.phone_number_1"
+                        v-model.trim="appStore.userShippingAddress.phone_number"
                         label-text="Phone Number *"
                         label-for="phonenum-field"
                         input-type="tel"
                         input-id="phonenum-field"
                       />
                     </div>
-
                   </div>
 
                   <div>
                     <FormInput
-                      v-model.trim="userShippingAddress.county"
+                      v-model.trim="appStore.userShippingAddress.county"
                       label-text="County *"
                       label-for="county-field"
                       input-type="text"
@@ -43,7 +42,7 @@
 
                   <div>
                     <FormInput
-                      v-model.trim="userShippingAddress.street_address"
+                      v-model.trim="appStore.userShippingAddress.street_address"
                       label-text="Street Address *"
                       label-for="street-address-field"
                       input-type="text"
@@ -53,7 +52,7 @@
 
                   <div class="form-grid-wrp">
                     <div>
-                      <CustomSelect/>
+                      <CustomSelect />
                       <!-- <FormInput
                         v-model.trim="userShippingAddress.town"
                         label-text="Town *"
@@ -62,7 +61,6 @@
                         input-id="town-city-field"
                       /> -->
                     </div>
-                   
                   </div>
 
                   <div class="addn-shipping-dets">
@@ -97,20 +95,7 @@
               </div>
             </div>
 
-
-            <!-- <CartSummary
-              :shipping-fee="cart_items.cart_summary.shippingFee"
-              :cart-items-subtotal="
-                appStore.formatNumber(cart_items.cart_summary.itemsSubtotal)
-              "
-              :estimated-tax="cart_items.cart_summary.estimatedTax"
-              :total-cart-items="
-                appStore.formatNumber(cart_items.cart_summary.totalItems)
-              "
-              :order-total="
-                appStore.formatNumber(cart_items.cart_summary.orderTotal)
-              "
-            /> -->
+            
 
             <CartSummary
               :shipping-fee="appStore.cartSummaryDetails.shippingFee"
@@ -122,10 +107,9 @@
                 appStore.formatNumber(appStore.cartSummaryDetails.totalItems)
               "
               :order-total="
-                appStore.formatNumber(appStore.cartSummaryDetails.orderTotal)
+                appStore.formatNumber(appStore.cartSummaryDetailsOrderTotal)
               "
             />
-
           </div>
         </div>
       </div>
@@ -146,7 +130,6 @@
 // import { CartProduct, CartItems } from '~~/interfaces';
 import { useStore, axiosInstance } from "@/stores/state";
 
-
 const appStore = useStore(); /**access our store */
 
 /**array to hold the cart items of a user. To be shown on ui */
@@ -158,41 +141,13 @@ cart_items.value = await appStore.getCartItems();
 /**will determine when to shown the 'order placed' popup */
 const orderPlacedSuccessfully = ref(false);
 
-/**object to hold details to be put in the cart summary of the cart page */
-// const cartSummaryDetails = ref({
-//   totalItems: 0,
-//   itemsSubtotal: 0,
-//   shippingFee: 0,
-//   estimatedTax: 0,
-//   orderTotal: 0,
-// });
-
-/**
- * 
- *     "cart_summary": {
-        "totalItems": 3,
-        "itemsSubtotal": 62000,
-        "shippingFee": 0,
-        "estimatedTax": 0,
-        "orderTotal": 62000
-    }
-
- */
-
-
-// if (cart_items.value) {
-//   /**if there are items in cart, update the cart summary */
-//   getCartSummary(cart_items.value);
-// }
 
 /**obect to hold user shipping address while being filled in the form */
 const userShippingAddress = ref({
   town: "",
   street_address: "",
-  zipcode: "",
   county: "",
-  phone_number_1: "",
-  phone_number_2: "",
+  phone_number: "",
   additional_details: "",
 });
 
@@ -204,44 +159,12 @@ const savedUserAddress = await appStore.getUserShippingAddress();
 
 /**if user has a shipping address, autofill it in the form */
 if (savedUserAddress) {
-  userShippingAddress.value.zipcode = savedUserAddress.zipcode;
-  userShippingAddress.value.county = savedUserAddress.county;
-  userShippingAddress.value.town = savedUserAddress.town;
-  userShippingAddress.value.street_address = savedUserAddress.street_address;
-  userShippingAddress.value.phone_number_1 = savedUserAddress.phone_number_1;
-  userShippingAddress.value.phone_number_2 = savedUserAddress.phone_number_2;
+  appStore.userShippingAddress.county = savedUserAddress.county;
+  // appStore.userShippingAddress.town = savedUserAddress.town;
+  appStore.userShippingAddress.street_address = savedUserAddress.street_address;
+  appStore.userShippingAddress.phone_number = savedUserAddress.phone_number;
 }
 
-/** getting details to show on the cart summary
- * is only called after the function to get cart items
- */
-// async function getCartSummary(cartItems: any) {
-//   /**object to hold details to be put in the cart summary */
-
-//   cartItems.query_results.forEach((product: any) => {
-//     appStore.cartSummaryDetails.totalItems += product.quantity;
-//     appStore.cartSummaryDetails.itemsSubtotal +=
-//       product.quantity * Number(product.product.price);
-//   });
-//   appStore.cartSummaryDetails.orderTotal +=
-//     appStore.cartSummaryDetails.estimatedTax +
-//     appStore.cartSummaryDetails.shippingFee +
-//     appStore.cartSummaryDetails.itemsSubtotal;
-// }
-
-// async function getCartSummary(cartItems: any) {
-//   /**object to hold details to be put in the cart summary */
-
-//   cartItems.query_results.forEach((product: any) => {
-//     cartSummaryDetails.value.totalItems += product.quantity;
-//     cartSummaryDetails.value.itemsSubtotal +=
-//       product.quantity * Number(product.product.price);
-//   });
-//   cartSummaryDetails.value.orderTotal +=
-//     cartSummaryDetails.value.estimatedTax +
-//     cartSummaryDetails.value.shippingFee +
-//     cartSummaryDetails.value.itemsSubtotal;
-// }
 
 /** place order function */
 async function placeOrder() {
@@ -260,11 +183,9 @@ async function placeOrder() {
     await axiosInstance.post(place_order_url);
 
     orderPlacedSuccessfully.value = true;
-    appStore.getCartTotalItems();
+    appStore.getCartItems(); /** in order to show correct number of products in cart */
   } catch (error) {
-    // appStore.errorMessageToShowOnToast = "Something went wrong on our end. Please try again"
-    // appStore.showToast()
-    // return
+    
   }
 }
 </script>
