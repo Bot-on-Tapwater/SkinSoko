@@ -135,7 +135,7 @@
         </div>
         <div class="cart-container">
           <div class="wishlist-container menu-svg-container">
-            <NuxtLink to="/wishlist">
+            <NuxtLink to="/account/wishlist">
               <svg
                 width="24px"
                 height="24px"
@@ -225,7 +225,7 @@
                       ></path>
                     </svg>
                     <span class="cart-items-total">{{
-                      appStore.totalItemsInCart
+                      appStore.cartSummaryDetails.totalItems
                     }}</span>
                   </div>
                 </NuxtLink>
@@ -425,6 +425,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import { onMounted } from "vue";
 
 const appStore = useStore(); /**accessing out store */
@@ -439,7 +440,6 @@ onMounted(async () => {
 
  
 });
-
 
 
 const brands = appStore.brands  /**brands from our store */
@@ -708,8 +708,6 @@ opens menu */
 }
 
 .footer {
-  // background-color: rgb(5, 4, 4);
-  background-color: var(--webPriColor);
   background-color: var(--bgColor);
   background-color: white;
   padding: 1rem;
