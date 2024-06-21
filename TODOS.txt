@@ -1,28 +1,53 @@
 The owner to provide favicon for website
 hide other fronted routes before showing them 
+style the error.vue page
 
-when returning list of products, return the slug field too (to_dict() method)
+✅when returning list of products, return the slug field too (to_dict() method)
 
 ✅anonymous adding items to cart
+
+when placing order, will you check the town selected by user and apply the respective delivery address to the total. 
+
+frontend, handle "orders" pagination on member profile
+when removeItemFromWishlist(), on frontend, check how to "refresh" items in page after user removes
+
+change format when returning wishlist products
+when returning items in wishlist, only return {image, name, slug, price,product_id}
+also don't paginate wishlist products
+
+pagination = 40 items
+
+remove from state.ts   totalItemsInCart: 0 /** show user total number of items in their cart */,
+
+when user adds more products than there are in stock, return a json error, not just the string
+All other errors too. Cause I'll be showing them to the user
+
+
+when returning products in cart, return image and quantity_in_stock (after this is done, add the code to check that in cart.vue (updateProductSubtotal()))
+set debug false on prod
+remove cart item not working
+does each product have a category. idk if they're working
+frontend, do you think we need "related products section" I'd left space for that
 
 remove console.log statements
 remove cartSummary variable from our store(state.ts)
 if we get url for cartSummary, use that to get the totalItemsInCart value
 ✅pagination and filtering products doesn't work together
 
+reviews routes, get, add, delete etc, use slug field, not productID
 i need route to get the cartSummary
 
 also, delivery fee, i'm thinking we should have a route that sets the fee
-url ya all user reviews, user profile
+✅url ya all user reviews, user profile
 
 updateCartSummary after updating cart in cart.vue (updateCartItemsShown())
-Remove pagination from url returning categories, sub_cats, brands, reviews
+✅Remove pagination from url returning categories, sub_cats, brands, reviews
 
-csrf_exempt wishlist routes
-check the error when login failed
+✅csrf_exempt wishlist routes
+✅check the error when login failed
 
 
-problem on getting cart items. i need the summary too
+✅problem on getting cart items. i need the summary too
 on the cartSummary object, eg when they click on "Dar es Sal", I'll call that url, and you'll update the cartSummary. I'm avoiding doing calculations on the frontend. risky
 
 BACKEND
