@@ -4,10 +4,11 @@ import { useStore } from "~/stores/state";
 export default defineNuxtPlugin(async (nuxtApp) => {
   const appStore = useStore(nuxtApp.$pinia);
 
-  await appStore.getUser(); /**get user status */
-
-  if (!appStore.cart_loaded) {
-    await appStore.getCartTotalItems();
+  await appStore.getUser(); /**get user status (logged in or not) */
+  
+  /**load some items before app is created */
+  if (!appStore.cart_loaded) { 
+    await appStore.getCartItems();
   }
 
   if (!appStore.brands_loaded) {
