@@ -6,6 +6,7 @@ style the error.vue page
 
 ✅anonymous adding items to cart
 
+add "confirm popup" when user places order
 when placing order, will you check the town selected by user and apply the respective delivery address to the total. 
 
 frontend, handle "orders" pagination on member profile
