@@ -61,7 +61,7 @@
                     Yuja Niacin Anti Blemish Starter Kit
                   </h1>
                   <p class="prod-price">KSh 3,000</p>
-                  <NuxtLink to="/products/17">
+                  <NuxtLink to="/products/yuja-niacin-anti-blemish-starter-kit">
                     <button>Buy Now</button>
                   </NuxtLink>
                 </div>
@@ -71,7 +71,7 @@
                 <div>
                   <h1 class="prod-name">Super Matcha Pore Care Starter Kit</h1>
                   <p class="prod-price">KSh 2,800</p>
-                  <NuxtLink to="/products/18">
+                  <NuxtLink to="/products/super-matcha-pore-care-starter-kit">
                     <button>Buy Now</button>
                   </NuxtLink>
                 </div>
@@ -338,27 +338,20 @@ const best_selling_products = products.value.query_results.filter(
         grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
         margin: 1rem;
         padding: 0.5rem;
+        grid-gap: .8rem;
         place-items: center;
         .items-content {
           // padding: 2rem 0rem;
           max-width: 20rem;
-          height: auto;
-          border: 0.1px solid gainsboro;
-          // box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-          height: 98%;
-          padding-bottom: 1rem;
-          width: 96.2%;
+          // height: auto;
+          // border: 0.1px solid gainsboro;
           text-align: center;
           position: relative;
 
           // margin-bottom: 3rem;
           cursor: pointer;
 
-          img {
-            height: 90%;
-            width: 100%;
-            object-fit: cover;
-          }
+         
           p {
             margin: 0.4rem 0;
             opacity: 0.9;
@@ -531,11 +524,6 @@ const best_selling_products = products.value.query_results.filter(
     .lp-grid {
       grid-template-columns: 1fr;
 
-      div {
-        img {
-          // width: 30rem;
-        }
-      }
     }
   }
 }
