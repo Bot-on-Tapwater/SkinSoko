@@ -76,7 +76,7 @@
           <p class="product-name">{{ item.name }}</p>
         </div>
         <div class="brand-container">
-          <p class="prod-brandname">{{ item.brand.name }}</p>
+          <p class="prod-brandname">{{ item.brand }}</p>
         </div>
         <div class="price-container">
           <p class="product-price">
@@ -100,6 +100,8 @@ const props = defineProps(["item"]);
 <style scoped lang="scss">
 .product-item {
   height: 100%;
+  border: 0.1px solid gainsboro;
+
   position: relative;
   text-align: center;
   width: 20rem;
@@ -151,7 +153,7 @@ const props = defineProps(["item"]);
   a {
     color: black;
     text-decoration: none;
-    display: grid;
+    // display: grid;
     // height: 40%;
     .image-container {
       height: 18rem;
@@ -162,7 +164,7 @@ const props = defineProps(["item"]);
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-fit: contain;
+        // object-fit: contain;
       }
     }
 
