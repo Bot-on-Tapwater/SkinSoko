@@ -2,19 +2,31 @@ The owner to provide favicon for website
 hide other fronted routes before showing them 
 style the error.vue page
 
+
+Add check. user shouldn't add the same item to their wishlist more than once
+If they do, return error "product already in wishlist"
+
+
+CHECK:
+ORDERS
+
+when removeItemFromWishlist(), on frontend, check how to "refresh" items in page after user removes
+
+
+
 ✅when returning list of products, return the slug field too (to_dict() method)
 
 ✅anonymous adding items to cart
 
+
 add "confirm popup" when user places order
 when placing order, will you check the town selected by user and apply the respective delivery address to the total. 
 
-frontend, handle "orders" pagination on member profile
-when removeItemFromWishlist(), on frontend, check how to "refresh" items in page after user removes
+✅don't add pagination when returning list of a user's orders
 
-change format when returning wishlist products
-when returning items in wishlist, only return {image, name, slug, price,product_id}
-also don't paginate wishlist products
+✅change format when returning wishlist products
+✅when returning items in wishlist, only return {image, name, slug, price,product_id}
+✅also don't paginate wishlist products
 
 pagination = 40 items
 
@@ -23,22 +35,24 @@ remove from state.ts   totalItemsInCart: 0 /** show user total number of items i
 when user adds more products than there are in stock, return a json error, not just the string
 All other errors too. Cause I'll be showing them to the user
 
+design page ya wishlist
 
 when returning products in cart, return image and quantity_in_stock (after this is done, add the code to check that in cart.vue (updateProductSubtotal()))
 set debug false on prod
-remove cart item not working
+✅remove cart item not working
 does each product have a category. idk if they're working
 frontend, do you think we need "related products section" I'd left space for that
 
 remove console.log statements
 remove cartSummary variable from our store(state.ts)
-if we get url for cartSummary, use that to get the totalItemsInCart value
+✅if we get url for cartSummary, use that to get the totalItemsInCart value
 ✅pagination and filtering products doesn't work together
 
-reviews routes, get, add, delete etc, use slug field, not productID
-i need route to get the cartSummary
 
-also, delivery fee, i'm thinking we should have a route that sets the fee
+reviews routes, get, add, delete etc, use slug field, not productID
+✅i need route to get the cartSummary
+
+✅also, delivery fee, i'm thinking we should have a route that sets the fee
 ✅url ya all user reviews, user profile
 
 updateCartSummary after updating cart in cart.vue (updateCartItemsShown())
@@ -49,14 +63,13 @@ updateCartSummary after updating cart in cart.vue (updateCartItemsShown())
 
 
 ✅problem on getting cart items. i need the summary too
-on the cartSummary object, eg when they click on "Dar es Sal", I'll call that url, and you'll update the cartSummary. I'm avoiding doing calculations on the frontend. risky
 
 BACKEND
 ✅Allow categories to be found using the name and not int IDs (eg laptops instead of 4)
-IMPORTANT: validation of admin actions. eg adding product (they shouldn't leave any field empty)
-return cart summary from backend. 
+✅IMPORTANT: validation of admin actions. eg adding product (they shouldn't leave any field empty)
+✅return cart summary from backend. 
 ✅can user write multiple reviews for the same product. NOP
-how do we handle user updating items in cart
+✅how do we handle user updating items in cart
 ✅add view for user to delete a review
 
 GET /categories/ should accept category name instead of id
