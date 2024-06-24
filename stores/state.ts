@@ -412,25 +412,6 @@ export const useStore = defineStore("user_state", {
       } catch (error) {}
     },
 
-    async getCartTotalItems() {
-      /**will get total num of items in cart. Value will be shown to user */
-      //   await this.getUser();
-      if (!this.isAuth) {
-        /**user not auth */
-        return 0;
-      }
-      const get_user_cart_items_url = `/users/cart/`;
-
-      try {
-        const { data: cart_items } = await axiosInstance(
-          get_user_cart_items_url
-        );
-
-        this.totalItemsInCart = cart_items.cart_summary.totalItems;
-        this.cart_loaded = true;
-      } catch (error) {}
-    },
-
     /** function to get user shipping address and save it in db */
     async saveShippingAddress() {
       const create_address_url = `/users/addresses/create/`;
