@@ -3,14 +3,11 @@
         <div class="products-container">
             <h1 class="wishlist-ttl">Your Wishlist</h1>
 
-            <h1>Wishlist bruv</h1>
-            {{ wishlist_products.query_results }}
             
-            <!-- <div class="item">
-                {{ wishlist_products }}
+            <div class="item">
 
                 <template v-if="wishlist_products">
-                    <div v-for="item in wishlist_products.query_results" :key="item"  class="items-content">
+                    <div v-for="item in wishlist_products" :key="item.product_id"  class="items-content">
                         <WishlistProduct :item="item"/>
 
                     </div>
@@ -19,7 +16,7 @@
                 <template v-else>
                     <CartEmpty/>
                 </template>
-            </div> -->
+            </div>
             
         </div>
 
@@ -35,22 +32,6 @@ useHead({
 
 const appStore = useStore()
 const wishlist_products = ref(await appStore.getAllWishlistProducts())
-
-
-/**func to remove item from wishlist */
-async function removeWishlistProduct(productID: number) {
-    const remove_wishlist_item_url = `/users/wishlists/remove/${productID}/`
-
-    try {
-        await axiosInstance.delete(remove_wishlist_item_url)
-
-        /**refresh items shown on the page */
-        wishlist_products.value = await appStore.getAllWishlistProducts()
-
-
-    } catch (error) {
-    }
-}
 
 
 </script>
@@ -80,7 +61,7 @@ async function removeWishlistProduct(productID: number) {
                 box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
                 padding: 1rem;
                 height: auto;
-                width: 90%;
+                width: auto;
                 height: 90%;
                 text-align: center;
                 margin: 1.5rem auto;
@@ -93,5 +74,22 @@ async function removeWishlistProduct(productID: number) {
         }
 }
 
+@media screen and (max-width: 630px) {
+  .products-page-ord .products-container {
+    width: 100vw;
+    
+    .item {
+      border: none;
+      grid-template-columns: unset;
+      grid-template-columns: 1fr 1fr;
+      margin: unset;
+      padding: unset;
+
+      .items-content {
+        margin: 2rem 0.5rem;
+      }
+    }
+  }
+}
 
 </style>
