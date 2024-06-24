@@ -58,7 +58,7 @@ userReviews.value = await getUserReviews();
 async function getUserReviews() {
   try {
     const { data } = await axiosInstance("/users/reviews/");
-    return data.query_results;
+    return data;
   } catch (error) {
     return null;
   }
