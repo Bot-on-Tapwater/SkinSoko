@@ -232,13 +232,13 @@ let query_params = parameter.query;
 
 if ("filter_brand" in query_params) {
   let brands = query_params["filter_brand"];
-  products_url += `?filter_brand=${brands}`;
+  products_url += `&filter_brand=${brands}`;
 } else if ("filter_main_category" in query_params) {
   let main_category = query_params["filter_main_category"];
-  products_url += `?filter_main_category=${main_category}`;
+  products_url += `&filter_main_category=${main_category}`;
 } else if ("filter_sub_category" in query_params) {
   let sub_category = query_params["filter_sub_category"];
-  products_url += `?filter_sub_category=${sub_category}`;
+  products_url += `&filter_sub_category=${sub_category}`;
 }
 
 const products = ref(await appStore.getAllProducts(products_url));
@@ -301,10 +301,11 @@ async function getProductsWithProductPage(page: number) {
       padding: 0.5rem;
       place-items: center;
       .items-content {
-        box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
-        height: auto;
+        // box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+        // height: auto;
         // max-width: 30rem;
         width: 90%;
+        
         width: auto;
         height: 90%;
         text-align: center;
@@ -379,12 +380,6 @@ async function getProductsWithProductPage(page: number) {
     }
   }
 }
-
-// @media screen and (max-width: 789px) {
-//   .products-container .item {
-//     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-//   }
-// }
 
 @media screen and (max-width: 630px) {
   .products-page-ord .products-container {
