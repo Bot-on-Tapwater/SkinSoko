@@ -37,7 +37,6 @@
         </div>
       </div>
     <template v-if="item.quantity_in_stock > 0">
-
       <div class="add-to-wishlist">
         <svg
           class="add-to-cart-icon"
@@ -68,19 +67,19 @@
       </div>
     </template>
 
-    <NuxtLink :to="'/products/' + item.product_id">
+    <NuxtLink :to="'/products/' + item.product_slug">
       <div class="image-container">
-        <img :src="item.image" :alt="item.name" />
+        <img :src="item.product_image" :alt="item.product_name" />
       </div>
 
       <div class="name-container">
-        <p class="product-name">{{ item.name }}</p>
+        <p class="product-name">{{ item.product_name }}</p>
       </div>
       <div class="brand-container">
         <p class="prod-brandname">aveena</p>
       </div>
       <div class="price-container">
-        <p class="product-price">KSh {{ appStore.formatNumber(item.price) }}</p>
+        <p class="product-price">KSh {{ appStore.formatNumber(item.product_price) }}</p>
       </div>
     </NuxtLink>
   </div>
@@ -106,6 +105,8 @@ async function removeProductFromWishlist(product_id: number) {
   }
 
 }
+
+
 </script>
 
 <style scoped lang="scss">
@@ -114,6 +115,7 @@ async function removeProductFromWishlist(product_id: number) {
 .product-item{
     height: 100%;
     // padding: 1rem 0;
+    width: 20rem;
     position: relative;
 
     .remove-wrp{
@@ -131,88 +133,88 @@ async function removeProductFromWishlist(product_id: number) {
         cursor: pointer;
 
         }
-    }
-    .add-to-wishlist{
-            position: absolute;
-            top: .5rem;
-            right: .5rem;
-            // margin: .5rem;
-            padding: 0 1rem;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            height: auto;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-
-            visibility: hidden;
-            transform: translateX(1.5rem);
-            transition: all .15s ease-in;
-            background-color: white;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 8px 0px;
-            width: 3.5rem;
-            border-radius: 5rem;
-            svg{
-                width: 1.7rem;
-                margin: .7rem 0;
-
-            }
-
-            .add-to-cart-icon{
-                transform: rotate(-360deg);
-            }
-    }
-    a{
-            color: black;
-            text-decoration: none;
-            display: grid;
-            // height: 40%;
-
-            .image-container{
-                height: 18rem;
-                width: 100%;
-                overflow: hidden;
-
-                img{
+        .add-to-wishlist{
+                position: absolute;
+                top: .5rem;
+                right: .5rem;
+                // margin: .5rem;
+                padding: 0 1rem;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                height: auto;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+    
+                visibility: hidden;
+                transform: translateX(1.5rem);
+                transition: all .15s ease-in;
+                background-color: white;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 8px 0px;
+                width: 3.5rem;
+                border-radius: 5rem;
+                svg{
+                    width: 1.7rem;
+                    margin: .7rem 0;
+    
+                }
+    
+                .add-to-cart-icon{
+                    transform: rotate(-360deg);
+                }
+        }
+        a{
+                color: black;
+                text-decoration: none;
+                display: grid;
+                // height: 40%;
+    
+                .image-container{
+                    height: 18rem;
                     width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    transition: all .3s ease;
+                    overflow: hidden;
+    
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        transition: all .3s ease;
+                    }
                 }
-            }
-
-            .name-container{
-                margin: 1rem 0;
-                .product-name{
-                    color: var(--webPriColor);
-                    font-size: 1.3rem;
-                    font-weight: 400;
-                    text-transform: capitalize;
+    
+                .name-container{
+                    margin: 1rem 0;
+                    .product-name{
+                        color: var(--webPriColor);
+                        font-size: 1.3rem;
+                        font-weight: 400;
+                        text-transform: capitalize;
+                    }
                 }
-            }
-
-            .brand-container{
-                padding: 0 0 1.2rem 0;
-
-                .prod-brandname{
-                    text-transform: uppercase;
-                    opacity: .6;
-                    font-size: 1.3rem;
+    
+                .brand-container{
+                    padding: 0 0 1.2rem 0;
+    
+                    .prod-brandname{
+                        text-transform: uppercase;
+                        opacity: .6;
+                        font-size: 1.3rem;
+                    }
                 }
-            }
-
-
-            .price-container{
-                .product-price{
-                    width: 100%;
-                    // padding: 0 0 1.2rem 0;
-                    font-size: 1.2rem;
-                    opacity: .9;
-                    font-weight: 400;
-
+    
+    
+                .price-container{
+                    .product-price{
+                        width: 100%;
+                        // padding: 0 0 1.2rem 0;
+                        font-size: 1.2rem;
+                        opacity: .9;
+                        font-weight: 400;
+    
+                    }
                 }
-            }
+        }
     }
 
 
@@ -225,11 +227,16 @@ async function removeProductFromWishlist(product_id: number) {
 }
 
 @media screen and (max-width: 600px) {
-    .product-item .add-to-wishlist{
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(0rem);
-}
+    .product-item  {
+      width: unset;
+      width: 100%;
+      .add-to-wishlist{
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(0rem);
+  }
+    }
 
 }
+
 </style>
