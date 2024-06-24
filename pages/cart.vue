@@ -17,7 +17,7 @@
         
                                 <div v-for="product in cart_items" class="cart-item-div">
                                     <div class="item-dets">
-                                        <img :src="product.image" :alt="product.product_name">
+                                        <img :src="product.product_image" :alt="product.product_name">
 
                                         <div>
                                             <p class="item-name">{{ product.product_name }}</p>

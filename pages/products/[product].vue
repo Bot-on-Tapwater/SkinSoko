@@ -281,7 +281,7 @@
             <template v-if="product_reviews && product_reviews.length > 0">
               <!-- format of each review -->
               <div
-                v-for="review in product_reviews.query_results"
+                v-for="review in product_reviews"
                 class="product-review-container"
               >
                 <div class="top-d-div">
@@ -943,6 +943,7 @@ function imageHovered() {
             select {
               padding: 1rem;
               width: 20rem;
+              width: 100%;
               background-color: white;
               color: black;
             }
@@ -954,6 +955,7 @@ function imageHovered() {
               outline: 0;
               position: absolute;
               z-index: 0;
+
             }
           }
 
@@ -966,6 +968,9 @@ function imageHovered() {
             color: black;
             font-family: inherit;
 
+            &::placeholder{
+              font-size: 1.3rem;
+            }
             &:focus {
               outline: none;
             }

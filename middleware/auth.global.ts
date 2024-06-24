@@ -11,13 +11,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
   if (process.server) return;
 
-  // await appStore.getUser()
 
-  /**show the correct number of cart items.
-   * Check the func on every route */
-//   if (appStore.isAuth) {
-//     await appStore.getCartTotalItems();
-//   }
 
   // /**user needs to be logged in to access these routes   */
   const protectedRoutes = [
