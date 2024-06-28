@@ -10,15 +10,17 @@
           <div class="cow-dets">
             <form
               @submit.prevent="
-                appStore.saveShippingAddress(userShippingAddress)
+                appStore.saveShippingAddress()
               "
               class="pageForm"
               id="shippingAddForm"
             >
+
+            <div class="pageFormGridWrp">
               <div>
-                <label for="phonenum-field">Phone Number</label>
+                <label for="phonenum-field">Phone Number *</label>
                 <input
-                  v-model.trim="userShippingAddress.phone_number_1"
+                  v-model.trim="appStore.userShippingAddress.phone_number"
                   maxlength="10"
                   id="phonenum-field"
                   type="text"
@@ -30,31 +32,19 @@
               </div>
 
               <div>
-                <label for="phone2-field">Phone Number 2*</label>
-                <input
-                  v-model.trim="userShippingAddress.phone_number_2"
-                  maxlength="10"
-                  id="phone2-field"
-                  type="text"
-                  pattern="[0-9]*"
-                  title="ENTER NUMBERS ONLY!"
-                  inputmode="numeric"
-                  required
-                />
-              </div>
-              <div>
                 <FormInput
-                  v-model.trim="userShippingAddress.zipcode"
-                  label-text="ZIP Code *"
-                  label-for="zipcode"
+                  v-model.trim="appStore.userShippingAddress.county"
+                  label-text="County *"
+                  label-for="county-field"
                   input-type="text"
-                  input-id="zipcode"
+                  input-id="county-field"
                 />
               </div>
+            </div>
 
-              <div>
+            <div>
                 <FormInput
-                  v-model.trim="userShippingAddress.street_address"
+                  v-model.trim="appStore.userShippingAddress.street_address"
                   label-text="Address *"
                   label-for="street-address-field"
                   input-type="text"
@@ -62,24 +52,7 @@
                 />
               </div>
 
-              <div>
-                <FormInput
-                  v-model.trim="userShippingAddress.town"
-                  label-text="Town *"
-                  label-for="town-city-field"
-                  input-type="text"
-                  input-id="town-city-field"
-                />
-              </div>
-              <div>
-                <FormInput
-                  v-model.trim="userShippingAddress.county"
-                  label-text="County *"
-                  label-for="county-field"
-                  input-type="text"
-                  input-id="county-field"
-                />
-              </div>
+
 
               <PriButton
                 button-id="shipping-address-form-btn"
@@ -126,14 +99,12 @@ if (savedUserAddress) {
 <style lang="scss" scoped>
 .ord-wrapper {
   padding: 1rem 1.6rem;
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
-  background-color: white;
-  border-radius: 0.8rem;
   .cow-header {
     padding: 0 1rem;
     font-weight: 400;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     margin: 2rem 0;
   }
   .cow-container {
@@ -142,12 +113,12 @@ if (savedUserAddress) {
       .cow-dets {
         .pageForm {
           font-size: 1.4rem;
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          div {
-            // margin: 2rem 0;
-            margin: 0.2rem;
-            margin-right: 0.8rem;
+
+          .pageFormGridWrp{
+            display: grid;
+            grid-gap: .5rem;
+            grid-template-columns: 1fr 1fr;
+            
           }
         }
       }
