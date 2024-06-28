@@ -20,7 +20,7 @@
                   <td>{{ review.rating }}</td>
                   <td class="trim-item-content">{{ review.comment }}</td>
                   <td class="trim-item-content product-name">
-                    <NuxtLink :to="'/products/' + review.product.product_id">{{
+                    <NuxtLink :to="'/products/' + review.product.slug">{{
                       review.product.name
                     }}</NuxtLink>
                   </td>
