@@ -1,12 +1,15 @@
 <template>
     <div class="cart-ord">
 
+        
+
         <template v-if="cart_items">
             <div v-if="cart_items.length > 0" class="cart-items-present">
+                <CheckoutLinks/>
                 
                 <div class="cart-header-ttl-wrp">
                     <h1 class="cart-header">Shopping Cart</h1>   
-                    <p class="empty-cart" @click="clearEntireCart">Empty Cart</p>
+                    <p class="empty-cart" @click="clearEntireCart">Clear entire cart</p>
                 </div>
         
                 <div class="cart-it-wrapper">
@@ -21,7 +24,7 @@
 
                                         <div>
                                             <p class="item-name">{{ product.product_name }}</p>
-                                            <p class="item-price">Ksh {{ appStore.formatNumber(product.product_price) }}</p>
+                                            <p class="item-price">KSh {{ appStore.formatNumber(product.product_price) }}</p>
                                         </div>
         
                                     </div>
@@ -66,15 +69,6 @@
         
                     <!-- <div> -->
 
-                        <!-- <CartSummary
-    
-                        :shipping-fee=cartSummaryDetails.shippingFee
-                        :cart-items-subtotal=appStore.formatNumber(cartSummaryDetails.itemsSubtotal)
-                        :estimated-tax=cartSummaryDetails.estimatedTax
-                        :total-cart-items=appStore.formatNumber(cartSummaryDetails.totalItems)
-                        :order-total=appStore.formatNumber(cartSummaryDetails.orderTotal)
-    
-                        /> -->
                         <CartSummary
                         :shipping-fee="appStore.cartSummaryDetails.shippingFee"
                         :cart-items-subtotal="
@@ -252,9 +246,11 @@ function updateQuantity(product: any, operation: string) {
     position: relative;
 
     .cart-header-ttl-wrp{
+
         border-bottom: 1px solid gainsboro;
         display: flex;
         padding: 1rem;
+        padding-top: 3rem;
         align-items: center;
         justify-content: space-between;
         .cart-header{

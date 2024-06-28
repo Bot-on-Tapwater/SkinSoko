@@ -34,7 +34,7 @@ const selectedTown = ref(null) /** var to hold town selected by user, initially 
 
 const availableTowns = ref(await getTowns());
 
-/**func to get the list of towns from the backend */
+/**func to get the list of towns that we can deliver orders to */
 async function getTowns() {
   try {
     const response = await axiosInstance(`/towns/`);

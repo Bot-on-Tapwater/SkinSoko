@@ -1,27 +1,12 @@
 <template>
   <div class="checkout-ord">
-    <template v-if="cart_items">
-      <div v-if="cart_items.length > 0">
+    <template v-if="appStore.cartSummaryDetails.totalItems > 0">
+      <div>
         <CheckoutModal v-if="orderPlacedSuccessfully" />
 
         <div class="checkout-ord-wrapper">
-          <div class="cow-link-dets">
-            <div class="link-wrp">
-              <div class="link-container">
-                <NuxtLink to="/cart">Cart</NuxtLink>
-                <svg width="10px" height="10px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="0.01024"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="#000000"></path></g></svg>
-              </div>
-              <div class="link-container">
-                <NuxtLink to="/checkout">Shipping Address</NuxtLink>
-                <svg width="10px" height="10px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="0.01024"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="#000000"></path></g></svg>
-              </div>
-              <div class="link-container">
-                <NuxtLink to="/">Payment</NuxtLink>
-                <!-- <svg width="10px" height="10px" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="0.01024"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M256 120.768L306.432 64 768 512l-461.568 448L256 903.232 659.072 512z" fill="#000000"></path></g></svg> -->
-              </div>
-            </div>
+          <CheckoutLinks />
 
-          </div>
           <h1 class="cow-header">Checkout</h1>
           <div class="cow-container">
             <div class="cow-div">
@@ -45,16 +30,15 @@
                         input-id="phonenum-field"
                       />
                     </div>
-                  </div>
-
-                  <div>
-                    <FormInput
-                      v-model.trim="appStore.userShippingAddress.county"
-                      label-text="County *"
-                      label-for="county-field"
-                      input-type="text"
-                      input-id="county-field"
-                    />
+                    <div>
+                      <FormInput
+                        v-model.trim="appStore.userShippingAddress.county"
+                        label-text="County *"
+                        label-for="county-field"
+                        input-type="text"
+                        input-id="county-field"
+                      />
+                    </div>
                   </div>
 
                   <div>
@@ -67,17 +51,22 @@
                     />
                   </div>
 
-                  <div class="form-grid-wrp">
-                    <div>
-                      <CustomSelect />
-                      <!-- <FormInput
-                        v-model.trim="userShippingAddress.town"
-                        label-text="Town *"
-                        label-for="town-city-field"
-                        input-type="text"
-                        input-id="town-city-field"
-                      /> -->
-                    </div>
+                  <div class="select-town">
+                    <label for="user-town">Town</label>
+                    <select
+                      required
+                      v-model="selectedTown"
+                      id="user-town"
+                      name="user-town"
+                    >
+                      <option
+                        v-for="town in availableTowns"
+                        :key="town.town_id"
+                        :value="town.name"
+                      >
+                        {{ town.name }}
+                      </option>
+                    </select>
                   </div>
 
                   <div class="addn-shipping-dets">
@@ -101,8 +90,8 @@
               </div>
 
               <div class="payment-div">
-                <h1 class="min-ttl">2. Payment Option</h1>
-                <p>Cash on Delivery</p>
+                <h1 class="min-ttl">2. Payment Options</h1>
+                <!-- <p>Cash on Delivery</p> -->
 
                 <PriButton
                   @click="placeOrder"
@@ -111,8 +100,6 @@
                 />
               </div>
             </div>
-
-            
 
             <CartSummary
               :shipping-fee="appStore.cartSummaryDetails.shippingFee"
@@ -131,10 +118,6 @@
         </div>
       </div>
 
-      <div v-else>
-        <!--cart is empty -->
-        <CartEmpty />
-      </div>
     </template>
 
     <template v-else>
@@ -144,20 +127,31 @@
 </template>
 
 <script setup lang="ts">
+
 // import { CartProduct, CartItems } from '~~/interfaces';
 import { useStore, axiosInstance } from "@/stores/state";
 
 const appStore = useStore(); /**access our store */
 
-/**array to hold the cart items of a user. To be shown on ui */
-// let cart_items = ref<CartItems>({ current_page: 0, total_pages: 0, query_results: [] });
-let cart_items: any = ref();
+/** variable to hold the list of towns that we can deliver orders to */
+const availableTowns = await appStore.getTowns();
 
-cart_items.value = await appStore.getCartItems();
+const selectedTown = ref(""); /**holds the town selected by user */
+
+watch(selectedTown, async (newVal) => {
+  const selectedTownDetails = availableTowns.find(
+    (town: any) => town.name === newVal
+  );
+  if (selectedTownDetails) {
+    /**populate the respective fields in our state file */
+    appStore.userShippingAddress.town = selectedTownDetails.name;
+    appStore.cartSummaryDetails.shippingFee = selectedTownDetails.delivery_fee;
+  } 
+});
+
 
 /**will determine when to shown the 'order placed' popup */
 const orderPlacedSuccessfully = ref(false);
-
 
 /**obect to hold user shipping address while being filled in the form */
 const userShippingAddress = ref({
@@ -168,10 +162,6 @@ const userShippingAddress = ref({
   additional_details: "",
 });
 
-/**see if user already has a shipping address saved in db
- * if so, autofill the form with the values
- */
-
 const savedUserAddress = await appStore.getUserShippingAddress();
 
 /**if user has a shipping address, autofill it in the form */
@@ -181,7 +171,6 @@ if (savedUserAddress) {
   appStore.userShippingAddress.street_address = savedUserAddress.street_address;
   appStore.userShippingAddress.phone_number = savedUserAddress.phone_number;
 }
-
 
 /** place order function */
 async function placeOrder() {
@@ -196,14 +185,15 @@ async function placeOrder() {
     return;
   }
 
+  alert("please make your payment first");
+  return;
+
   try {
     await axiosInstance.post(place_order_url);
 
     orderPlacedSuccessfully.value = true;
     appStore.getCartItems(); /** in order to show correct number of products in cart */
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }
 </script>
 
@@ -225,23 +215,6 @@ async function placeOrder() {
   padding: 1rem 1.6rem;
   max-width: 1000px;
   margin: 0 auto;
-
-  .cow-link-dets{
-    padding: 0 .6rem;
-    .link-wrp{
-      display: flex;
-      .link-container{
-        margin: 0 .5rem;
-        display: flex;
-        align-items: center;
-        a{
-          color: var(--webPriColor);
-          padding-right: .3rem;
-          font-size: 1.1rem;
-        }
-      }
-    }
-  }
 
   .cow-header {
     padding: 0 1rem;
@@ -278,12 +251,34 @@ async function placeOrder() {
             display: grid;
             grid-template-columns: 1fr 1fr;
           }
+
+          .select-town {
+            // border: 2px solid;
+            margin-bottom: 1.5rem;
+
+
+            select {
+              width: 100%;
+              &:focus {
+                border: 0.1px solid black;
+                outline: none;
+              }
+
+              option {
+                color: black;
+                background-color: white;
+                padding: 1rem 0;
+                font-size: 1.3rem;
+              }
+            }
+          }
         }
       }
 
       .payment-div {
         font-size: 1.4rem;
         padding: 2rem 0;
+        margin-top: 2rem;
       }
     }
   }

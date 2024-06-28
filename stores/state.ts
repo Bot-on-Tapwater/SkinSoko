@@ -423,10 +423,6 @@ export const useStore = defineStore("user_state", {
         return;
       }
 
-      // /** if user has a shipping address already,
-      //  * autofill the form with those values
-      //  */
-
       const shippingFormData = new FormData();
       shippingFormData.append("town", this.userShippingAddress.town);
       shippingFormData.append(
@@ -478,6 +474,15 @@ export const useStore = defineStore("user_state", {
       } catch (error) {
         return null;
       }
+    },
+    /**func to get the list of towns that we can deliver orders to */
+    async getTowns() {
+      try {
+        const response = await axiosInstance(`/towns/`);
+        if (response.data && response.status === 200) {
+          return response.data;
+        }
+      } catch (error) {}
     },
 
     /**function to format produdct prices (add commas to price eg 3,000) */

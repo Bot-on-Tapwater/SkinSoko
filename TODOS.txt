@@ -12,6 +12,18 @@ ORDERS
 
 when removeItemFromWishlist(), on frontend, check how to "refresh" items in page after user removes
 
+when returning list of all reviews created by user, only return these fields (product name, slug, rating, comment, date created, review_id)
+
+does user have to login after signing up. or does the backend auto logs them in
+
+when returning list of user's orders, return "mode of payment", "status (active, completed, etc). Do we need the "status" field, if we do, it'll mean after user order is delivered, admin would have to manually set it in the dashboard to "completed"?
+
+Can we not use numbers as orderIDs, or it's okay? We can use like a UUID, user doesn't have to see that they're the first or second people to ever order :'(
+
+
+password Reset
+do we need to verify email (idk)
+
 
 
 ✅when returning list of products, return the slug field too (to_dict() method)

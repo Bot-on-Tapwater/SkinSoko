@@ -4,14 +4,14 @@
 
     <div class="profile-ord">
       <div class="pord-container">
-        <template v-if="userOrders && userOrders.query_results">
+        <template v-if="userOrders">
           <div class="orders-summary-wrp">
             <div class="osw-ord">
               <div class="summarydiv">
                 <div class="summ-et">
                   <div class="summary-ttl">Total Orders</div>
                   <div class="summary-p">
-                    {{ userOrders.query_results.length }}
+                    {{ userOrders.length }}
                   </div>
                 </div>
               </div>
@@ -20,7 +20,7 @@
                 <div class="summ-et">
                   <div class="summary-ttl">Active Orders</div>
                   <div class="summary-p">
-                    {{ userOrders.query_results.length }}
+                    {{ userOrders.length }}
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@
           </div>
 
           <div class="orders-wrp">
-            <template v-if="userOrders.query_results.length > 0">
+            <template v-if="userOrders.length > 0">
               <div class="orderstables">
                 <table>
                   <tr>
@@ -53,7 +53,7 @@
                     <th>Created At</th>
                   </tr>
 
-                  <tr v-for="order in userOrders.query_results">
+                  <tr v-for="order in userOrders">
                     <td>{{ order.order_id }}</td>
                     <td>Cash On Delivery</td>
                     <td>Ksh {{ appStore.formatNumber(order.total_amount) }}</td>
@@ -84,4 +84,10 @@ const userOrders = ref(await appStore.getUserOrders());
 
 <style lang="scss" scoped>
 // styles in dashboard.scss
+
+.item-absent{
+  font-size: 1.3rem;
+  margin: 3rem 0;
+  text-align: center;
+}
 </style>
