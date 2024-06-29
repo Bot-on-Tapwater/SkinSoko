@@ -159,7 +159,7 @@
                 <!-- if product out of stock -->
                 <template v-else>
                   <div class="out-of-stock-el">
-                    <p class="out-of-stock">RESTOCKING</p>
+                    <p class="out-of-stock">out of stock</p>
                   </div>
                 </template>
               </div>
@@ -318,7 +318,7 @@
                   <p>{{ review.comment }}</p>
                 </div>
                 <div class="reviewer">
-                  <p>Written by {{ review.user }}</p>
+                  <!-- <p>Written by {{ review.user }}</p> -->
                 </div>
               </div>
             </template>
@@ -1030,7 +1030,7 @@ function imageHovered() {
 
         .review-txt {
           p {
-            font-size: 1.5rem;
+            //font-size: 1.5rem;
             font-weight: 400;
             margin: 1rem 0;
             line-height: 143%;
