@@ -1,5 +1,6 @@
 <template>
   <section class="outer-section-wrp">
+    
     <ProfileNavbar />
 
     <div class="ord-wrapper">
@@ -52,8 +53,6 @@
                 />
               </div>
 
-
-
               <PriButton
                 button-id="shipping-address-form-btn"
                 button-text="save changes"
@@ -67,18 +66,8 @@
 </template>
 
 <script setup lang="ts">
-const appStore = useStore();
 
-/**obect to hold user shipping address while being filled in the form */
-const userShippingAddress = ref({
-  town: "",
-  street_address: "",
-  zipcode: "",
-  county: "",
-  phone_number_1: "",
-  phone_number_2: "",
-  additional_details: "",
-});
+const appStore = useStore();
 
 /**see if user already has a shipping address saved in db
  * if so, autofill the form with the values
@@ -87,13 +76,11 @@ const savedUserAddress = await appStore.getUserShippingAddress();
 
 /**if user has a shipping address, autofill it in the form */
 if (savedUserAddress) {
-  userShippingAddress.value.zipcode = savedUserAddress.zipcode;
-  userShippingAddress.value.county = savedUserAddress.county;
-  userShippingAddress.value.town = savedUserAddress.town;
-  userShippingAddress.value.street_address = savedUserAddress.street_address;
-  userShippingAddress.value.phone_number_1 = savedUserAddress.phone_number_1;
-  userShippingAddress.value.phone_number_2 = savedUserAddress.phone_number_2;
+  appStore.userShippingAddress.county = savedUserAddress.county;
+  appStore.userShippingAddress.street_address = savedUserAddress.street_address;
+  appStore.userShippingAddress.phone_number = savedUserAddress.phone_number;
 }
+
 </script>
 
 <style lang="scss" scoped>
