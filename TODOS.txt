@@ -1,4 +1,8 @@
-The owner to provide favicon for website
+The owner to:
+provide favicon for website
+tell if they want the product image to be zoomable
+
+
 hide other fronted routes before showing them 
 style the error.vue page
 
@@ -6,12 +10,14 @@ style the error.vue page
 Add check. user shouldn't add the same item to their wishlist more than once
 If they do, return error "product already in wishlist"
 
+add links to social media, also on chatIcon
 
 CHECK:
 ORDERS
 
 when removeItemFromWishlist(), on frontend, check how to "refresh" items in page after user removes
 
+when returning reviews for a product, don't return the product field, user
 when returning list of all reviews created by user, only return these fields (product name, slug, rating, comment, date created, review_id)
 
 does user have to login after signing up. or does the backend auto logs them in
@@ -20,27 +26,21 @@ when returning list of user's orders, return "mode of payment", "status (active,
 
 Can we not use numbers as orderIDs, or it's okay? We can use like a UUID, user doesn't have to see that they're the first or second people to ever order :'(
 
-
+LOGO
 password Reset
 do we need to verify email (idk)
 
 
 
-✅when returning list of products, return the slug field too (to_dict() method)
-
-✅anonymous adding items to cart
 
 
 add "confirm popup" when user places order
 when placing order, will you check the town selected by user and apply the respective delivery address to the total. 
 
-✅don't add pagination when returning list of a user's orders
+when adding review, should we ask the user for their name, to be shown along each review. instead of showing a user's email
+if that's so, when user adding a review, instead of "Title" field, we should change it to "name"
 
-✅change format when returning wishlist products
-✅when returning items in wishlist, only return {image, name, slug, price,product_id}
-✅also don't paginate wishlist products
-
-pagination = 40 items
+does each product have a category. idk if they're workingdo you think we need "related products section" I'd left space for that
 
 remove from state.ts   totalItemsInCart: 0 /** show user total number of items in their cart */,
 
@@ -51,9 +51,16 @@ design page ya wishlist
 
 when returning products in cart, return image and quantity_in_stock (after this is done, add the code to check that in cart.vue (updateProductSubtotal()))
 set debug false on prod
+
+
+
+✅when returning list of products, return the slug field too (to_dict() method)
+✅anonymous adding items to cart
+✅don't add pagination when returning list of a user's orders
+✅change format when returning wishlist products
+✅when returning items in wishlist, only return {image, name, slug, price,product_id}
+✅also don't paginate wishlist products
 ✅remove cart item not working
-does each product have a category. idk if they're working
-frontend, do you think we need "related products section" I'd left space for that
 
 remove console.log statements
 remove cartSummary variable from our store(state.ts)
