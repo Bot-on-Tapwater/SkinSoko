@@ -5,7 +5,7 @@
         <div class="pp-outer-div">
             <div class="pp-container">
                 <div class="pp-content">
-                    <h1>Exceed Refund Policy</h1>
+                    <h1>Skin Soko Refund Policy</h1>
 
                     <div class="policy-container">
 

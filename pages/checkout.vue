@@ -16,7 +16,6 @@
                 <form
                   @submit.prevent="
                     appStore.saveShippingAddress()
-                    // appStore.saveShippingAddress(userShippingAddress)
                   "
                   id="checkoutForm"
                 >
@@ -74,7 +73,7 @@
                     <textarea
                       placeholder="Please provide any other info that we should keep in mind regarding your order"
                       id="additional-info"
-                      v-model.trim="userShippingAddress.additional_details"
+                      v-model.trim="appStore.userShippingAddress.additional_details"
                       name="additional_dets"
                       row="20"
                       column="40"
@@ -153,21 +152,11 @@ watch(selectedTown, async (newVal) => {
 /**will determine when to shown the 'order placed' popup */
 const orderPlacedSuccessfully = ref(false);
 
-/**obect to hold user shipping address while being filled in the form */
-const userShippingAddress = ref({
-  town: "",
-  street_address: "",
-  county: "",
-  phone_number: "",
-  additional_details: "",
-});
-
 const savedUserAddress = await appStore.getUserShippingAddress();
 
 /**if user has a shipping address, autofill it in the form */
 if (savedUserAddress) {
   appStore.userShippingAddress.county = savedUserAddress.county;
-  // appStore.userShippingAddress.town = savedUserAddress.town;
   appStore.userShippingAddress.street_address = savedUserAddress.street_address;
   appStore.userShippingAddress.phone_number = savedUserAddress.phone_number;
 }
@@ -176,9 +165,8 @@ if (savedUserAddress) {
 async function placeOrder() {
   const place_order_url = `/users/orders/create/`;
 
-  const userAddress = await appStore.getUserShippingAddress();
   /**check if user has address saved before they can place order */
-  if (!userAddress) {
+  if (!savedUserAddress) {
     appStore.errorMessageToShowOnToast =
       "Please confirm your shipping address first";
     appStore.showToast();
