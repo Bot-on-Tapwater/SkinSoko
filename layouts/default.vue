@@ -708,13 +708,11 @@ opens menu */
 }
 
 .footer {
-  background-color: var(--bgColor);
   background-color: white;
   padding: 1rem;
   color: black;
   margin-top: 1rem;
 
-  // border: 2px solid;
   .footer-container {
     max-width: var(--maxWidth);
     margin: 2rem auto;
