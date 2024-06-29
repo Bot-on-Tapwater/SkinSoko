@@ -651,6 +651,7 @@ function imageHovered() {
   max-width: 1300px;
   position: relative;
   margin: 1rem auto;
+  max-width: var(--maxWidth);
   margin-top: 8rem;
 }
 .cart-section-wrapper {
