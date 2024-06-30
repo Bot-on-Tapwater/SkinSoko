@@ -15,7 +15,7 @@ add links to social media, also on chatIcon
 CHECK:
 ORDERS
 
-when removeItemFromWishlist(), on frontend, check how to "refresh" items in page after user removes
+when returning items in wishlist, also return product quantity_in_stock and brandname, don't return product discount
 
 when returning reviews for a product, don't return the product field, user
 when returning list of all reviews created by user, only return these fields (product name, slug, rating, comment, date created, review_id)
@@ -39,7 +39,7 @@ when placing order, will you check the town selected by user and apply the respe
 
 when adding review, should we ask the user for their name, to be shown along each review. instead of showing a user's email
 if that's so, when user adding a review, instead of "Title" field, we should change it to "name"
-
+think we should create indexes for some queries. like getting products, wishlist products, cartitems
 does each product have a category. idk if they're workingdo you think we need "related products section" I'd left space for that
 
 remove from state.ts   totalItemsInCart: 0 /** show user total number of items in their cart */,
