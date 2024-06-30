@@ -98,10 +98,10 @@ const props = defineProps(["item"]);
 </script>
 
 <style scoped lang="scss">
+
 .product-item {
   height: 100%;
   border: 0.1px solid gainsboro;
-
   position: relative;
   text-align: center;
   width: 20rem;
