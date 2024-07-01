@@ -5,10 +5,16 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const appStore = useStore(nuxtApp.$pinia);
 
   await appStore.getUser(); /**get user status (logged in or not) */
-  
+
   /**load some items before app is created */
-  if (!appStore.cart_loaded) { 
-    await appStore.getCartItems();
+
+  if (!appStore.homepageProductsLoaded) {
+    await appStore.getAllProducts(
+      "/products/"
+    ); /**get products to populate home page "discountedProducts, bestSelling products" */
+  }
+  if (!appStore.cart_loaded) {
+    await appStore.getCartItems(); /**in order to get the total number of items in cart to be shown to user */
   }
 
   if (!appStore.brands_loaded) {
@@ -20,6 +26,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   }
 
   if (!appStore.subcategories_loaded) {
-    await appStore.populateSubcategories();
+    await appStore.populateSubcategories(); /**the subcats to show on the products page */
   }
 });
