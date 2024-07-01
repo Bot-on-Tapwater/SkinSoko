@@ -165,7 +165,6 @@ function FAQs(){
         item.querySelector(".serv-arrow")?.classList.toggle("active-svg")
         })
     })
-
 }
 
 </script>
@@ -228,7 +227,7 @@ function FAQs(){
           .wc-wrapper{
             .wc-p-div{
               border-bottom: 1px solid rgba(0,0,0,.2);
-              padding: 2rem 1.2rem;
+              padding: 2rem 0;
               cursor: pointer;
               transition: background-color .2s ease-in-out;
               

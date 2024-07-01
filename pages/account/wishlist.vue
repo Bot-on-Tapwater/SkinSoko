@@ -44,7 +44,7 @@
                                 </svg>
                             </div>
                             </div>
-                            <!-- <template v-if="item.quantity_in_stock > 0"> -->
+                            <template v-if="item.product_quantity_in_stock > 0">
                             <div class="add-to-wishlist">
                                 <svg
                                 class="add-to-cart-icon"
@@ -73,7 +73,7 @@
                                 </g>
                                 </svg>
                             </div>
-                            <!-- </template> -->
+                            </template>
 
                             <NuxtLink :to="'/products/' + item.product_slug">
                             <div class="image-container">
@@ -84,7 +84,7 @@
                                 <p class="product-name">{{ item.product_name }}</p>
                             </div>
                             <div class="brand-container">
-                                <p class="prod-brandname">{{ item.brand }}</p>
+                                <p class="prod-brandname">{{ item.product_brand }}</p>
                             </div>
                             <div class="price-container">
                                 <p class="product-price">

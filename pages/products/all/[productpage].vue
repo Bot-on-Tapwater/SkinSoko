@@ -260,12 +260,6 @@ function showSideBar() {
     : alert("sideBarOverlay element not found");
 }
 
-async function getProductsWithProductPage(page: number) {
-  console.log("page ", page);
-  window.location.href = `/products/all/${page}`
-  products_url = `/products/?page=${page}`
-  products.value = await appStore.getAllProducts(products_url)
-}
 </script>
 
 <style lang="scss" scoped>

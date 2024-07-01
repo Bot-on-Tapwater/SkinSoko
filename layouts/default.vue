@@ -485,7 +485,7 @@ function showMenuLinks() {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1.7rem;
+    padding: 0 1rem;
     margin-bottom: 4rem;
 
 
@@ -709,22 +709,21 @@ opens menu */
 
 .footer {
   background-color: white;
-  padding: 1rem;
+  // padding: 1rem;
   color: black;
   margin-top: 1rem;
 
   .footer-container {
-    max-width: var(--maxWidth);
     margin: 2rem auto;
     padding: 1rem;
     border-top: 0.1px solid gainsboro;
+    max-width: var(--maxWidth);
     height: 100%;
 
     .footer-content {
       display: flex;
       justify-content: space-between;
       text-transform: capitalize;
-
       
       height: 100%;
       width: 100%;
