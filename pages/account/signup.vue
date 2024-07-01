@@ -9,16 +9,6 @@
             id="signup-form"
             method="post"
           >
-            <!-- <form id="signup-form" method="post"> -->
-            <!-- <div class="username-div">
-              <FormInput
-                v-model.trim="registerDetails.username"
-                label-text="Username *"
-                label-for="username-field"
-                input-type="text"
-                input-id="username-field"
-              />
-            </div> -->
 
             <div class="email-div">
               <FormInput
@@ -30,25 +20,6 @@
               />
             </div>
 
-            <!-- <div class="firstname-div">
-              <FormInput
-                v-model.trim="registerDetails.first_name"
-                label-text="First Name *"
-                label-for="firstname-field"
-                input-type="text"
-                input-id="firstname-field"
-              />
-            </div>
-
-            <div class="lastname-div">
-              <FormInput
-                v-model.trim="registerDetails.last_name"
-                label-text="Last Name *"
-                label-for="lastname-field"
-                input-type="text"
-                input-id="lastname-field"
-              />
-            </div> -->
 
             <div class="password-div">
               <FormInput
@@ -81,11 +52,7 @@
             <div class="social-auth-wrp">
               <div class="social-auth">
                 <div class="g">
-                  <!-- <a href=""> -->
-                  <!-- <img
-                      src="../../assets/images/google.svg"
-                      alt="continue with google button"
-                    /> -->
+                 
                   <svg
                     width="24"
                     height="24"
@@ -125,11 +92,6 @@
                 </div>
 
                 <div class="g">
-                  <!-- <a href=""> -->
-                  <!-- <img
-                      src="../../assets/images/google.svg"
-                      alt="continue with facebook button"
-                    /> -->
                   <svg
                     width="24"
                     height="24"
@@ -151,7 +113,6 @@
                     </defs>
                   </svg>
                   <span>Facebook</span>
-                  <!-- </a> -->
                 </div>
               </div>
             </div>
