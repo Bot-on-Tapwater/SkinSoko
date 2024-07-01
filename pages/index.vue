@@ -35,9 +35,9 @@
               <h1 class="all-section-ttl">Save Big</h1>
             </div>
             <div class="ts-p">
-              <template v-if="products">
+              <template v-if="appStore.discountedProducts">
                 <div
-                  v-for="product in discounted_products"
+                  v-for="product in appStore.discountedProducts"
                   :key="product.product_id"
                   class="items-content"
                 >
@@ -180,9 +180,9 @@
               <h1 class="all-section-ttl">Best Sellers</h1>
             </div>
             <div class="ts-p">
-              <template v-if="products">
+              <template v-if="appStore.bestSellingProducts">
                 <div
-                  v-for="product in best_selling_products"
+                  v-for="product in appStore.bestSellingProducts"
                   :key="product.product_id"
                   class="items-content"
                 >
@@ -198,18 +198,8 @@
 </template>
 
 <script setup>
-const appStore = useStore(); /**using our store */
+const appStore = useStore(); /**using our store to get "discountedProducts & bestSellers" */
 
-const products = ref(await appStore.getAllProducts(`/products/`));
-
-/**get discounted products to show on home page */
-const discounted_products = products.value.query_results.filter(
-  (item) => item.discount > 0
-);
-/**get discounted products to show on home page */
-const best_selling_products = products.value.query_results.filter(
-  (item) => item.best_seller
-);
 </script>
 
 <style lang="scss" scoped>
@@ -325,7 +315,6 @@ const best_selling_products = products.value.query_results.filter(
   margin-bottom: 1rem;
   .ts-container {
     height: 100%;
-    max-width: 1000px;
     max-width: var(--maxWidth);
     margin: 0 auto;
     padding: 2rem 0;
@@ -338,7 +327,7 @@ const best_selling_products = products.value.query_results.filter(
         grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
         margin: 1rem;
         padding: 0.5rem;
-        grid-gap: .8rem;
+        grid-gap: 0.8rem;
         place-items: center;
         .items-content {
           // padding: 2rem 0rem;
@@ -351,7 +340,6 @@ const best_selling_products = products.value.query_results.filter(
           // margin-bottom: 3rem;
           cursor: pointer;
 
-         
           p {
             margin: 0.4rem 0;
             opacity: 0.9;
@@ -523,7 +511,6 @@ const best_selling_products = products.value.query_results.filter(
   .latest-products-wp .lp-wrp .lp-container {
     .lp-grid {
       grid-template-columns: 1fr;
-
     }
   }
 }
