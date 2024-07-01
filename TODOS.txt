@@ -7,7 +7,7 @@ hide other fronted routes before showing them
 style the error.vue page
 
 
-Add check. user shouldn't add the same item to their wishlist more than once
+✅Add check. user shouldn't add the same item to their wishlist more than once
 If they do, return error "product already in wishlist"
 
 add links to social media, also on chatIcon
@@ -24,13 +24,14 @@ does user have to login after signing up. or does the backend auto logs them in
 
 when returning list of user's orders, return "mode of payment", "status (active, completed, etc). Do we need the "status" field, if we do, it'll mean after user order is delivered, admin would have to manually set it in the dashboard to "completed"?
 
-Can we not use numbers as orderIDs, or it's okay? We can use like a UUID, user doesn't have to see that they're the first or second people to ever order :'(
+✅Can we not use numbers as orderIDs, or it's okay? We can use like a UUID, user doesn't have to see that they're the first or second people to ever order :'(
 
 LOGO
 password Reset
 do we need to verify email (idk)
 
 
+indexes for the following: getting products based on filter (brands, category), products
 
 
 
@@ -40,16 +41,14 @@ when placing order, will you check the town selected by user and apply the respe
 when adding review, should we ask the user for their name, to be shown along each review. instead of showing a user's email
 if that's so, when user adding a review, instead of "Title" field, we should change it to "name"
 think we should create indexes for some queries. like getting products, wishlist products, cartitems
-does each product have a category. idk if they're workingdo you think we need "related products section" I'd left space for that
 
-remove from state.ts   totalItemsInCart: 0 /** show user total number of items in their cart */,
+✅remove from state.ts   totalItemsInCart: 0 /** show user total number of items in their cart */,
 
 when user adds more products than there are in stock, return a json error, not just the string
 All other errors too. Cause I'll be showing them to the user
 
-design page ya wishlist
 
-when returning products in cart, return image and quantity_in_stock (after this is done, add the code to check that in cart.vue (updateProductSubtotal()))
+✅when returning products in cart, return image and quantity_in_stock (after this is done, add the code to check that in cart.vue (updateProductSubtotal()))
 set debug false on prod
 
 
@@ -113,7 +112,7 @@ do we need a wishlist table for users
 user writing review (allow user to also enter a "title(summary of review)" among the other fields)
 ✅ if review created, don't return that json that you're returning rn
 ✅ also if address created, do you need to send back that address. maybe just a status code
-can user create mutliple reviews for same product
+✅can user create mutliple reviews for same product
 ✅ format date for when review created (dd-mm-yy)
 return null for absence (eg when user cart is empty)
 
