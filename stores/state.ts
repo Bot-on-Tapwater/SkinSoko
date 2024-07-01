@@ -87,6 +87,10 @@ export const useStore = defineStore("user_state", {
       phone_number: "",
       additional_details: "",
     },
+
+    homepageProductsLoaded: false, /**helps us know whether to call api for products in order to populate the 2 below states */
+    bestSellingProducts: [],
+    discountedProducts: []
   }),
 
   getters: {
@@ -195,7 +199,17 @@ export const useStore = defineStore("user_state", {
           return;
         } else {
           ("User created successfully");
-          await navigateTo({ path: "/account/login" });
+          // await navigateTo({ path: "/account/login" });
+          // window.history.back(); /**return to prev url */
+
+          await this.getUser();
+          this.showLogin =
+            false; /**set to false so as to hide the login prompt on ui */
+
+          await this.getCartItems(); /**load cart items after login, in case they had any */
+
+          window.history.back(); /**return to prev url */
+
         }
       } catch (error) {}
     },
@@ -339,6 +353,21 @@ export const useStore = defineStore("user_state", {
       try {
         const response = await axiosInstance(products_url);
         if (response.data && response.status === 200) {
+
+          if (!this.homepageProductsLoaded) { /**only populate these if they have not yet been populated */
+            /**get discounted products to show on home page */
+            this.discountedProducts = response.data.query_results.filter(
+              (item: any) => item.discount > 0
+            );
+            /**get discounted products to show on home page */
+            this.bestSellingProducts = response.data.query_results.filter(
+              (item: any) => item.best_seller
+            );
+  
+            this.homepageProductsLoaded = true
+          }
+
+
           return response.data;
         }
       } catch (error) {}
