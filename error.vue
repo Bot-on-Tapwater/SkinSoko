@@ -16,7 +16,7 @@
             If the issue persists,
             <a href="mailto:skinsoko@gmail.com">Contact Us</a>
           </h2>
-          <p>{{ error }}</p>
+          <!-- <p>{{ error }}</p> -->
         </template>
 
         <template v-else>
@@ -27,8 +27,7 @@
             If the issue persists,
             <a href="mailto:skinsoko@gmail.com">Contact Us</a>
           </h2>
-          <p>{{ typeof error.statusCode }}</p>
-          <p>{{ error }}</p>
+          <!-- <p>{{ error }}</p> -->
         </template>
       </div>
     </div>
@@ -36,6 +35,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "default",
+});
+
 interface pageError {
   url: string;
   statusCode: string;
@@ -69,12 +72,14 @@ body {
   background-color: whitesmoke;
   height: 100vh;
   width: 100vw;
-  border: 1px solid gainsboro;
 }
 .err-d {
   max-width: 1000px;
-  margin: 5rem auto;
+  margin: 0 auto;
+  padding: 1rem 0;
+  height: 50%;
   display: grid;
+  text-align: center;
   place-items: center;
   padding: 0 2rem;
   .err-content {
