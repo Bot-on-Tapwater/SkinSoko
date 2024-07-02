@@ -54,10 +54,7 @@ const errorStatusCode: number = error.value.statusCode;
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap");
-
 body {
-  font-family: "Roboto", sans-serif;
   font-weight: 400;
 }
 .error-ttl {
