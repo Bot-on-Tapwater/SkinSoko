@@ -20,6 +20,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     "/account/shipping-address",
     "/account/reviews",
     "/checkout",
+    "/payment",
     "/account/wishlist"
     // "/cart",
   ];
