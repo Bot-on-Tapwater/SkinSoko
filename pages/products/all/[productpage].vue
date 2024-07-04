@@ -1,10 +1,10 @@
 <!-- PAGE SHOWING ALL PRODUCTS AVAILABLE IN THE DB -->
 <template>
   <div class="products-page-ord">
-    <FilterProducts /> <!--the 'sidebar' on the products page-->
-    <ItemAddedToCartPopup/>  <!-- popup to be shown when product added to cart -->
-
-
+    <FilterProducts />
+    <!--the 'sidebar' on the products page-->
+    <ItemAddedToCartPopup />
+    <!-- popup to be shown when product added to cart -->
 
     <div class="products-container">
       <div @click="showSideBar()" class="open-sidebar">
@@ -37,8 +37,6 @@
       </div>
 
       <div class="item">
-        
-
         <template v-if="products">
           <div
             v-for="item in products.query_results"
@@ -57,12 +55,11 @@
 
       <template v-if="products">
         <div class="prev-nxt-pages-wrp">
-        <!-- @click="getProductsWithProductPage((productsPage += 1))" -->
+          <!-- @click="getProductsWithProductPage((productsPage += 1))" -->
           <NuxtLink
             class="navigation-btn"
             v-if="products.previous_page"
             :to="getPageLink(products.current_page - 1)"
-
           >
             <div>
               <svg
@@ -94,7 +91,7 @@
               </svg>
               <p class="prod-nav-btns">Previous page</p>
             </div>
-        </NuxtLink>
+          </NuxtLink>
 
           <div class="no-nav-page" v-else>
             <svg
@@ -171,7 +168,7 @@
                 </g>
               </svg>
             </div>
-            </NuxtLink>
+          </NuxtLink>
 
           <div class="no-nav-page" v-else>
             <p class="prod-nav-btns">Next page</p>
@@ -210,25 +207,26 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore, axiosInstance } from "@/stores/state";
+import { useStore } from "@/stores/state";
 
 useHead({
   title: "Skin Soko | Products",
 });
 
-let productsPage =
-  ref(1); /**to help with pagination, will tell which product's page to show */
+// let productsPage =
+//   ref(1); /**to help with pagination, will tell which product's page to show */
 
 const appStore = useStore(); /**using our store */
 
 // let products_url = "/products/";
 
-const parameter = useRoute();
-let pageNumber = parameter.params.productpage;
+const route = useRoute();
+
+let pageNumber = route.params.productpage;
 
 let products_url = `/products/?page=${pageNumber}`;
 
-let query_params = parameter.query;
+let query_params = route.query;
 
 if ("filter_brand" in query_params) {
   let brands = query_params["filter_brand"];
@@ -248,6 +246,14 @@ function getPageLink(page: number) {
   return `/products/all/${page}`;
 }
 
+// watch(
+//   () => route.fullPath,
+//   async () => {
+//     console.log("path changed");
+//     fetchProducts();
+//   }
+// );
+
 function showSideBar() {
   const sideBarElement = document.querySelector(".filter-products-wrp");
   const sideBarOverlay = document.querySelector(".filters-sidebar-overlay");
@@ -259,7 +265,6 @@ function showSideBar() {
     ? sideBarOverlay.classList.add("showSidebarOverlay")
     : alert("sideBarOverlay element not found");
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -274,9 +279,9 @@ function showSideBar() {
     margin-left: 20rem;
     .open-sidebar {
       display: flex;
-      padding: 2rem;
+      padding: 2rem 1rem;
       padding-top: 2rem;
-      width: 20rem;
+      width: 15rem;
       display: none;
       align-items: center;
       cursor: pointer;
@@ -299,7 +304,7 @@ function showSideBar() {
         // height: auto;
         // max-width: 30rem;
         width: 90%;
-        
+
         width: auto;
         height: 90%;
         text-align: center;
@@ -378,7 +383,7 @@ function showSideBar() {
 @media screen and (max-width: 630px) {
   .products-page-ord .products-container {
     width: 100vw;
-    
+
     .item {
       border: none;
       grid-template-columns: unset;
