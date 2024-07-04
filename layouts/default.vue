@@ -90,6 +90,11 @@
                         v-for="brand in brands"
                         :key="brand.brand_id"
                       >
+                        <!-- <NuxtLink
+                          :to="`/products/all/1?filter_brand=${brand.name}`"
+                          class="dropdown-menu-links"
+                          >{{ brand.name }}</NuxtLink
+                        > -->
                         <a
                           :href="`/products/all/1?filter_brand=${brand.name}`"
                           class="dropdown-menu-links"

@@ -256,7 +256,7 @@ export const useStore = defineStore("user_state", {
         this.isAuth = false;
         // this.getUser();
         //alert("you have logged out")
-        window.location.href = "/";
+        window.location.href = "/products/all/1";
       } catch (error) {}
     },
 
@@ -490,6 +490,15 @@ export const useStore = defineStore("user_state", {
         );
         /**get the latest address(last updated) */
         const latestAddress = address.query_results.slice(-1)[0];
+
+        if (latestAddress) { /**populate user address in the store */
+
+          this.userShippingAddress.county = latestAddress.county;
+          this.userShippingAddress.town = latestAddress.town;
+          this.userShippingAddress.street_address = latestAddress.street_address;
+          this.userShippingAddress.phone_number = latestAddress.phone_number;
+        }
+
         return latestAddress ? latestAddress : null;
       } catch (error) {
         return null;

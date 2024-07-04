@@ -2,10 +2,18 @@ The owner to:
 provide favicon for website
 tell if they want the product image to be zoomable
 
+BACKEND: CHECK LOGIN WHEN LOGIN FAILED
+first check for user address on payments page
+shipping address (additional details field, max_length is ??)
+
+after payment integrated, try going to the payments page directly without having an address
+
+BACKEND: when user places an order, you'll check the town they've selected, find the respectie delivery fee and add it to the orderTotal
 
 hide other fronted routes before showing them 
 style the error.vue page
 
+CREATE INDEXES
 
 ✅Add check. user shouldn't add the same item to their wishlist more than once
 If they do, return error "product already in wishlist"

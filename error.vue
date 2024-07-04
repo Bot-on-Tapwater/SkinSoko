@@ -4,7 +4,7 @@
     <div class="err-d">
       <div class="err-content">
         <template v-if="errorStatusCode === 404">
-          <h3 class="error-ttl">Page not found :(</h3>
+          <h3 class="error-ttl">{{ error.message }}</h3>
           <NuxtLink to="/">return home</NuxtLink>
         </template>
 
@@ -16,7 +16,8 @@
             If the issue persists,
             <a href="mailto:skinsoko@gmail.com">Contact Us</a>
           </h2>
-          <p>{{ error }}</p>
+          <NuxtLink to="/">return home</NuxtLink>
+          <!-- <p>{{ error }}</p> -->
         </template>
 
         <template v-else>
@@ -27,8 +28,8 @@
             If the issue persists,
             <a href="mailto:skinsoko@gmail.com">Contact Us</a>
           </h2>
-          <p>{{ typeof error.statusCode }}</p>
-          <p>{{ error }}</p>
+          <NuxtLink to="/">return home</NuxtLink>
+          <!-- <p>{{ error }}</p> -->
         </template>
       </div>
     </div>
@@ -36,6 +37,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  layout: "default",
+});
+
 interface pageError {
   url: string;
   statusCode: string;
@@ -51,10 +56,7 @@ const errorStatusCode: number = error.value.statusCode;
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap");
-
 body {
-  font-family: "Roboto", sans-serif;
   font-weight: 400;
 }
 .error-ttl {
@@ -69,12 +71,14 @@ body {
   background-color: whitesmoke;
   height: 100vh;
   width: 100vw;
-  border: 1px solid gainsboro;
 }
 .err-d {
   max-width: 1000px;
-  margin: 5rem auto;
+  margin: 0 auto;
+  padding: 1rem 0;
+  height: 50%;
   display: grid;
+  text-align: center;
   place-items: center;
   padding: 0 2rem;
   .err-content {
