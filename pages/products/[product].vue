@@ -332,12 +332,16 @@
     </template>
 
     <template v-else>
-      <h2 style="padding: 1rem">
-        Product not found.
-        <NuxtLink to="/products/all/1" style="text-decoration: underline"
-          >Continue Shopping</NuxtLink
-        >
-      </h2>
+      <div class="product-nf-wrp">
+        <div class="product-nf">
+          <p>
+            Product not found.
+            <NuxtLink to="/products/all/1" style="text-decoration: underline"
+              >continue shopping</NuxtLink
+            >
+          </p>
+        </div>
+      </div>
     </template>
   </div>
 </template>
@@ -350,7 +354,6 @@ const createReviewForm = ref(null);
 onMounted(() => {
   getProductDetails(); /**get info of the product to be shown  */
   showMoreDetails();
-  imageHovered();
 });
 
 /**to be toggled to show/hide the write div */
@@ -369,15 +372,13 @@ let productID = parameter.params.product; /**get id of product from url */
 
 const productName = ref(""); /**product name to be shown as <title> tag */
 const product: any = ref(await getProductDetails()); /**get product details */
-const relatedProducts =
-  ref(); /**variable to hold array of items in the same category as the shown product */
 
 // if (product.value) {
-//   const categoriesId = product.value.category.name;
-//   await getRelatedProducts(
-//     categoriesId
-//   ); /**get products in the same category as the current one */
+//   imageHovered(); /**only call this if product is present */
 // }
+
+const relatedProducts =
+  ref(); /**variable to hold array of items in the same category as the shown product */
 
 const product_reviews = ref(
   await getProductReviews()
@@ -409,81 +410,85 @@ async function getProductDetails() {
 /**this is here bcz we need to get the
  * product name first in order to show it in <title> tag
  */
-useHead({
-  title: `Skin Soko Products | ${productName.value}`,
 
-  meta: [
-    {
-      name: "description",
-      content: product.value.name,
-    },
-    {
-      name: "twitter:title",
-      content: `Skin Soko | ${product.value.name}`,
-    },
+if (product.value) {
+  /**only do this ifproduct is found */
+  useHead({
+    title: `Skin Soko Products | ${productName.value}`,
 
-    {
-      name: "image",
-      content: product.value.image,
-    },
-    {
-      name: "twitter:card",
-      content: "summary",
-    },
-    {
-      name: "twitter:description",
-      content: `Skin Soko | ${product.value.name}`,
-    },
-    {
-      property: "og:title",
-      content: product.value.name,
-    },
-    {
-      property: "og:image",
-      content: product.value.image,
-    },
-    {
-      property: "og:url",
-      content: location.href,
-    },
-    {
-      property: "og:site_name",
-      content: `Skin Soko | ${product.value.name}`,
-    },
-    {
-      property: "og:type",
-      content: "article",
-    },
-    {
-      property: "og:image:type",
-      content: "image/png",
-    },
-    {
-      property: "og:image:width",
-      content: "800",
-    },
-    {
-      property: "og:image:height",
-      content: "800",
-    },
-    {
-      property: "og:image:type",
-      content: "image/png",
-    },
-    {
-      property: "og:locale",
-      content: "en_US",
-    },
-    {
-      property: "og:site:name",
-      content: "Skin Soko",
-    },
-    {
-      property: "og:description",
-      content: `Buy the ${product.value.name} | ${product.value.description}`,
-    },
-  ],
-});
+    meta: [
+      {
+        name: "description",
+        content: product.value.name,
+      },
+      {
+        name: "twitter:title",
+        content: `Skin Soko | ${product.value.name}`,
+      },
+
+      {
+        name: "image",
+        content: product.value.image,
+      },
+      {
+        name: "twitter:card",
+        content: "summary",
+      },
+      {
+        name: "twitter:description",
+        content: `Skin Soko | ${product.value.name}`,
+      },
+      {
+        property: "og:title",
+        content: product.value.name,
+      },
+      {
+        property: "og:image",
+        content: product.value.image,
+      },
+      {
+        property: "og:url",
+        content: location.href,
+      },
+      {
+        property: "og:site_name",
+        content: `Skin Soko | ${product.value.name}`,
+      },
+      {
+        property: "og:type",
+        content: "article",
+      },
+      {
+        property: "og:image:type",
+        content: "image/png",
+      },
+      {
+        property: "og:image:width",
+        content: "800",
+      },
+      {
+        property: "og:image:height",
+        content: "800",
+      },
+      {
+        property: "og:image:type",
+        content: "image/png",
+      },
+      {
+        property: "og:locale",
+        content: "en_US",
+      },
+      {
+        property: "og:site:name",
+        content: "Skin Soko",
+      },
+      {
+        property: "og:description",
+        content: `Buy the ${product.value.name} | ${product.value.description}`,
+      },
+    ],
+  });
+}
 
 /**func called when user clicks on button to create review */
 async function reviewToCreate() {
@@ -515,12 +520,16 @@ async function checkIfValid(product: any) {
 
 /**function to get reviews of a product */
 async function getProductReviews() {
-  const product_reviews_url = `/products/${productID}/reviews/`;
+  if (product.value) {
+    const product_reviews_url = `/products/${productID}/reviews/`;
 
-  try {
-    const { data: productReviews } = await axiosInstance(product_reviews_url);
-    return productReviews;
-  } catch (error) {
+    try {
+      const { data: productReviews } = await axiosInstance(product_reviews_url);
+      return productReviews;
+    } catch (error) {
+      return null;
+    }
+  } else {
     return null;
   }
 }
@@ -612,6 +621,24 @@ function imageHovered() {
 // .active-product{
 //     background-color: gainsboro;
 // }
+
+/**styles for when a product is not found */
+.product-nf-wrp {
+  margin: 0 auto;
+  margin-top: 10rem;
+  max-width: var(--maxWidth);
+  height: 40vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+
+  .product-nf {
+    font-size: 1.6rem;
+    p {
+      font-size: 1.5rem;
+    }
+  }
+}
 
 .serv-arrow {
   /**the plus icon/svg */
@@ -956,7 +983,6 @@ function imageHovered() {
               outline: 0;
               position: absolute;
               z-index: 0;
-
             }
           }
 
@@ -969,7 +995,7 @@ function imageHovered() {
             color: black;
             font-family: inherit;
 
-            &::placeholder{
+            &::placeholder {
               font-size: 1.3rem;
             }
             &:focus {
