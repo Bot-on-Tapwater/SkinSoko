@@ -4,7 +4,7 @@
     <div class="err-d">
       <div class="err-content">
         <template v-if="errorStatusCode === 404">
-          <h3 class="error-ttl">Page not found :(</h3>
+          <h3 class="error-ttl">{{ error.message }}</h3>
           <NuxtLink to="/">return home</NuxtLink>
         </template>
 
@@ -16,6 +16,7 @@
             If the issue persists,
             <a href="mailto:skinsoko@gmail.com">Contact Us</a>
           </h2>
+          <NuxtLink to="/">return home</NuxtLink>
           <!-- <p>{{ error }}</p> -->
         </template>
 
@@ -27,6 +28,7 @@
             If the issue persists,
             <a href="mailto:skinsoko@gmail.com">Contact Us</a>
           </h2>
+          <NuxtLink to="/">return home</NuxtLink>
           <!-- <p>{{ error }}</p> -->
         </template>
       </div>
