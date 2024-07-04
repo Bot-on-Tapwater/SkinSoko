@@ -2,12 +2,13 @@
   <div class="checkout-ord">
     <template v-if="appStore.cartSummaryDetails.totalItems > 0">
       <div>
-        <CheckoutModal v-if="orderPlacedSuccessfully" />
+        <!-- <CheckoutModal/> -->
+        <CheckoutModal v-if="showCheckoutModal" />
 
         <div class="checkout-ord-wrapper">
           <CheckoutLinks />
 
-          <h1 class="cow-header">Checkout</h1>
+          <h1 class="cow-header">Shipping Address</h1>
           <div class="cow-container">
             <div class="cow-div">
               <div class="cow-dets">
@@ -51,7 +52,8 @@
                   </div>
 
                   <div class="select-town">
-                    <label for="user-town">Town</label>
+                    <label for="user-town">Town *</label>
+                    <p>{{appStore.userShippingAddress.town }}</p>
                     <select
                       required
                       v-model="selectedTown"
@@ -67,6 +69,7 @@
                       </option>
                     </select>
                   </div>
+                  
 
                   <div class="addn-shipping-dets">
                     <label id="additional-info">Any Additional Details</label>
@@ -77,26 +80,22 @@
                       name="additional_dets"
                       row="20"
                       column="40"
-                      maxlength="250"
+                      maxlength="600"
                     ></textarea>
                   </div>
 
                   <PriButton
                     button-id="shipping-address-form-btn"
-                    button-text="confirm"
+                    button-text="save address"
                   />
                 </form>
               </div>
 
               <div class="payment-div">
-                <h1 class="min-ttl">2. Payment Options</h1>
+                <h1 class="min-ttl">2. Payment</h1>
                 <!-- <p>Cash on Delivery</p> -->
-
-                <PriButton
-                  @click="placeOrder"
-                  button-id="complete-order-btn"
-                  button-text="Place order"
-                />
+                 <NuxtLink to="#" @click.prevent="proceedToPaymentPage()" id="ptp-tag">Proceed To Payment</NuxtLink>
+                
               </div>
             </div>
 
@@ -149,17 +148,18 @@ watch(selectedTown, async (newVal) => {
 });
 
 
-/**will determine when to shown the 'order placed' popup */
-const orderPlacedSuccessfully = ref(false);
+/**will determine when to shown the 'confirm shipping address' popup */
+const showCheckoutModal = ref(false)
 
 const savedUserAddress = await appStore.getUserShippingAddress();
 
-/**if user has a shipping address, autofill it in the form */
-if (savedUserAddress) {
-  appStore.userShippingAddress.county = savedUserAddress.county;
-  appStore.userShippingAddress.street_address = savedUserAddress.street_address;
-  appStore.userShippingAddress.phone_number = savedUserAddress.phone_number;
-}
+// /**if user has a shipping address, autofill it in the form */
+// if (savedUserAddress) {
+//   appStore.userShippingAddress.county = savedUserAddress.county;
+//   appStore.userShippingAddress.town = savedUserAddress.town;
+//   appStore.userShippingAddress.street_address = savedUserAddress.street_address;
+//   appStore.userShippingAddress.phone_number = savedUserAddress.phone_number;
+// }
 
 /** place order function */
 async function placeOrder() {
@@ -179,10 +179,28 @@ async function placeOrder() {
   try {
     await axiosInstance.post(place_order_url);
 
-    orderPlacedSuccessfully.value = true;
     appStore.getCartItems(); /** in order to show correct number of products in cart */
   } catch (error) {}
 }
+
+/**func to take user to the payment page */
+function proceedToPaymentPage() {
+  
+  /**check if user has address saved before they can place order */
+  if (!savedUserAddress) {
+    appStore.errorMessageToShowOnToast =
+    "Please add a shipping address first";
+    appStore.showToast();
+    return;
+  }
+  
+  const checkoutModal = document.querySelector('.checkout-modal') /**modal asking user to confirm their address */
+  if (checkoutModal?.classList.contains("hideModal")) checkoutModal.classList.remove("hideModal") /**first remove the hideModal class if present */
+  
+  showCheckoutModal.value = true /**show checkoutModal (confirm user address) */
+}
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -194,7 +212,7 @@ async function placeOrder() {
 }
 
 .min-ttl {
-  font-size: 2rem;
+  font-size: 1.6rem;
   margin-bottom: 1rem;
   font-weight: 400;
 }
@@ -207,7 +225,7 @@ async function placeOrder() {
   .cow-header {
     padding: 0 1rem;
     font-weight: 400;
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin: 3rem 0;
   }
   .cow-container {
@@ -267,6 +285,10 @@ async function placeOrder() {
         font-size: 1.4rem;
         padding: 2rem 0;
         margin-top: 2rem;
+
+        #ptp-tag{
+          text-decoration: underline;
+        }
       }
     }
   }
